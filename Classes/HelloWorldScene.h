@@ -27,6 +27,7 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
+USING_NS_CC;
 using namespace cocos2d::extension;
 
 class HelloWorld : public cocos2d::Scene
@@ -36,7 +37,9 @@ public:
 
     virtual bool init();
     
-    // a selector callback
+    // 开始游戏
+    void menuBeginGame();
+    // 关闭游戏
     void menuCloseCallback(cocos2d::Ref* pSender);
     
     // implement the "static create()" method manually

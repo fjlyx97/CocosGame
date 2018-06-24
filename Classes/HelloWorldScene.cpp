@@ -24,6 +24,7 @@
 
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
+#include "PlayScene.h"
 
 USING_NS_CC;
 
@@ -47,6 +48,7 @@ bool HelloWorld::init()
         return false;
     }
 
+    //获取屏幕大小
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -61,7 +63,7 @@ bool HelloWorld::init()
 
     //创建菜单
     auto beginGame = Label::createWithTTF("Play Game", "fonts/Marker Felt.ttf", 20);
-    auto beginGameItem = MenuItemLabel::create(beginGame);
+    auto beginGameItem = MenuItemLabel::create(beginGame,CC_CALLBACK_0(HelloWorld::menuBeginGame,this));
 
     auto exitGame = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 20);
     auto exitGameItem = MenuItemLabel::create(exitGame,CC_CALLBACK_1(HelloWorld::menuCloseCallback,this));
@@ -109,4 +111,11 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
     /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() and exit(0) as given above,instead trigger a custom event created in RootViewController.mm as below*/
     //EventCustom customEndEvent("game_scene_close_event");
     //_eventDispatcher->dispatchEvent(&customEndEvent);
+}
+
+void HelloWorld::menuBeginGame()
+{
+    problemLoading("Ok");
+    auto beginGameScene = PlayScene::create();
+    Director::getInstance()->replaceScene(beginGameScene);
 }
