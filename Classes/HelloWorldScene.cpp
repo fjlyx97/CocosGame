@@ -115,9 +115,6 @@ bool HelloWorld::init()
         // add the sprite as a child to this layer
         this->addChild(sprite, 0);
     }
-    auto drawNode = DrawNode::create();
-    this->addChild(drawNode);
-    drawNode->drawDot(Vec2(100,100),10,Color4F(0,1,0,1));
     return true;
 }
 
