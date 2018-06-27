@@ -37,8 +37,10 @@ public:
 
     virtual bool init();
     
-    // 开始游戏
-    void menuBeginGame();
+    // 开始单人游戏
+    void menuSingleBeginGame();
+    //开始多人游戏
+    void menuMultiBeginGame();
     // 关闭游戏
     void menuCloseCallback(cocos2d::Ref* pSender);
     

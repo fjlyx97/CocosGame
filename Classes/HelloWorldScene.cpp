@@ -62,19 +62,29 @@ bool HelloWorld::init()
         closeItem->setPosition(Vec2(x,y));
 
     //创建菜单
-    auto beginGame = Label::createWithTTF("Play Game", "fonts/Marker Felt.ttf", 20);
-    auto beginGameItem = MenuItemLabel::create(beginGame,CC_CALLBACK_0(HelloWorld::menuBeginGame,this));
+    auto singleBeginGame = Label::createWithTTF("SinglePlayer Game", "fonts/Marker Felt.ttf", 20);
+    singleBeginGame->setColor(Color3B(0,255,0));
+    auto singleBeginGameItem = MenuItemLabel::create(singleBeginGame,CC_CALLBACK_0(HelloWorld::menuSingleBeginGame,this));
+
+    auto multiBeginGame= Label::createWithTTF("MultiPlayer Game", "fonts/Marker Felt.ttf", 20);
+    multiBeginGame->setColor(Color3B(0,255,0));
+    auto multiBeginGameItem = MenuItemLabel::create(multiBeginGame,CC_CALLBACK_0(HelloWorld::menuMultiBeginGame,this));
 
     auto exitGame = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 20);
+    exitGame->setColor(Color3B(0,255,0));
     auto exitGameItem = MenuItemLabel::create(exitGame,CC_CALLBACK_1(HelloWorld::menuCloseCallback,this));
 
-    auto menu = Menu::create(beginGameItem, exitGameItem ,NULL);
+    auto menu = Menu::create(singleBeginGameItem,multiBeginGameItem,exitGameItem ,NULL);
     menu->alignItemsVerticallyWithPadding(10);
     menu->setPosition(visibleSize.width/2 , visibleSize.height/2);
     this->addChild(menu, 1);
 
+
     //初始化场景
     auto label = Label::createWithTTF("Tank War Multiplayer", "fonts/Marker Felt.ttf", 24);
+    label->setTag(10);
+
+
     if (label == nullptr)
     {
         problemLoading("'fonts/Marker Felt.ttf'");
@@ -86,7 +96,7 @@ bool HelloWorld::init()
                                 origin.y + visibleSize.height - label->getContentSize().height));
         this->addChild(label, 1);
     }
-    auto background_image = Sprite::create("UI/游戏界面/bghuise.png");
+    auto background_image = Sprite::create("Q版坦克素材/bg_new.jpg");
     if (background_image == nullptr)
     {
         problemLoading("场景加载失败");
@@ -94,7 +104,6 @@ bool HelloWorld::init()
     else
     {
         background_image->setPosition(Vec2(visibleSize.width/2,visibleSize.height/2));
-        background_image->setScale(20);
         this->addChild(background_image);
     }
     //测试事件监听
@@ -122,9 +131,33 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
     //_eventDispatcher->dispatchEvent(&customEndEvent);
 }
 
-void HelloWorld::menuBeginGame()
+void HelloWorld::menuSingleBeginGame()
 {
-    problemLoading("Ok");
-    auto beginGameScene = PlayScene::create();
-    Director::getInstance()->replaceScene(beginGameScene);
+    problemLoading("Single Play Game");
+    auto singleBeginGameScene = PlayScene::create();
+    Director::getInstance()->replaceScene(singleBeginGameScene);
+}
+
+void HelloWorld::menuMultiBeginGame()
+{
+    problemLoading("Multi Play Game");
+    //auto multiBeginGameScene = PlayScene::create();
+    //Director::getInstance()->replaceScene(multiBeginGameScene);
+
+    //输入框--创建连接
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    auto netWorking = Sprite::create("Q版坦克素材/bg_frame.png");
+    netWorking->setPosition(Point((visibleSize.width/2)+20,visibleSize.height/2));    
+    this->addChild(netWorking);
+
+    auto editBox = EditBox::create(Size(netWorking->getContentSize().width,netWorking->getContentSize().height),Scale9Sprite::create("Q版坦克素材/jet04.png"));
+
+    editBox->setPosition(this->getContentSize()/2+Size(30, 30));
+    editBox->setMaxLength(8);   //输入框最多能输入多少个字符
+    editBox->setText("请输入IP地址"); //初始化文字
+    editBox->setFontColor(Color3B(255,0, 0));   //文字颜色
+    editBox->setFontSize(10);   //文字的大小：注意！！！  这个设置没有任何效果。这也是为什么要自己建立背景的一个问题
+    this->addChild(editBox);
+    log("%s hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",editBox->getText());
 }
