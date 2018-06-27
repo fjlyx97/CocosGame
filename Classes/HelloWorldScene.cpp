@@ -97,6 +97,15 @@ bool HelloWorld::init()
         background_image->setScale(20);
         this->addChild(background_image);
     }
+    //测试事件监听
+    // a 124 s 142 d 127 w 146
+    //auto listener = EventListenerKeyboard::create();
+    //listener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode , Event* event){
+    //    log("%d %c",keyCode,keyCode);
+    //};
+    //_eventDispatcher->addEventListenerWithSceneGraphPriority(listener,this);
+    
+    
     return true;
 }
 
