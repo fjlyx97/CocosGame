@@ -1,4 +1,4 @@
-#include "PlayerScene.h"
+#include "PlayScene.h"
 #include "Entity.h"
 
 Entity::Entity()
@@ -8,13 +8,13 @@ Entity::Entity()
 
 Entity::~Entity(){}   
 
-sprite* Entity::getSprite()
+Sprite* Entity::getSprite()
 {
     return this->m_sprite;
 }
 
 void Entity::bindSprite(Sprite* sprite)
 {
-    this->m_Sprite = sprite;
+    this->m_sprite = sprite;
     this->addChild(m_sprite);
 }

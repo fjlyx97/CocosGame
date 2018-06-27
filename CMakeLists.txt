@@ -59,6 +59,9 @@ list(APPEND GAME_SOURCE
      Classes/PlayScene.cpp
      Classes/Player.cpp
      Classes/Entity.cpp
+     #引入网络模块
+     Classes/ODSocket/stdafx.cpp
+     Classes/ODSocket/ODSocket.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -66,6 +69,11 @@ list(APPEND GAME_HEADER
      Classes/PlayScene.h
      Classes/Player.h
      Classes/Entity.h
+     #引入网络模块
+     Classes/ODSocket/ODSocket.h
+     Classes/ODSocket/stdafx.h
+     Classes/ODSocket/targetver.h
+     Classes/ODSocket/tchar.h
      )
 
 if(ANDROID)
