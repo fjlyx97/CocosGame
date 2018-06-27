@@ -5,7 +5,7 @@
 class GameServer
 {
 public:
-    GameServer();
+    GameServer(std::string ip ,int port);
     ~GameServer();
 
 private:
