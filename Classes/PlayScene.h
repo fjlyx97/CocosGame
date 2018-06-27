@@ -12,8 +12,7 @@ public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
-    
-    
+    void KeyReleased(EventKeyboard::KeyCode keycode, cocos2d::Event *event);
     // implement the "static create()" method manually
     CREATE_FUNC(PlayScene);
 private:
