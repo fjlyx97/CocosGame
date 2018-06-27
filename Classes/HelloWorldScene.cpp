@@ -64,9 +64,11 @@ bool HelloWorld::init()
     //创建菜单
     auto singleBeginGame = Label::createWithTTF("SinglePlayer Game", "fonts/Marker Felt.ttf", 20);
     singleBeginGame->setColor(Color3B(0,255,0));
+    singleBeginGame->setTag(1);
     auto singleBeginGameItem = MenuItemLabel::create(singleBeginGame,CC_CALLBACK_0(HelloWorld::menuSingleBeginGame,this));
 
     auto multiBeginGame= Label::createWithTTF("MultiPlayer Game", "fonts/Marker Felt.ttf", 20);
+    multiBeginGame->setTag(2);
     multiBeginGame->setColor(Color3B(0,255,0));
     auto multiBeginGameItem = MenuItemLabel::create(multiBeginGame,CC_CALLBACK_0(HelloWorld::menuMultiBeginGame,this));
 
@@ -141,23 +143,28 @@ void HelloWorld::menuSingleBeginGame()
 void HelloWorld::menuMultiBeginGame()
 {
     problemLoading("Multi Play Game");
-    //auto multiBeginGameScene = PlayScene::create();
-    //Director::getInstance()->replaceScene(multiBeginGameScene);
 
     //输入框--创建连接
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     auto netWorking = Sprite::create("Q版坦克素材/bg_frame.png");
     netWorking->setPosition(Point((visibleSize.width/2)+20,visibleSize.height/2));    
-    this->addChild(netWorking);
+    this->addChild(netWorking,4);
 
-    auto editBox = EditBox::create(Size(netWorking->getContentSize().width,netWorking->getContentSize().height),Scale9Sprite::create("Q版坦克素材/jet04.png"));
+    auto ipContent = Scale9Sprite::create("Q版坦克素材/exchange/exchange_num.png");
+    auto ipEditBox = EditBox::create(Size(300,50),ipContent);
+    ipEditBox->setPosition(Vec2(visibleSize.width/2+20,visibleSize.height/2+40));
+    ipEditBox->setText("请输入IP地址"); //初始化文字
+    ipEditBox->setFontSize(20);   //文字的大小：注意！！！  这个设置没有任何效果。这也是为什么要自己建立背景的一个问题
 
-    editBox->setPosition(this->getContentSize()/2+Size(30, 30));
-    editBox->setMaxLength(8);   //输入框最多能输入多少个字符
-    editBox->setText("请输入IP地址"); //初始化文字
-    editBox->setFontColor(Color3B(255,0, 0));   //文字颜色
-    editBox->setFontSize(10);   //文字的大小：注意！！！  这个设置没有任何效果。这也是为什么要自己建立背景的一个问题
-    this->addChild(editBox);
-    log("%s hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",editBox->getText());
+    auto portContent = Scale9Sprite::create("Q版坦克素材/exchange/exchange_num.png");
+    auto portEditBox = EditBox::create(Size(300,50),portContent);
+    portEditBox->setPosition(Vec2(visibleSize.width/2+20,visibleSize.height/2-40));
+    portEditBox->setText("请输入端口号"); //初始化文字
+    portEditBox->setFontSize(20);   //文字的大小：注意！！！  这个设置没有任何效果。这也是为什么要自己建立背景的一个问题
+
+    this->addChild(ipEditBox,5);
+    this->addChild(portEditBox,5);
+    log("%s",ipEditBox->getText());
+    log("%s",portEditBox->getText());
 }
