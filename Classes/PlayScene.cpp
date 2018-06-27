@@ -1,6 +1,6 @@
 #include "PlayScene.h"
 #include "SimpleAudioEngine.h"
-#include "Entity.h"
+#include "CocosGame/cocos2d/external/tinydir/tinydir.h"
 
 USING_NS_CC;
 
