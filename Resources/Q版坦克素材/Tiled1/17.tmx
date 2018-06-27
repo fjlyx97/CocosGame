@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="12" tilewidth="60" tileheight="60">
+ <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="60" tileheight="60">
+  <image source="tmw_desert_spacing.png" width="480" height="300"/>
+  <tile id="30">
+   <properties>
+    <property name="canDes" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="canDes" width="20" height="12">
+  <data encoding="base64" compression="zlib">
+   eJytU9EKACEI8x/Uuv//0i5I8iRrwQ3Eh3StaUT/gkOWERXoFZAPRVbLI/SNZ1ODAqlF+Uxbhq7XvEQ8Pd1b6evBLWcJunqOvu8443x9jyY9ejj3HjLN98mix7hu4LXG/fHzQblMo/2VFV+2qw3ToQUJ
+  </data>
+ </layer>
+ <layer name="cannotDes" width="20" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYBjaQIgAf7iZR4pdwwEIYcGjAAEAqEcA2Q==
+  </data>
+ </layer>
+ <objectgroup name="spawnPoints" width="20" height="12">
+  <object name="re1" x="600" y="60" width="60" height="60"/>
+  <object name="tankpoint" x="598" y="648" width="60" height="60"/>
+  <object name="re2" x="840" y="360" width="60" height="60"/>
+  <object name="re4" x="280" y="269" width="60" height="60"/>
+  <object name="re3" x="752" y="43" width="60" height="60"/>
+  <object name="re5" x="373" y="179" width="60" height="60"/>
+  <object name="re6" x="600" y="360" width="60" height="60"/>
+  <object name="re7" x="806" y="160" width="64" height="58"/>
+  <object name="re8" x="595" y="572" width="61" height="53"/>
+ </objectgroup>
+ <objectgroup name="roadPoints" width="20" height="12" visible="0">
+  <object name="p1" x="60" y="360" width="60" height="60"/>
+  <object name="p2" x="1080" y="360" width="60" height="60"/>
+ </objectgroup>
+ <objectgroup name="bossPoint" width="20" height="12" visible="0">
+  <object name="boss1" x="600" y="60" width="60" height="60"/>
+ </objectgroup>
+ <objectgroup name="buildingPoint" width="20" height="12" visible="0">
+  <object name="building1" x="600" y="360" width="60" height="60"/>
+ </objectgroup>
+ <objectgroup name="endPoint" width="20" height="12">
+  <object name="endpoint" x="600" y="300" width="60" height="60"/>
+ </objectgroup>
+ <objectgroup name="morePoint" width="20" height="12">
+  <object name="morepoint" x="180" y="360" width="60" height="60"/>
+ </objectgroup>
+ <objectgroup name="minePoint" width="20" height="12">
+  <object name="mine1" x="300" y="360" width="60" height="60"/>
+  <object name="mine2" x="420" y="600" width="60" height="60"/>
+  <object name="mine3" x="780" y="300" width="60" height="60"/>
+  <object name="mine4" x="840" y="540" width="60" height="60"/>
+ </objectgroup>
+</map>
