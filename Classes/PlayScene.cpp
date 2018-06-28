@@ -1,6 +1,7 @@
 #include "PlayScene.h"
 #include "SimpleAudioEngine.h"
 
+
 USING_NS_CC;
 
 Scene* PlayScene::createScene()
@@ -24,7 +25,7 @@ bool PlayScene::init()
     if (background_image == nullptr)
     {
         return false;
-     
+
     }
     else
     {
@@ -46,6 +47,21 @@ bool PlayScene::init()
     tank->setPosition(Point(50,50));
     tank->setScale(0.2);
     this->addChild(tank);
+    //键盘控制移动
+
+    auto listenerkeyPad = EventListenerKeyboard::create();
+    listenerkeyPad->onKeyReleased = CC_CALLBACK_2(PlayScene::KeyReleased, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerkeyPad, this);
+
+    //捕捉监听
+
+    void PlayScene::KeyReleased(EventKeyboard::KeyCode keycode, cocos2d::Event *event);
+    {
+        if (keycode == EventKeyboard::KeyCode::KEY_BACKSPACE)  //返回
+        {
+        Director::getInstance()->pause();
+    }
+}
 
     return true;
 }
