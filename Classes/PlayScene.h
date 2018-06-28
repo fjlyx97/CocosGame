@@ -2,6 +2,7 @@
 #define _APP_PlayScene_H
 #include "cocos2d.h"
 #include "cocos-ext.h"
+#include "Player.h"
 
 using namespace cocos2d::extension;
 USING_NS_CC;
@@ -14,11 +15,14 @@ public:
     virtual bool init();
 
     void onKeyPressed(EventKeyboard::KeyCode keyCode ,Event * event);
-    //void onKeyReleased(EventKeyboard::KeyCode keyCode ,Event * event);
-    // implement the "static create()" method manually
+    void onKeyReleased(EventKeyboard::KeyCode keyCode ,Event * event);
+
     CREATE_FUNC(PlayScene);
 private:
-    Sprite* player1;
+    bool isSingleGame;
+    bool isMulGame;
+    Player* firstPlayer;
+    Player* secondPlayer;
 };
 
 #endif
