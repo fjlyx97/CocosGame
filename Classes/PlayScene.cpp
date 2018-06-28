@@ -48,6 +48,7 @@ bool PlayScene::init()
     tank->setScale(0.2);
     this->addChild(tank);
 
+
     return true;
 }
 
