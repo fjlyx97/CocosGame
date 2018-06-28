@@ -13,7 +13,7 @@ public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
-
+    
     void onKeyPressed(EventKeyboard::KeyCode keyCode ,Event * event);
     void onKeyReleased(EventKeyboard::KeyCode keyCode ,Event * event);
 

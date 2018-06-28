@@ -10,15 +10,20 @@ class EnemyTank : public Entity
 public:
     EnemyTank();
     ~EnemyTank();
-
-    //获得是否存活状态
-    bool isAlive();
-
+    void show();    //显示敌方坦克
+    void hide();    //隐藏敌方坦克
+    void reset();   //重置坦克数据
+    bool isAlive(); //获得是否存活状态
+    
+    virtual void update(float dt); 
     virtual bool init();
     CREATE_FUNC(EnemyTank);
 
 private:
+    double speed;
     bool enemyIsAlive;
+    double enemyPositionX;
+    double enemyPositionY;
     char enemyDir; //判断当前坦克对准的方向，wsad分别对应
 };
 
