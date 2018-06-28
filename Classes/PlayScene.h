@@ -13,7 +13,8 @@ public:
 
     virtual bool init();
     
-    
+    void onKeyPressed(EventKeyboard::KeyCode keyCode ,Event * event);
+  //  void onKeyReleased(EventKeyboard::KeyCode keyCode ,Event * event);
     // implement the "static create()" method manually
     CREATE_FUNC(PlayScene);
 private:
