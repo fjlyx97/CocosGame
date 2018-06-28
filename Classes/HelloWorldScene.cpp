@@ -63,17 +63,17 @@ bool HelloWorld::init()
 
     //创建菜单
     auto singleBeginGame = Label::createWithTTF("SinglePlayer Game", "fonts/Marker Felt.ttf", 20);
-    singleBeginGame->setColor(Color3B(0,255,0));
+    //singleBeginGame->setColor(Color3B(0,255,0));
     singleBeginGame->setTag(1);
     auto singleBeginGameItem = MenuItemLabel::create(singleBeginGame,CC_CALLBACK_0(HelloWorld::menuSingleBeginGame,this));
 
     auto multiBeginGame= Label::createWithTTF("MultiPlayer Game", "fonts/Marker Felt.ttf", 20);
     multiBeginGame->setTag(2);
-    multiBeginGame->setColor(Color3B(0,255,0));
+    //multiBeginGame->setColor(Color3B(0,255,0));
     auto multiBeginGameItem = MenuItemLabel::create(multiBeginGame,CC_CALLBACK_0(HelloWorld::menuMultiBeginGame,this));
 
     auto exitGame = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 20);
-    exitGame->setColor(Color3B(0,255,0));
+    //exitGame->setColor(Color3B(0,255,0));
     auto exitGameItem = MenuItemLabel::create(exitGame,CC_CALLBACK_1(HelloWorld::menuCloseCallback,this));
 
     auto menu = Menu::create(singleBeginGameItem,multiBeginGameItem,exitGameItem ,NULL);

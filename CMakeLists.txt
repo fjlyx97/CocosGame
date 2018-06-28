@@ -61,6 +61,8 @@ list(APPEND GAME_SOURCE
      Classes/Entity.cpp
      Classes/EnemyTank.cpp
      Classes/EnemyTankManager.cpp
+     Classes/Bullet.cpp
+     Classes/BulletManager.cpp
      #引入网络模块
      Classes/ODSocket/stdafx.cpp
      Classes/ODSocket/ODSocket.cpp
@@ -74,6 +76,8 @@ list(APPEND GAME_HEADER
      Classes/Entity.h
      Classes/EnemyTank.h
      Classes/EnemyTankManager.h
+     Classes/Bullet.h
+     Classes/BulletManager.h
      #引入网络模块
      Classes/ODSocket/ODSocket.h
      Classes/ODSocket/stdafx.h
