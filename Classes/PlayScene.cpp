@@ -37,7 +37,7 @@ bool PlayScene::init()
     //键盘事件
     auto listener = EventListenerKeyboard::create();
     listener->onKeyPressed = CC_CALLBACK_2(PlayScene::onKeyPressed,this);
-  //  listener->onKeyReleased = CC_CALLBACK_2(PlayScene::onKeyReleased,this);
+    //listener->onKeyReleased = CC_CALLBACK_2(PlayScene::onKeyReleased,this);
 
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener,this);
 
@@ -47,21 +47,6 @@ bool PlayScene::init()
     tank->setPosition(Point(50,50));
     tank->setScale(0.2);
     this->addChild(tank);
-    //键盘控制移动
-
-    auto listenerkeyPad = EventListenerKeyboard::create();
-    listenerkeyPad->onKeyReleased = CC_CALLBACK_2(PlayScene::KeyReleased, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerkeyPad, this);
-
-    //捕捉监听
-
-    void PlayScene::KeyReleased(EventKeyboard::KeyCode keycode, cocos2d::Event *event);
-    {
-        if (keycode == EventKeyboard::KeyCode::KEY_BACKSPACE)  //返回
-        {
-        Director::getInstance()->pause();
-    }
-}
 
     return true;
 }
