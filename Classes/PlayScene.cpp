@@ -58,6 +58,7 @@ bool PlayScene::init()
         secondPlayer->setPlayerScale(0.2);
         secondPlayer->setPlayerPos(secondPlayer->getPosition());
 
+        this->addChild(firstPlayer->returnBulletManager());
         this->addChild(firstPlayer);
         this->addChild(secondPlayer);
     }
@@ -66,10 +67,10 @@ bool PlayScene::init()
 }
 void PlayScene::onKeyPressed(EventKeyboard::KeyCode keyCode ,Event * event)
 {
-    firstPlayer->movePlayer(keyCode,true);
+    firstPlayer->actionPlayer(keyCode,true);
 }
 
 void PlayScene::onKeyReleased(EventKeyboard::KeyCode keyCode ,Event * event)
 {
-    firstPlayer->movePlayer(keyCode,false);
+    firstPlayer->actionPlayer(keyCode,false);
 }

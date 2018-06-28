@@ -73,7 +73,7 @@ bool HelloWorld::init()
     auto multiBeginGameItem = MenuItemLabel::create(multiBeginGame,CC_CALLBACK_0(HelloWorld::menuMultiBeginGame,this));
 
     auto exitGame = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 20);
-    exitGame->setColor(Color3B(0,255,0));
+    //exitGame->setColor(Color3B(0,255,0));
     auto exitGameItem = MenuItemLabel::create(exitGame,CC_CALLBACK_1(HelloWorld::menuCloseCallback,this));
 
     auto menu = Menu::create(singleBeginGameItem,multiBeginGameItem,exitGameItem ,NULL);
