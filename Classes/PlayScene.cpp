@@ -1,6 +1,6 @@
 #include "PlayScene.h"
 #include "SimpleAudioEngine.h"
-
+#include "EnemyTankManager.h"
 
 USING_NS_CC;
 
@@ -21,11 +21,7 @@ bool PlayScene::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-<<<<<<< HEAD
-    auto background_image = Sprite::create("Q版坦克素材/bg_new.jpg");
-=======
     auto background_image = Sprite::create("Q版坦克素材/Tiled/bg0.jpg");
->>>>>>> master
     if (background_image == nullptr)
     {
         return false;
@@ -37,6 +33,8 @@ bool PlayScene::init()
         //background_image->setScale(20);
         this->addChild(background_image);
     }
+
+
     
     //键盘事件
     auto listener = EventListenerKeyboard::create();
@@ -50,8 +48,10 @@ bool PlayScene::init()
     tank->setTag(1);
     tank->setPosition(Point(50,50));
     tank->setScale(0.2);
-    this->addChild(tank);
+    this->addChild(tank,10);
 
+    EnemyTankManager* enemyTank = EnemyTankManager::create();
+    this->addChild(enemyTank,10);
 
     return true;
 }

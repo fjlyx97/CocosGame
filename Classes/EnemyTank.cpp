@@ -2,6 +2,7 @@
 
 EnemyTank::EnemyTank()
 {
+    speed = 2;
     this->enemyIsAlive = false;
 }
 EnemyTank::~EnemyTank()
@@ -10,6 +11,7 @@ EnemyTank::~EnemyTank()
 
 bool EnemyTank::init()
 {
+    this->scheduleUpdate();
     return true;
 }
 
@@ -17,8 +19,8 @@ void EnemyTank::show()
 {
     if(getSprite() != NULL)
     {
-        setVisible(true);
-        enemyIsAlive = true;
+        setVisible(true);       //设置可见
+        enemyIsAlive = true;    //标记坦克为活动状态
     }
 }
 
@@ -36,11 +38,27 @@ void EnemyTank::reset()
 {
     if(getSprite() != NULL)
     {
-        setPosition(Point(800 + CCRANDOM_0_1() * 2000,200 - CCRANDOM_0_1() * 100));
+        setPosition(Vec2(CCRANDOM_0_1()*400,CCRANDOM_0_1()*200));
     }
 }
 
 bool EnemyTank::isAlive()
 {
     return this->enemyIsAlive;
+}
+
+void EnemyTank::update(float dt)
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    if(this->getPositionX() < (visibleSize.width + 20) && this->getPositionX() > 40)
+    {
+        this->setPositionX(this->getPositionX() + speed);    
+    }
+    else
+    {
+        speed = -speed;
+        this->setPositionX(this->getPositionX() + speed);    
+    }
+
 }
