@@ -1,6 +1,7 @@
 #include "PlayScene.h"
 #include "SimpleAudioEngine.h"
 #include "Entity.h"
+#include "EnemyTankManager.h"
 
 
 USING_NS_CC;
@@ -62,6 +63,10 @@ bool PlayScene::init()
         this->addChild(firstPlayer);
         this->addChild(secondPlayer);
     }
+
+    //创建怪物管理器
+    EnemyTankManager* enemyTank = EnemyTankManager::create();
+    this->addChild(enemyTank,10);
 
     return true;
 }
