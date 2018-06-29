@@ -20,6 +20,10 @@ public:
     CREATE_FUNC(Bullet);
     virtual bool init();
 
+    void sendMessage(float dt);
+
+    void testMessage(Ref* sender);
+
 private:
     double bulletPosX;
     double bulletPosY;
