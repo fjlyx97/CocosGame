@@ -54,3 +54,7 @@ void Bullet::update(float dt)
     this->setPosition(this->bulletPosX,this->bulletPosY);
 }
 
+Vec2 Bullet::getBulletPos()
+{
+    return Vec2(this->bulletPosX,this->bulletPosY);
+}

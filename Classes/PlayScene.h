@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "EnemyTankManager.h"
 #include "PlayerTankManager.h"
+#include "CollisionDetection.h"
 
 using namespace cocos2d::extension;
 USING_NS_CC;
@@ -26,6 +27,7 @@ private:
     bool isMulGame;
     EnemyTankManager* enemyTank;
     PlayerTankManager* playerTank;
+    CollisionDetection* collisionDetectionTank;
 };
 
 #endif

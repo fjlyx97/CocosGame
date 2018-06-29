@@ -12,6 +12,7 @@ public:
     BulletManager();
     ~BulletManager();
     void addNewBullet(double bulletRotation,double posX , double posY);
+    friend class CollisionDetection;
 
 private:
     int maxBulletNum;

@@ -42,8 +42,12 @@ bool PlayScene::init()
     enemyTank = EnemyTankManager::create();
     //创建人物管理器
     playerTank = PlayerTankManager::create();
+    //初始化碰撞检测管理器
+    collisionDetectionTank = CollisionDetection::create();
+
     this->addChild(enemyTank,10);
-    this->addChild(playerTank);
+    this->addChild(playerTank,10);
+    this->addChild(collisionDetectionTank,10);
     if (isSingleGame)
     {
         playerTank->addNewPlayer();
@@ -52,7 +56,10 @@ bool PlayScene::init()
     {
         //初始化我方坦克
         playerTank->addNewPlayer();
-        playerTank->addNewPlayer();
+        //绑定我方坦克
+        collisionDetectionTank->bindPlayerTankManager(playerTank);
+        //绑定敌方坦克
+        collisionDetectionTank->bindEnemyTankManager(enemyTank);
     }
 
     return true;

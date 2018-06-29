@@ -15,6 +15,9 @@ public:
 
     void addNewPlayer();
     void recvKey(EventKeyboard::KeyCode keyCode , bool isMove , int playerIndex);
+    //实现碰撞的友元类
+    friend class CollisionDetection;
+
 
 private:
     Vector<Player*> myPlayer;

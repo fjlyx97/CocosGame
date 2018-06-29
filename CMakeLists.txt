@@ -64,6 +64,7 @@ list(APPEND GAME_SOURCE
      Classes/Bullet.cpp
      Classes/BulletManager.cpp
      Classes/PlayerTankManager.cpp
+     Classes/CollisionDetection.cpp
      #引入网络模块
      Classes/ODSocket/stdafx.cpp
      Classes/ODSocket/ODSocket.cpp
@@ -80,6 +81,7 @@ list(APPEND GAME_HEADER
      Classes/Bullet.h
      Classes/BulletManager.h
      Classes/PlayerTankManager.h
+     Classes/CollisionDetection.h
      #引入网络模块
      Classes/ODSocket/ODSocket.h
      Classes/ODSocket/stdafx.h
