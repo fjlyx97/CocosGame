@@ -2,7 +2,7 @@
 
 EnemyTank::EnemyTank()
 {
-    speed = 2;
+    this->enemyRotation = 0;
     this->enemyIsAlive = false;
 }
 EnemyTank::~EnemyTank()
@@ -11,10 +11,12 @@ EnemyTank::~EnemyTank()
 
 bool EnemyTank::init()
 {
-    this->scheduleUpdate();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin(); 
+    log("%f %f",origin.x,origin.y);
+    this->schedule(schedule_selector(EnemyTank::TankMove),1,999,0);
     return true;
 }
-
+/*
 void EnemyTank::show()
 {
     if(getSprite() != NULL)
@@ -23,23 +25,15 @@ void EnemyTank::show()
         enemyIsAlive = true;    //标记坦克为活动状态
     }
 }
-
-void EnemyTank::hide()
-{
-    if(getSprite() != NULL)
-    {
-        setVisible(false);    //设置不可见
-        reset();                //重置敌方坦克数据
-        enemyIsAlive = false;   //标记坦克为非活动状态（隐藏状态）
-    }
-}
-
+*/
 void EnemyTank::reset()
 {
     if(getSprite() != NULL)
     {
-        setPosition(Vec2(CCRANDOM_0_1()*400,CCRANDOM_0_1()*200));
+        auto visibleSize = Director::getInstance()->getVisibleSize();
+        this->setPosition(Vec2(CCRANDOM_0_1() * visibleSize.width,CCRANDOM_0_1() * visibleSize.height));
     }
+    return;
 }
 
 bool EnemyTank::isAlive()
@@ -47,18 +41,56 @@ bool EnemyTank::isAlive()
     return this->enemyIsAlive;
 }
 
-void EnemyTank::update(float dt)
+int EnemyTank::crashWall()
 {
+    int state = CCRANDOM_0_1()*5 ;
+    return state;
+}
+
+void EnemyTank::TankMove(float ft)
+{   
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    if(this->getPositionX() < (visibleSize.width + 20) && this->getPositionX() > 40)
+
+    if(this->getPositionX() > visibleSize.width || this->getPositionX() < 0|| this->getPositionY() > (visibleSize.height - 20) || this->getPositionY() < 30)
     {
-        this->setPositionX(this->getPositionX() + speed);    
+        return;
     }
     else
-    {
-        speed = -speed;
-        this->setPositionX(this->getPositionX() + speed);    
+    {   
+        MoveBy* movebyX;
+        MoveBy* movebyY;
+        switch(EnemyTank::crashWall())
+        {
+            case 1:
+                speed = 20;
+                this->setRotation(90);
+                this->enemyRotation = 90;
+                movebyX = MoveBy::create(1.0f,Vec2(speed,0));
+                this->runAction(movebyX);
+                break;
+            case 2:
+                speed = -20;
+                this->setRotation(270);
+                this->enemyRotation = 270;
+                movebyX = MoveBy::create(1.0f,Vec2(speed,0));
+                this->runAction(movebyX);
+                break;
+            case 3:
+                speed = 20;
+                this->setRotation(0);
+                this->enemyRotation = 0;
+                movebyY = MoveBy::create(1.0f,Vec2(0,speed));
+                this->runAction(movebyY);
+                break;
+            case 4:
+                speed = -20;
+                this->setRotation(180);
+                this->enemyRotation = 180;
+                movebyY = MoveBy::create(1.0f,Vec2(0,speed));
+                this->runAction(movebyY);
+                break;
+            //default: log("error");break;
+        }
     }
-
+    return;
 }

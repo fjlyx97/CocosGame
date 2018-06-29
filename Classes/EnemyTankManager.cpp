@@ -14,7 +14,6 @@ void EnemyTankManager::createEnemyTank()
 
     for(int i=0;i<maxEnemyTankNum;i++)
     {
-    
         //创建敌方坦克对象
         enemyTank = EnemyTank::create();
         //绑定精灵
