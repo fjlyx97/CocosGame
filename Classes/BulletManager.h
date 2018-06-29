@@ -12,11 +12,10 @@ public:
     BulletManager();
     ~BulletManager();
     void addNewBullet(double bulletRotation,double posX , double posY);
+    void recvBulletMessage(Ref* data);
     friend class CollisionDetection;
 
 private:
-    //接收test消息的回调函数
-    //void recvBulletMessage(Ref* data);
     int maxBulletNum;
     int BulletNum;
     Vector<Bullet*> playerBullet;
