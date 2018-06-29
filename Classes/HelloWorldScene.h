@@ -43,6 +43,8 @@ public:
     void menuMultiBeginGame();
     // 关闭游戏
     void menuCloseCallback(cocos2d::Ref* pSender);
+    //联机界面返回
+    void backCallback();
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);

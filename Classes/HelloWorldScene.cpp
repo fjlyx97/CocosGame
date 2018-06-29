@@ -52,28 +52,17 @@ bool HelloWorld::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    //关闭按钮
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-        float x = origin.x + visibleSize.width - closeItem->getContentSize().width/2;
-        float y = origin.y + closeItem->getContentSize().height/2;
-        closeItem->setPosition(Vec2(x,y));
-
     //创建菜单
     auto singleBeginGame = Label::createWithTTF("SinglePlayer Game", "fonts/Marker Felt.ttf", 20);
-    //singleBeginGame->setColor(Color3B(0,255,0));
-    singleBeginGame->setTag(1);
+    singleBeginGame->setColor(Color3B(0,0,0));
     auto singleBeginGameItem = MenuItemLabel::create(singleBeginGame,CC_CALLBACK_0(HelloWorld::menuSingleBeginGame,this));
 
     auto multiBeginGame= Label::createWithTTF("MultiPlayer Game", "fonts/Marker Felt.ttf", 20);
-    multiBeginGame->setTag(2);
-    //multiBeginGame->setColor(Color3B(0,255,0));
+    multiBeginGame->setColor(Color3B(0,0,0));
     auto multiBeginGameItem = MenuItemLabel::create(multiBeginGame,CC_CALLBACK_0(HelloWorld::menuMultiBeginGame,this));
 
     auto exitGame = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 20);
-    //exitGame->setColor(Color3B(0,255,0));
+    exitGame->setColor(Color3B(0,0,0));
     auto exitGameItem = MenuItemLabel::create(exitGame,CC_CALLBACK_1(HelloWorld::menuCloseCallback,this));
 
     auto menu = Menu::create(singleBeginGameItem,multiBeginGameItem,exitGameItem ,NULL);
@@ -84,6 +73,7 @@ bool HelloWorld::init()
 
     //初始化场景
     auto label = Label::createWithTTF("Tank War Multiplayer", "fonts/Marker Felt.ttf", 24);
+    label->setColor(Color3B(0,0,0));
     label->setTag(10);
 
 
@@ -108,14 +98,6 @@ bool HelloWorld::init()
         background_image->setPosition(Vec2(visibleSize.width/2,visibleSize.height/2));
         this->addChild(background_image);
     }
-    //测试事件监听
-    // a 124 s 142 d 127 w 146
-    //auto listener = EventListenerKeyboard::create();
-    //listener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode , Event* event){
-    //    log("%d %c",keyCode,keyCode);
-    //};
-    //_eventDispatcher->addEventListenerWithSceneGraphPriority(listener,this);
-    
     
     return true;
 }
@@ -135,36 +117,78 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::menuSingleBeginGame()
 {
-    problemLoading("Single Play Game");
+    //problemLoading("Single Play Game");
     auto singleBeginGameScene = PlayScene::create();
     Director::getInstance()->replaceScene(singleBeginGameScene);
 }
 
 void HelloWorld::menuMultiBeginGame()
 {
-    problemLoading("Multi Play Game");
-
+    //problemLoading("Multi Play Game");
     //输入框--创建连接
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     auto netWorking = Sprite::create("Q版坦克素材/bg_frame.png");
     netWorking->setPosition(Point((visibleSize.width/2)+20,visibleSize.height/2));    
+    netWorking->setName("netWorking");
     this->addChild(netWorking,4);
 
     auto ipContent = Scale9Sprite::create("Q版坦克素材/exchange/exchange_num.png");
+    ipContent->setName("ipContent");
     auto ipEditBox = EditBox::create(Size(300,50),ipContent);
+    ipEditBox->setName("ipEditBox");
+
     ipEditBox->setPosition(Vec2(visibleSize.width/2+20,visibleSize.height/2+40));
     ipEditBox->setText("请输入IP地址"); //初始化文字
     ipEditBox->setFontSize(20);   //文字的大小：注意！！！  这个设置没有任何效果。这也是为什么要自己建立背景的一个问题
 
     auto portContent = Scale9Sprite::create("Q版坦克素材/exchange/exchange_num.png");
+    portContent->setName("portContent");
     auto portEditBox = EditBox::create(Size(300,50),portContent);
+    portEditBox->setName("portEditBox");
+
     portEditBox->setPosition(Vec2(visibleSize.width/2+20,visibleSize.height/2-40));
     portEditBox->setText("请输入端口号"); //初始化文字
     portEditBox->setFontSize(20);   //文字的大小：注意！！！  这个设置没有任何效果。这也是为什么要自己建立背景的一个问题
 
     this->addChild(ipEditBox,5);
     this->addChild(portEditBox,5);
+    
+    //生成联机菜单
+    auto createMenuLabel = Label::createWithTTF("Create", "fonts/Marker Felt.ttf", 20);
+    auto createMenuLabelItem = MenuItemLabel::create(createMenuLabel,CC_CALLBACK_0(HelloWorld::menuSingleBeginGame,this));
+    createMenuLabelItem->setName("createMenuLabelItem");
+    auto connectMenuLabel = Label::createWithTTF("Connect", "fonts/Marker Felt.ttf", 20);
+    auto connectMenuLabelItem = MenuItemLabel::create(connectMenuLabel,CC_CALLBACK_0(HelloWorld::menuSingleBeginGame,this));
+    connectMenuLabelItem->setName("connectMenuLabelItem");
+    auto backMenuLabel = Label::createWithTTF("Back", "fonts/Marker Felt.ttf", 20);
+    auto backMenuLabelItem = MenuItemLabel::create(backMenuLabel,CC_CALLBACK_0(HelloWorld::backCallback,this));
+    backMenuLabelItem->setName("backMenuLabelItem");
+
+    auto netWorkMenu = Menu::create(createMenuLabelItem,connectMenuLabelItem,backMenuLabelItem,NULL);
+    netWorkMenu->setName("netWorkMenu");
+    netWorkMenu->alignItemsHorizontallyWithPadding(15);
+    netWorkMenu->setPosition(Vec2(visibleSize.width/2+95,visibleSize.height/2-80));
+    this->addChild(netWorkMenu,6);
+
     log("%s",ipEditBox->getText());
     log("%s",portEditBox->getText());
+}
+
+void HelloWorld::backCallback()
+{
+    auto netWork = this->getChildByName("netWorking");
+    netWork->removeFromParent();
+    auto ipEditBox = this->getChildByName("ipEditBox");
+    ipEditBox->removeFromParent();
+    auto portEditBox = this->getChildByName("portEditBox");
+    portEditBox->removeFromParent();
+    //auto createMenuLabelItem = this->getChildByName("createMenuLabelItem");
+    //createMenuLabelItem->removeFromParent();
+    //auto connectMenuLabelItem = this->getChildByName("connectMenuLabelItem");   
+    //connectMenuLabelItem->removeFromParent();
+    //auto backMenuLabelItem = this->getChildByName("backMenuLabelItem");
+    //backMenuLabelItem->removeFromParent();
+    auto netWorkMenu = this->getChildByName("netWorkMenu");
+    netWorkMenu->removeFromParent();
 }
