@@ -17,26 +17,26 @@ Bullet::~Bullet()
 
 }
 
-void Bullet::setBulletSpeed(double bulletRotation)
+void Bullet::setBulletSpeed(double bulletRotation , double bulletSpeed)
 {
     if (bulletRotation == 0)
     {
         this->bulletSpeedX = 0;
-        this->bulletSpeedY = 1;
+        this->bulletSpeedY = bulletSpeed;
     }
     else if (bulletRotation == 90)
     {
-        this->bulletSpeedX = 1;
+        this->bulletSpeedX = bulletSpeed;
         this->bulletSpeedY = 0;
     }
     else if (bulletRotation == 180)
     {
         this->bulletSpeedX = 0;
-        this->bulletSpeedY = -1;
+        this->bulletSpeedY = -bulletSpeed;
     }
     else if (bulletRotation == 270)
     {
-        this->bulletSpeedX = -1;
+        this->bulletSpeedX = -bulletSpeed;
         this->bulletSpeedY = 0;
     }
 }
@@ -54,3 +54,7 @@ void Bullet::update(float dt)
     this->setPosition(this->bulletPosX,this->bulletPosY);
 }
 
+Vec2 Bullet::getBulletPos()
+{
+    return Vec2(this->bulletPosX,this->bulletPosY);
+}

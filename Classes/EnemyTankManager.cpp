@@ -11,7 +11,6 @@ bool EnemyTankManager::init()
 void EnemyTankManager::createEnemyTank()
 {
     EnemyTank* enemyTank = NULL;
-    Sprite* sprite = NULL;
 
     for(int i=0;i<maxEnemyTankNum;i++)
     {

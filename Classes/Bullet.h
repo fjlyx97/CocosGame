@@ -13,7 +13,8 @@ public:
     ~Bullet();
 
     void setBulletPos(double posX , double posY);
-    void setBulletSpeed(double bulletRotation);
+    void setBulletSpeed(double bulletRotation , double bulletSpeed);
+    Vec2 getBulletPos();
     void update(float dt);
 
     CREATE_FUNC(Bullet);

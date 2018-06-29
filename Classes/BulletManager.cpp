@@ -20,7 +20,7 @@ void BulletManager::addNewBullet(double bulletRotation , double posX , double po
         newBullet->bindSprite(Sprite::create("Q版坦克素材/bullet/bullet17.png"));
         newBullet->setBulletPos(posX,posY);
         newBullet->setRotation(bulletRotation);
-        newBullet->setBulletSpeed(bulletRotation);
+        newBullet->setBulletSpeed(bulletRotation,2);
         newBullet->setPosition(posX,posY);
         this->BulletNum++;
         playerBullet.pushBack(newBullet);
