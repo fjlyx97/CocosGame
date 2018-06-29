@@ -18,8 +18,11 @@ void EnemyTankManager::createEnemyTank()
         //创建敌方坦克对象
         enemyTank = EnemyTank::create();
         //绑定精灵
-        enemyTank->bindSprite(Sprite::create("Q版坦克素材/enemy/canon17.png"));
+        enemyTank->bindSprite(Sprite::create("Q版坦克素材/boss/body41.png"));
+        enemyTank->setScale(0.7);
         enemyTank->reset();
+        //enemyTank->setContentSize(Size(30,30));
+        //log("EnemyTank %.2f %.2f" , enemyTank->getSprite()->getBoundingBox().size.width, enemyTank->getSprite()->getBoundingBox().size.height);
 
         //添加敌方坦克对象
         this->addChild(enemyTank,10);
