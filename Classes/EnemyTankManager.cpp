@@ -18,7 +18,7 @@ void EnemyTankManager::createEnemyTank()
         enemyTank = EnemyTank::create();
         //绑定精灵
         enemyTank->bindSprite(Sprite::create("Q版坦克素材/boss/body41.png"));
-        //enemyTank->setScale(0.7);
+        enemyTank->setScale(0.5);
         //enemyTank->setContentSize()
         enemyTank->reset();
         //enemyTank->setContentSize(Size(30,30));
