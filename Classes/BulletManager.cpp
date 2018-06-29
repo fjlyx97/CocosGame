@@ -23,7 +23,7 @@ void BulletManager::addNewBullet(double bulletRotation , double posX , double po
         newBullet->setRotation(bulletRotation);
         newBullet->setBulletSpeed(bulletRotation,2);
         newBullet->setPosition(posX,posY);
-        newBullet->setScale(1.2);
+        //newBullet->setScale(1.2);
         //log ("%.2f %.2f" , newBullet->getSprite()->getBoundingBox().size.width, newBullet->getSprite()->getBoundingBox().size.height);
         this->BulletNum++;
         playerBullet.pushBack(newBullet);

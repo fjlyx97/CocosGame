@@ -45,7 +45,7 @@ void CollisionDetection::update(float dt)
                 {
                     //log("子弹%.2f %.2f",bulletRec.size.width,bulletRec.size.height);
                     //log("敌人%.2f %.2f",enemyRec.size.width,enemyRec.size.height);
-                    log("碰撞");
+                    //log("碰撞");
                     //移除子弹
                     bullet->removeFromParent();
                     player->returnBulletManager()->playerBullet.eraseObject(bullet);
