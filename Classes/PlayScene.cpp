@@ -36,7 +36,6 @@ bool PlayScene::init()
     listener->onKeyPressed = CC_CALLBACK_2(PlayScene::onKeyPressed,this);
     listener->onKeyReleased = CC_CALLBACK_2(PlayScene::onKeyReleased,this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener,this);
-
     // 初始化场景
     isSingleGame = false;
     isMulGame = true;
@@ -46,28 +45,24 @@ bool PlayScene::init()
     playerTank = PlayerTankManager::create();
     //初始化碰撞检测管理器
     collisionDetectionTank = CollisionDetection::create();
-
     this->addChild(enemyTank,10);
     this->addChild(playerTank,10);
     this->addChild(collisionDetectionTank,10);
+    //初始化本地坦克
+    playerTank->addNewPlayer();
+    //绑定我方坦克
+    collisionDetectionTank->bindPlayerTankManager(playerTank);
+    //绑定敌方坦克
+    collisionDetectionTank->bindEnemyTankManager(enemyTank);
+
     if (isSingleGame)
     {
-        playerTank->addNewPlayer();
+
     }
     else if (isMulGame)
     {
-        //初始化我方坦克
-        playerTank->addNewPlayer();
-        //绑定我方坦克
-        collisionDetectionTank->bindPlayerTankManager(playerTank);
-        //绑定敌方坦克
-        collisionDetectionTank->bindEnemyTankManager(enemyTank);
     }
 
-    //创建怪物管理器
-    EnemyTankManager* enemyTank = EnemyTankManager::create();
-    this->addChild(enemyTank,10);
-    
     return true;
 }
 

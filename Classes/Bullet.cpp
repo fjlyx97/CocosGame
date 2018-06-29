@@ -14,7 +14,7 @@ Bullet::Bullet()
 
 Bullet::~Bullet()
 {
-
+    //log("delete over");
 }
 
 void Bullet::setBulletSpeed(double bulletRotation , double bulletSpeed)

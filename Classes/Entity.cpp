@@ -17,4 +17,7 @@ void Entity::bindSprite(Sprite* sprite)
 {
     this->m_sprite = sprite;
     this->addChild(m_sprite);
+    Size spriteSize = m_sprite->getContentSize();
+    //log("初始化：%.2f %.2f",spriteSize.width,spriteSize.height);
+    this->setContentSize(spriteSize);
 }
