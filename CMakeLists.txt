@@ -63,7 +63,6 @@ list(APPEND GAME_SOURCE
      Classes/EnemyTankManager.cpp
      Classes/Bullet.cpp
      Classes/BulletManager.cpp
-     Classes/FSM.cpp
      Classes/PlayerTankManager.cpp
      Classes/CollisionDetection.cpp
      #引入网络模块
@@ -81,7 +80,6 @@ list(APPEND GAME_HEADER
      Classes/EnemyTankManager.h
      Classes/Bullet.h
      Classes/BulletManager.h
-     Classes/FSM.h
      Classes/PlayerTankManager.h
      Classes/CollisionDetection.h
      #引入网络模块

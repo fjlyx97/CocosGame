@@ -2,9 +2,7 @@
 #include "SimpleAudioEngine.h"
 #include "Entity.h"
 #include "EnemyTankManager.h"
-#include "FSM.h"
-
-
+#include "HelloWorldScene.h"
 USING_NS_CC;
 
 Scene* PlayScene::createScene()
@@ -32,6 +30,7 @@ bool PlayScene::init()
         background_image->setPosition(Vec2(visibleSize.width/2,visibleSize.height/2));
         this->addChild(background_image);
     }
+
     //初始化按键监听
     auto listener = EventListenerKeyboard::create();
     listener->onKeyPressed = CC_CALLBACK_2(PlayScene::onKeyPressed,this);
@@ -69,13 +68,9 @@ bool PlayScene::init()
     EnemyTankManager* enemyTank = EnemyTankManager::create();
     this->addChild(enemyTank,10);
     
-    //状态模式
-    TankState* tankState = TankState::create();
-    tankState->changeState(forward);
-    this->addChild(tankState);
-
     return true;
 }
+
 void PlayScene::onKeyPressed(EventKeyboard::KeyCode keyCode ,Event * event)
 {
     this->playerTank->recvKey(keyCode,true,0);
