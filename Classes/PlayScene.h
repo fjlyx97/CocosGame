@@ -3,6 +3,9 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "Player.h"
+#include "Entity.h"
+#include "EnemyTankManager.h"
+#include "PlayerTankManager.h"
 
 using namespace cocos2d::extension;
 USING_NS_CC;
@@ -21,8 +24,8 @@ public:
 private:
     bool isSingleGame;
     bool isMulGame;
-    Player* firstPlayer;
-    Player* secondPlayer;
+    EnemyTankManager* enemyTank;
+    PlayerTankManager* playerTank;
 };
 
 #endif

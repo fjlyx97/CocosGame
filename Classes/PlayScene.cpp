@@ -1,7 +1,5 @@
 #include "PlayScene.h"
 #include "SimpleAudioEngine.h"
-#include "Entity.h"
-#include "EnemyTankManager.h"
 
 
 USING_NS_CC;
@@ -40,42 +38,31 @@ bool PlayScene::init()
     // 初始化场景
     isSingleGame = false;
     isMulGame = true;
+    //创建怪物管理器
+    enemyTank = EnemyTankManager::create();
+    //创建人物管理器
+    playerTank = PlayerTankManager::create();
+    this->addChild(enemyTank,10);
+    this->addChild(playerTank);
     if (isSingleGame)
     {
-
+        playerTank->addNewPlayer();
     }
     else if (isMulGame)
     {
         //初始化我方坦克
-        firstPlayer = Player::create();
-        secondPlayer = Player::create();
-        firstPlayer->bindSprite(Sprite::create("Q版坦克素材/plane1.png"));
-        secondPlayer->bindSprite(Sprite::create("Q版坦克素材/plane2.png"));
-
-        firstPlayer->setPosition(200,100);
-        firstPlayer->setPlayerScale(0.2);
-        firstPlayer->setPlayerPos(firstPlayer->getPosition());
-        secondPlayer->setPosition(300,100);
-        secondPlayer->setPlayerScale(0.2);
-        secondPlayer->setPlayerPos(secondPlayer->getPosition());
-
-        this->addChild(firstPlayer->returnBulletManager());
-        this->addChild(firstPlayer);
-        this->addChild(secondPlayer);
+        playerTank->addNewPlayer();
+        playerTank->addNewPlayer();
     }
-
-    //创建怪物管理器
-    EnemyTankManager* enemyTank = EnemyTankManager::create();
-    this->addChild(enemyTank,10);
 
     return true;
 }
 void PlayScene::onKeyPressed(EventKeyboard::KeyCode keyCode ,Event * event)
 {
-    firstPlayer->actionPlayer(keyCode,true);
+    this->playerTank->recvKey(keyCode,true,0);
 }
 
 void PlayScene::onKeyReleased(EventKeyboard::KeyCode keyCode ,Event * event)
 {
-    firstPlayer->actionPlayer(keyCode,false);
+    this->playerTank->recvKey(keyCode,false,0);
 }
