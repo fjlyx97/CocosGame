@@ -2,6 +2,7 @@
 #include "SimpleAudioEngine.h"
 #include "Entity.h"
 #include "EnemyTankManager.h"
+#include "FSM.h"
 
 
 USING_NS_CC;
@@ -67,6 +68,11 @@ bool PlayScene::init()
     //创建怪物管理器
     EnemyTankManager* enemyTank = EnemyTankManager::create();
     this->addChild(enemyTank,10);
+    
+    //状态模式
+    TankState* tankState = TankState::create();
+    tankState->changeState(forward);
+    this->addChild(tankState);
 
     return true;
 }
