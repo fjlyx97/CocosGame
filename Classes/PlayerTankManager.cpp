@@ -20,7 +20,7 @@ void PlayerTankManager::addNewPlayer()
     auto player = Player::create();
     player->bindSprite(Sprite::create("Q版坦克素材/plane1.png"));
     player->setPosition(200,100);
-    player->setPlayerScale(0.1);
+    player->setPlayerScale(0.15);
     player->setPlayerPos(player->getPosition());
     this->addChild(player);
     this->addChild(player->returnBulletManager());//添加子弹管理器
