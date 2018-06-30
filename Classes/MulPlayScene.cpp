@@ -107,22 +107,31 @@ void MulPlayScene::serverAddNewPlayer(Ref* newPlayer)
         if (index == playerNum)
         {
             player->setPlayerServerPos();
-            //这里需要向新玩家老玩家坐标
-            /*
-            for (int i = 0 ; i < 6 ; i++)
-            {
-                log("%d",this->bookPlayer[i]);
-            }
-            */
+            //这里需要向新玩家发送老玩家坐标
+            
+            //NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+            //这里编写
+            //怪物管理器，玩家管理器，玩家管理器中的子弹管理器，怪物管理器中的子弹管理器
+            //是不是任务量爆炸
+            //所以我也很难受啊，那本书里面460开始，有一章是讲json的，似乎可以帮我们减轻工作量，你可以阅读试试
+            //我先补完客户端的连接部分
+            //你要把怪物的坐标整合起来，用逗号作为分割，前缀为add，那个id没必要加，因为它是当下唯一确定
+            //不仅是怪物的坐标，还有玩家子弹的目标
+            //你可以自己约定一个数据 比如addplayer,addplayerbullet,addenemy
+            //反正用逗号进行分割，我到时候客户端通过你编写的数据进行添加数
+            //这里编写
+            //刚刚发现ID也要组合，格式按照我下面那样
+            
+                    
             //这里需要往已经存在的玩家发送新玩家坐标
             std::string posX = Value(player->getPositionX()).asString();
             std::string posY = Value(player->getPositionY()).asString();
-
             for (int i = 0 ; i < 6 ; i++)
             {
                 std::string id = Value(i).asString();
                 if (this->bookPlayer[i] == 1)
                 {
+                    //格式在这里
                     std::string sendPosMsg = id +"add"+',' + posX+','+posY;
                     NotificationCenter::getInstance()->postNotification("sendNewPlayerPos",(Ref*)((char*)sendPosMsg.data()));
                 }
@@ -135,7 +144,7 @@ void MulPlayScene::serverAddNewPlayer(Ref* newPlayer)
     this->playerNum++;
 }
 
-//关联删除玩家的广播
+//关联删除玩家的广播（未完成）
 void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
 {
     int playerId = atoi((char*)delPlayer);
@@ -152,3 +161,4 @@ void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
         index++;
     }
 }
+

@@ -70,6 +70,7 @@ list(APPEND GAME_SOURCE
      Classes/ODSocket/stdafx.cpp
      Classes/ODSocket/ODSocket.cpp
      Classes/NetWork/GameServer.cpp
+     Classes/NetWork/GameClient.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -90,6 +91,7 @@ list(APPEND GAME_HEADER
      Classes/ODSocket/targetver.h
      Classes/ODSocket/tchar.h
      Classes/NetWork/GameServer.h
+     Classes/NetWork/GameClient.h
      )
 
 if(ANDROID)

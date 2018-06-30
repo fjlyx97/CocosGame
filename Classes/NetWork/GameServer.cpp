@@ -29,6 +29,12 @@ GameServer::GameServer()
             "sendNewPlayerPos",
             NULL);
 
+    NotificationCenter::getInstance()->addObserver(
+            this,
+            callfuncO_selector(GameServer::sendOldPlayer),
+            "sendOldPlayerPos",
+            NULL);
+
 
     if (!(this->mSocket->Listen(6)))
     {
@@ -129,5 +135,11 @@ void GameServer::sendNewPlayerPos(Ref* pos)
 //关联往所有socket发送广播
 void GameServer::sendGameMsg(Ref* pdata)
 {
+
+}
+//向新玩家发送所有数据
+void GameServer::sendOldPlayer(Ref* pdata)
+{
+    //此处发送数据，代码待编写
 
 }
