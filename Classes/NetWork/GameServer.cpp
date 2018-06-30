@@ -15,13 +15,8 @@ GameServer::GameServer()
     this->mSocket = new ODSocket();
     this->mSocket->Init();
     this->mSocket->Create(AF_INET, SOCK_STREAM , 0);
-    
-}
-
-void GameServer::start()
-{
-    log("开启的IP为 %s , %d",this->ip,this->port);
     this->mSocket->Bind(this->port);
+    log("开启的IP为 %s , %d",this->ip,this->port);
     //初始化玩家断线观察者
     NotificationCenter::getInstance()->addObserver(
             this,
@@ -54,7 +49,7 @@ void GameServer::start()
     {
         log("当前监听端口为：%d",this->port);
         ODSocket* clientSocket = new ODSocket;
-        if (mSocket->Accept(*clientSocket,ip))
+        if (mSocket->Accept(*clientSocket,this->ip))
         {
             for (int i = 0 ; i < 6 ; i++)
             {
@@ -77,13 +72,18 @@ void GameServer::start()
         }
         //此处似乎有内存泄露
     }
+}
+
+void GameServer::start()
+{
+    
 
 }
 
 void GameServer::setIp(char* ip , int port)
 {
     this->port = port;
-    strcmp(this->ip,ip);
+    strcpy(this->ip,ip);
 }
 
 
