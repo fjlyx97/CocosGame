@@ -33,7 +33,7 @@ void EnemyTank::reset()
     if(getSprite() != NULL)
     {
         auto visibleSize = Director::getInstance()->getVisibleSize();
-        this->setPosition(Vec2(CCRANDOM_0_1()*visibleSize.width,CCRANDOM_0_1()*visibleSize.height));
+        this->setPosition(Vec2(CCRANDOM_0_1()*visibleSize.width,visibleSize.height-100));
     }
     return;
 }
@@ -112,7 +112,7 @@ void EnemyTank::TankMove(float ft)
             //default: log("error");break;
         }
     }
-    if(CCRANDOM_0_1() < 0.6)
+    if(CCRANDOM_0_1() < 0.05)
     {
         this->enemyBulletManager->addNewBullet(this->enemyRotation,this->getPositionX(),this->getPositionY(),enemyTankBulletStyle);
     }

@@ -50,6 +50,14 @@ void CollisionDetection::update(float dt)
                     bullet->removeFromParent();
                     player->returnBulletManager()->playerBullet.eraseObject(bullet);
                     player->returnBulletManager()->BulletNum -= 1;
+
+                    //被击中的坦克重新初始化位置
+                    for (auto enemybullet : enemy->returnBulletManager()->returnPlayerBullet())
+                    {
+                        enemybullet->removeFromParent();
+                    }
+                    enemy->returnBulletManager()->returnPlayerBullet().clear();
+                    enemy->reset();
                     return;
                 }
             }
