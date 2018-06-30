@@ -87,9 +87,26 @@ void Player::update(float dt)
     //log("updating");
     if (this->playerIsMove)
     {
+    //    auto visibleSize = Director::getInstance()->getVisibleSize();
         this->playerX += this->playerSpeedX;
         this->playerY += this->playerSpeedY;
         this->setPosition(this->playerX,this->playerY);
+  /*      if(this->getPositionX() >= visibleSize.width)
+        {
+            this->setPosition(Vec2(0,this->getPositionY()));
+        }
+        if(this->getPositionX() <= 0)
+        {
+            this->setPosition(Vec2(visibleSize.width + 30,this->getPositionY()));
+        }
+        if(this->getPositionY() >= visibleSize.height)
+        {
+            this->setPosition(Vec2(this->getPositionX(),0));
+        }
+        if(this->getPositionY() <= 0)
+        {
+            this->setPosition(Vec2(this->getPositionX(),visibleSize.height));
+        }  */
     }
 }
 

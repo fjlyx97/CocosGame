@@ -2,6 +2,7 @@
 
 BulletManager::BulletManager()
 {
+    NotificationCenter::getInstance()->addObserver(this,callfuncO_selector(BulletManager::recvBulletMessage),"PlayerBullet",NULL);
     this->maxBulletNum = 4;
     this->BulletNum = 0;
 }
@@ -29,4 +30,10 @@ void BulletManager::addNewBullet(double bulletRotation , double posX , double po
         playerBullet.pushBack(newBullet);
         this->addChild(newBullet);
     }
+
+}
+
+void BulletManager::recvBulletMessage(Ref* data)
+{
+    this->BulletNum--;
 }

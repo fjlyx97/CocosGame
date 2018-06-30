@@ -197,7 +197,7 @@ THE SOFTWARE.
  * 1 -- draw bounding box
  */
 #ifndef CC_LABEL_DEBUG_DRAW
-#define CC_LABEL_DEBUG_DRAW 0
+#define CC_LABEL_DEBUG_DRAW 1
 #endif
 
 /** @def CC_SPRITEBATCHNODE_DEBUG_DRAW

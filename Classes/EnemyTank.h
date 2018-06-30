@@ -2,6 +2,7 @@
 #define _EnemyTank_H_
 #include "cocos2d.h"
 #include "Entity.h"
+#include "BulletManager.h"
 
 USING_NS_CC;
 
@@ -15,7 +16,9 @@ public:
     bool isAlive(); //获得是否存活状态
     int crashWall(); //判断是否撞墙
 
+    void Fire();
     void TankMove(float dt);
+    BulletManager* returnBulletManager();
     virtual bool init();    
     CREATE_FUNC(EnemyTank);
 
@@ -26,6 +29,7 @@ private:
     double enemyPositionX;
     double enemyPositionY;
     char enemyDir; //判断当前坦克对准的方向，wsad分别对应
+    BulletManager*  enemyBulletManager;
 };
 
 #endif
