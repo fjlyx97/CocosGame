@@ -84,8 +84,8 @@ void Bullet::update(float dt)
     //if((this->bulletPosX > visibleSize.width || this->bulletPosX < 0|| this->bulletPosY > (visibleSize.height - 30) || this->bulletPosY < 10))
     //{   
     //    //观察模式
-    //    NotificationCenter::getInstance()->postNotification("PlayerBullet",NULL);
-    //    //this->removeFromParent();
+    //    NotificationCenter::getInstance()->postNotification("PlayerBulletCrashWall",NULL);
+    //    this->removeFromParent();
     //}
     this->setPosition(this->bulletPosX,this->bulletPosY);
 }

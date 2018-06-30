@@ -2,7 +2,7 @@
 
 BulletManager::BulletManager()
 {
-    NotificationCenter::getInstance()->addObserver(this,callfuncO_selector(BulletManager::recvBulletMessage),"PlayerBullet",NULL);
+    //NotificationCenter::getInstance()->addObserver(this,callfuncO_selector(BulletManager::recvBulletMessage),"PlayerBullet",NULL);
     this->maxBulletNum = 4;
     this->BulletNum = 0;
 }

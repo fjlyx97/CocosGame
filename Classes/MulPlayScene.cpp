@@ -93,35 +93,35 @@ void MulPlayScene::sendPosition()
 {
     int index = 0;
     std::string posX,posY,sendPosMsg;
-    for(auto otherPlayer : playerTankmanager->returnPlayerTankManager())
-    {   
-        posX = Value(otherPlayer->getPositionX()).asString();
-        posY = Value(otherPlayer->getPositionY()).asString();
-        std::string id = Value(index).asString();
-        sendPosMsg = id + "addPlayer" + "," + posX + "," + posY;
-        index++;
-        NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
-    }
-    index = 0;
-    for(auto enemy : enemyTankmanager->returnEnemyTankManager())
-    {
-        posX = Value(enemy->getPositionX()).asString();
-        posY = Value(enemy->getPositionY()).asString();
-        std::string id = Value(index).asString();
-        sendPosMsg = id + "addEnemy" + "," + posX + "," + posY;
-        index++;
-        NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
-    }
-    //index = 0;
-    //for(auto playerbullet : playerBulletmanager->returnPlayerBullet())
-    //{
-    //    posX = Value(playerbullet->getPositionX()).asString();
-    //    posY = Value(playerbullet->getPositionY()).asString();
+    //for(auto otherPlayer : playerTankmanager->returnPlayerTankManager())
+    //{   
+    //    posX = Value(otherPlayer->getPositionX()).asString();
+    //    posY = Value(otherPlayer->getPositionY()).asString();
     //    std::string id = Value(index).asString();
-    //    sendPosMsg = id + "addPlayerBullet" + "," + posX + "," + posY + '\n';
+    //    sendPosMsg = id + "addPlayer" + "," + posX + "," + posY;
     //    index++;
-    //    //NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+    //    NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+    
+    //index = 0;
+    //for(auto enemy : enemyTankmanager->returnEnemyTankManager())
+    //{
+    //    posX = Value(enemy->getPositionX()).asString();
+    //    posY = Value(enemy->getPositionY()).asString();
+    //    std::string id = Value(index).asString();
+    //    sendPosMsg = id + "addEnemy" + "," + posX + "," + posY;
+    //    index++;
+    //    NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
     //}
+    //index = 0;
+    for(auto playerbullet : playerBulletmanager->returnPlayerBullet())
+    {
+        posX = Value(playerbullet->getPositionX()).asString();
+        posY = Value(playerbullet->getPositionY()).asString();
+        std::string id = Value(index).asString();
+        sendPosMsg = id + "addPlayerBullet" + "," + posX + "," + posY + '\n';
+        index++;
+        NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+    }
     //index = 0;
     //for(auto enemybullet : enemyBulletmanager->returnPlayerBullet())
     //{

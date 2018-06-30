@@ -15,7 +15,7 @@ public:
     void recvBulletMessage(Ref* data);
     friend class CollisionDetection;
     Vector<Bullet*> returnPlayerBullet();
-
+    
 private:
     int maxBulletNum;
     int BulletNum;

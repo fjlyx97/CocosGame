@@ -112,7 +112,7 @@ void EnemyTank::TankMove(float ft)
             //default: log("error");break;
         }
     }
-    if(CCRANDOM_0_1() < 0.6)
+    if(CCRANDOM_0_1() < 0.05)
     {
         this->enemyBulletManager->addNewBullet(this->enemyRotation,this->getPositionX(),this->getPositionY(),enemyTankBulletStyle);
     }
