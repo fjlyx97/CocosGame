@@ -20,6 +20,7 @@ GameServer::GameServer()
 
 void GameServer::start()
 {
+    log("开启的IP为 %s , %d",this->ip,this->port);
     this->mSocket->Bind(this->port);
     //初始化玩家断线观察者
     NotificationCenter::getInstance()->addObserver(

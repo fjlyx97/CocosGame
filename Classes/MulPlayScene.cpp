@@ -63,8 +63,6 @@ bool MulPlayScene::init()
     {
         player->setPlayerHidePos();
     }
-    std::thread server(MulPlayScene::serverStart,this->playerGameServer);
-    server.detach();
 
     //开启玩家消息监听
     NotificationCenter::getInstance()->addObserver(
@@ -140,10 +138,10 @@ void MulPlayScene::sendPosition()
     //}
 }
 
-void MulPlayScene::serverStart(GameServer* playerGameServer)
+void MulPlayScene::serverStart(GameServer* playerGameServer , char* ip , int port)
 {
     playerGameServer = GameServer::create();
-    playerGameServer->setIp(this->ip,this->port);
+    playerGameServer->setIp(ip,port);
     playerGameServer->start();
 }
 //关联客户端玩家发送信息的广播
@@ -213,6 +211,9 @@ void MulPlayScene::sendIp(Ref* ipData)
     }
     this->port = atoi(&ipInfo[i+1]);
     log("%s %d",this->ip,this->port);
+
+    std::thread server(MulPlayScene::serverStart,this->playerGameServer,this->ip,this->port);
+    server.detach();
 
     NotificationCenter::getInstance()->postNotification("sendServerIp",ipData);
 }
