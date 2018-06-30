@@ -25,6 +25,7 @@ void EnemyTankManager::createEnemyTank()
         //log("EnemyTank %.2f %.2f" , enemyTank->getSprite()->getBoundingBox().size.width, enemyTank->getSprite()->getBoundingBox().size.height);
 
         //添加敌方坦克对象
+        this->addChild(enemyTank->returnBulletManager());//添加子弹管理器
         this->addChild(enemyTank,10);
         
         //保存敌方坦克对象到列表

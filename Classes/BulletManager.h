@@ -12,6 +12,7 @@ public:
     BulletManager();
     ~BulletManager();
     void addNewBullet(double bulletRotation,double posX , double posY);
+    void recvBulletMessage(Ref* data);
     friend class CollisionDetection;
 
 private:
