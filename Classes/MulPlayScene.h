@@ -28,6 +28,7 @@ public:
     void recvServer(Ref* playerAction);
     void serverAddNewPlayer(Ref* newPlayer);
     void serverDeletePlayer(Ref* delPlayer);
+    void sendIp(Ref* ipData);
 
     //不断发送服务器信息
     void update(float dt);
@@ -49,6 +50,8 @@ public:
 private:
     int playerNum;
     int bookPlayer[6];
+    char ip[101];
+    int port;
 
 };
 #endif

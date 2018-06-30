@@ -63,9 +63,9 @@ bool MulPlayScene::init()
     {
         player->setPlayerHidePos();
     }
-
     std::thread server(MulPlayScene::serverStart,this->playerGameServer);
     server.detach();
+
     //开启玩家消息监听
     NotificationCenter::getInstance()->addObserver(
         this,
@@ -83,6 +83,12 @@ bool MulPlayScene::init()
         this,
         callfuncO_selector(MulPlayScene::serverDeletePlayer),
         "playerDisconnect",
+        NULL);
+    //开启获得IP监听
+    NotificationCenter::getInstance()->addObserver(
+        this,
+        callfuncO_selector(MulPlayScene::sendIp),
+        "sendIp",
         NULL);
 
     this->scheduleUpdate();
@@ -136,8 +142,9 @@ void MulPlayScene::sendPosition()
 
 void MulPlayScene::serverStart(GameServer* playerGameServer)
 {
-    playerGameServer = new GameServer();
-    playerGameServer->retain();
+    playerGameServer = GameServer::create();
+    playerGameServer->setIp(this->ip,this->port);
+    playerGameServer->start();
 }
 //关联客户端玩家发送信息的广播
 void MulPlayScene::recvServer(Ref* playerAction)
@@ -185,6 +192,27 @@ void MulPlayScene::update(float dt)
     {
         if (this->bookPlayer[i] == 1)
         {
+            //此处待编写
         }
     }
+}
+
+void MulPlayScene::sendIp(Ref* ipData)
+{
+    char* ipInfo = (char*)ipData;
+    //分割字符串
+    int i;
+    //log("%s",ipInfo);
+    for (i = 0 ; i < strlen(ipInfo) ; i++)
+    {
+        if (ipInfo[i] == ' ')
+        {
+            break;
+        }
+        this->ip[i] = ipInfo[i];
+    }
+    this->port = atoi(&ipInfo[i+1]);
+    log("%s %d",this->ip,this->port);
+
+    NotificationCenter::getInstance()->postNotification("sendServerIp",ipData);
 }
