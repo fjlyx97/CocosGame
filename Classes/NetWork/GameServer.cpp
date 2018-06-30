@@ -15,12 +15,13 @@ GameServer::GameServer()
     this->mSocket->Init();
     this->mSocket->Create(AF_INET, SOCK_STREAM , 0);
     this->mSocket->Bind(this->port);
-    //初始化观察者
+    //初始化玩家断线观察者
     NotificationCenter::getInstance()->addObserver(
             this,
             callfuncO_selector(GameServer::disconnectClient),
             "playerDisconnect",
             NULL);
+
     if (!(this->mSocket->Listen(6)))
     {
         log("监听端口失败");
@@ -32,7 +33,6 @@ GameServer::GameServer()
         ODSocket* clientSocket = new ODSocket;
         if (mSocket->Accept(*clientSocket,ip))
         {
-            log("新玩家连入，id为%d",this->currentId);
             for (int i = 0 ; i < 6 ; i++)
             {
                 if (this->bookId[i] == 0)
@@ -40,6 +40,7 @@ GameServer::GameServer()
                     this->bookId[i] = 1;
                     playerClient* newPlayer = new playerClient(clientSocket,i);
                     connectSocket.push_back(newPlayer);
+                    log("新玩家连入，id为%d",i);
                     NotificationCenter::getInstance()->postNotification("addNewPlayer",NULL);
                     std::thread recvThread(GameServer::recvGameMsg,newPlayer);
                     recvThread.detach();
@@ -98,7 +99,7 @@ void GameServer::disconnectClient(Ref* pdata)
         if (index == socketId)
         {
             connectSocket.erase(iter);
-            log("当前%d玩家退出",socketId);
+            //log("当前%d玩家退出",socketId);
             bookId[socketId] = 0;
             break;
         }

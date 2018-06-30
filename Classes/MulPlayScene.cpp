@@ -63,7 +63,7 @@ bool MulPlayScene::init()
 
     std::thread server(MulPlayScene::serverStart,this->playerGameServer);
     server.detach();
-    //开启消息监听
+    //开启玩家消息监听
     NotificationCenter::getInstance()->addObserver(
         this,
         callfuncO_selector(MulPlayScene::recvServer),
@@ -74,6 +74,12 @@ bool MulPlayScene::init()
         this,
         callfuncO_selector(MulPlayScene::serverAddNewPlayer),
         "addNewPlayer",
+        NULL);
+    //开启玩家断线监听
+    NotificationCenter::getInstance()->addObserver(
+        this,
+        callfuncO_selector(MulPlayScene::serverDeletePlayer),
+        "playerDisconnect",
         NULL);
 
     return true;
@@ -101,4 +107,20 @@ void MulPlayScene::serverAddNewPlayer(Ref* newPlayer)
         index++;
     }
     this->playerNum++;
+}
+
+void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
+{
+    int playerId = atoi((char*)delPlayer);
+    int index = 0;
+    for (auto player : this->playerTankmanager->returnPlayerTankManager())
+    {
+        if (index == playerId)
+        {
+            player->removeFromParent();
+            playerTankmanager->returnPlayerTankManager().eraseObject(player);
+            break;
+        }
+        index++;
+    }
 }

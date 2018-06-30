@@ -25,6 +25,7 @@ public:
     //接受服务器消息
     void recvServer(Ref* playerAction);
     void serverAddNewPlayer(Ref* newPlayer);
+    void serverDeletePlayer(Ref* delPlayer);
 
     //敌人管理器
     EnemyTankManager* enemyTankmanager;
