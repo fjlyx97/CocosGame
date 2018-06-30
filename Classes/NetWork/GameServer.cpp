@@ -16,6 +16,7 @@ GameServer::GameServer()
     this->mSocket->Init();
     this->mSocket->Create(AF_INET, SOCK_STREAM , 0);
     this->mSocket->Bind(this->port);
+    log("开启的IP为 %s , %d",this->ip,this->port);
     //初始化玩家断线观察者
     NotificationCenter::getInstance()->addObserver(
             this,
@@ -23,18 +24,21 @@ GameServer::GameServer()
             "playerDisconnect",
             NULL);
     
-    //初始化发送玩家位置观察者
+    //初始化发送玩家位置观察者（似乎没用）
     NotificationCenter::getInstance()->addObserver(
             this,
             callfuncO_selector(GameServer::sendNewPlayerPos),
             "sendNewPlayerPos",
             NULL);
 
+    //初始化发送位置观察者
     NotificationCenter::getInstance()->addObserver(
             this,
             callfuncO_selector(GameServer::sendOldPlayer),
             "sendOldPlayerPos",
             NULL);
+    
+   
 
     if (!(this->mSocket->Listen(6)))
     {
@@ -45,7 +49,7 @@ GameServer::GameServer()
     {
         log("当前监听端口为：%d",this->port);
         ODSocket* clientSocket = new ODSocket;
-        if (mSocket->Accept(*clientSocket,ip))
+        if (mSocket->Accept(*clientSocket,this->ip))
         {
             for (int i = 0 ; i < 6 ; i++)
             {
@@ -70,10 +74,18 @@ GameServer::GameServer()
     }
 }
 
-void GameServer::getIP(Ref* data)
+void GameServer::start()
 {
-    log("%s",(char*)data);
+    
+
 }
+
+void GameServer::setIp(char* ip , int port)
+{
+    this->port = port;
+    strcpy(this->ip,ip);
+}
+
 
 void GameServer::recvGameMsg(playerClient * newPlayer)
 {

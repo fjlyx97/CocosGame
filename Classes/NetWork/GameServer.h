@@ -24,8 +24,9 @@ public:
     CREATE_FUNC(GameServer);
     //服务器初始化
     void resetServer();
+    void start();
     //获得IP和端口
-    void getIP(Ref* data);
+    void setIp(char* ip , int port);
     //往所有服务器玩家发送新玩家坐标广播
     void sendNewPlayerPos(Ref* pos);
     //往新玩家发送服务器所有数据

@@ -64,8 +64,6 @@ bool MulPlayScene::init()
         player->setPlayerHidePos();
     }
 
-    std::thread server(MulPlayScene::serverStart,this->playerGameServer);
-    server.detach();
     //开启玩家消息监听
     NotificationCenter::getInstance()->addObserver(
         this,
@@ -84,6 +82,12 @@ bool MulPlayScene::init()
         callfuncO_selector(MulPlayScene::serverDeletePlayer),
         "playerDisconnect",
         NULL);
+    //开启获得IP监听
+    NotificationCenter::getInstance()->addObserver(
+        this,
+        callfuncO_selector(MulPlayScene::sendIp),
+        "sendIp",
+        NULL);
 
     this->scheduleUpdate();
     return true;
@@ -93,51 +97,60 @@ void MulPlayScene::sendPosition()
 {
     int index = 0;
     std::string posX,posY,sendPosMsg;
-    //for(auto otherPlayer : playerTankmanager->returnPlayerTankManager())
-    //{   
-    //    posX = Value(otherPlayer->getPositionX()).asString();
-    //    posY = Value(otherPlayer->getPositionY()).asString();
-    //    std::string id = Value(index).asString();
-    //    sendPosMsg = id + "addPlayer" + "," + posX + "," + posY;
-    //    index++;
-    //    NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
-    
-    //index = 0;
-    //for(auto enemy : enemyTankmanager->returnEnemyTankManager())
-    //{
-    //    posX = Value(enemy->getPositionX()).asString();
-    //    posY = Value(enemy->getPositionY()).asString();
-    //    std::string id = Value(index).asString();
-    //    sendPosMsg = id + "addEnemy" + "," + posX + "," + posY;
-    //    index++;
-    //    NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
-    //}
-    //index = 0;
-    for(auto playerbullet : playerBulletmanager->returnPlayerBullet())
-    {
-        posX = Value(playerbullet->getPositionX()).asString();
-        posY = Value(playerbullet->getPositionY()).asString();
+    for(auto otherPlayer : playerTankmanager->returnPlayerTankManager())
+    {   
+        posX = Value(otherPlayer->getPositionX()).asString();
+        posY = Value(otherPlayer->getPositionY()).asString();
         std::string id = Value(index).asString();
-        sendPosMsg = id + "addPlayerBullet" + "," + posX + "," + posY + '\n';
+        sendPosMsg = id + "addPlayer" + "," + posX + "," + posY;
         index++;
         NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
     }
-    //index = 0;
-    //for(auto enemybullet : enemyBulletmanager->returnPlayerBullet())
-    //{
-    //    posX = Value(enemybullet->getPositionX()).asString();
-    //    posY = Value(enemybullet->getPositionY()).asString();
-    //    std::string id = Value(index).asString();
-    //    sendPosMsg = id + "addEnemyBullet" + "," + posX + "," + posY + '\n';
-    //    index++;
-    //    //NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
-    //}
+    index = 0;
+    for(auto enemy : enemyTankmanager->returnEnemyTankManager())
+    {
+        posX = Value(enemy->getPositionX()).asString();
+        posY = Value(enemy->getPositionY()).asString();
+        std::string id = Value(index).asString();
+        sendPosMsg = id + "addEnemy" + "," + posX + "," + posY;
+        index++;
+        NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+    }
+
+    index = 0;
+    for (auto player : playerTankmanager->returnPlayerTankManager())
+    {
+        for (auto bullet : player->returnBulletManager()->returnPlayerBullet())
+        {
+            posX = Value(bullet->getPositionX()).asString();
+            posY = Value(bullet->getPositionY()).asString();
+            std::string id = Value(index).asString();
+            sendPosMsg = id + "addPlayerBullet" + "," + posX + "," + posY + '\n';
+            index++;
+            NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+        }
+    }
+    index = 0;
+    for (auto enemyTank : this->enemyTankmanager->returnEnemyTankManager())
+    {
+        for (auto enemybullet : enemyTank->returnBulletManager()->returnPlayerBullet())
+        {
+            posX = Value(enemybullet->getPositionX()).asString();
+            posY = Value(enemybullet->getPositionY()).asString();
+            std::string id = Value(index).asString();
+            sendPosMsg = id + "addEnemyBullet" + "," + posX + "," + posY;
+            index++;
+            NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+        }
+    }
 }
 
-void MulPlayScene::serverStart(GameServer* playerGameServer)
+void MulPlayScene::serverStart(GameServer* playerGameServer , char* ip , int port)
 {
-    playerGameServer = new GameServer();
-    playerGameServer->retain();
+    playerGameServer = GameServer::create();
+    //临时写死
+    //playerGameServer->setIp("localhost",8000);
+    //playerGameServer->start();
 }
 //关联客户端玩家发送信息的广播
 void MulPlayScene::recvServer(Ref* playerAction)
@@ -153,7 +166,6 @@ void MulPlayScene::serverAddNewPlayer(Ref* newPlayer)
         if (index == playerNum)
         {
             player->setPlayerServerPos();
-            this->sendPosition();
         }
         index++;
     }
@@ -185,6 +197,30 @@ void MulPlayScene::update(float dt)
     {
         if (this->bookPlayer[i] == 1)
         {
+            this->sendPosition();
         }
     }
+}
+
+void MulPlayScene::sendIp(Ref* ipData)
+{
+    char* ipInfo = (char*)ipData;
+    //分割字符串
+    int i;
+    //log("%s",ipInfo);
+    for (i = 0 ; i < strlen(ipInfo) ; i++)
+    {
+        if (ipInfo[i] == ' ')
+        {
+            break;
+        }
+        this->ip[i] = ipInfo[i];
+    }
+    this->port = atoi(&ipInfo[i+1]);
+    log("%s %d",this->ip,this->port);
+
+    std::thread server(MulPlayScene::serverStart,this->playerGameServer,this->ip,this->port);
+    server.detach();
+
+    NotificationCenter::getInstance()->postNotification("sendServerIp",ipData);
 }
