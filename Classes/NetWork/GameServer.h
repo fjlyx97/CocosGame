@@ -12,11 +12,14 @@ public:
     ~GameServer();
     virtual bool init();
     CREATE_FUNC(GameServer);
+    void resetServer();
     static void sendGameMsg();
-    static void recvGameMsg(ODSocket* clientSocket);
+    void disconnectClient(Ref* pdata);
+    static void recvGameMsg(ODSocket* clientSocket , int clientId);
 
 private:
     ODSocket* mSocket;
+    int currentId;
     std::vector<ODSocket*> connectSocket;
     char ip[101];
     int port;

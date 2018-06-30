@@ -12,7 +12,6 @@ EnemyTank::~EnemyTank()
 bool EnemyTank::init()
 {
     Vec2 origin = Director::getInstance()->getVisibleOrigin(); 
-    log("%f %f",origin.x,origin.y);
     this->schedule(schedule_selector(EnemyTank::TankMove),1,999,0);
     return true;
 }

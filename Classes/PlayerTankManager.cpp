@@ -18,8 +18,9 @@ PlayerTankManager::~PlayerTankManager()
 void PlayerTankManager::addNewPlayer()
 {
     auto player = Player::create();
+    auto visibleSize = Director::getInstance()->getVisibleSize();
     player->bindSprite(Sprite::create("Q版坦克素材/plane1.png"));
-    player->setPosition(200,100);
+    player->setPosition(Vec2(CCRANDOM_0_1() * visibleSize.width,CCRANDOM_0_1() * visibleSize.height));
     player->setPlayerScale(0.15);
     player->setPlayerPos(player->getPosition());
     this->addChild(player);
