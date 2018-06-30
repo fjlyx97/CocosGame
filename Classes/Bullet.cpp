@@ -65,12 +65,28 @@ void Bullet::update(float dt)
     auto visibleSize = Director::getInstance()->getVisibleSize();
     this->bulletPosX += bulletSpeedX;
     this->bulletPosY += bulletSpeedY;
-    if((this->bulletPosX > visibleSize.width || this->bulletPosX < 0|| this->bulletPosY > (visibleSize.height - 30) || this->bulletPosY < 10))
-    {   
-        //观察模式
-        NotificationCenter::getInstance()->postNotification("PlayerBullet",NULL);
-        this->removeFromParent();
+    if (this->bulletPosX > visibleSize.width)
+    {
+        this->bulletPosX = -1;
     }
+    else if (this->bulletPosX < 0)
+    {
+        this->bulletPosX = visibleSize.width;
+    }
+    else if (this->bulletPosY > visibleSize.height - 30)
+    {
+        this->bulletPosY = 10;
+    }
+    else if (this->bulletPosY < 10)
+    {
+        this->bulletPosY = visibleSize.height - 30;
+    }
+    //if((this->bulletPosX > visibleSize.width || this->bulletPosX < 0|| this->bulletPosY > (visibleSize.height - 30) || this->bulletPosY < 10))
+    //{   
+    //    //观察模式
+    //    NotificationCenter::getInstance()->postNotification("PlayerBullet",NULL);
+    //    //this->removeFromParent();
+    //}
     this->setPosition(this->bulletPosX,this->bulletPosY);
 }
 
