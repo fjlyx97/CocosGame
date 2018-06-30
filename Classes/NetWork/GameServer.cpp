@@ -21,6 +21,14 @@ GameServer::GameServer()
             callfuncO_selector(GameServer::disconnectClient),
             "playerDisconnect",
             NULL);
+    
+    //初始化发送玩家位置观察者
+    NotificationCenter::getInstance()->addObserver(
+            this,
+            callfuncO_selector(GameServer::sendNewPlayerPos),
+            "sendNewPlayerPos",
+            NULL);
+
 
     if (!(this->mSocket->Listen(6)))
     {
@@ -41,7 +49,10 @@ GameServer::GameServer()
                     playerClient* newPlayer = new playerClient(clientSocket,i);
                     connectSocket.push_back(newPlayer);
                     log("新玩家连入，id为%d",i);
-                    NotificationCenter::getInstance()->postNotification("addNewPlayer",NULL);
+                    char sendIdMsg[2];
+                    sendIdMsg[0] = i+'0';
+                    sendIdMsg[1] = '\0';
+                    NotificationCenter::getInstance()->postNotification("addNewPlayer",(Ref*)sendIdMsg);
                     std::thread recvThread(GameServer::recvGameMsg,newPlayer);
                     recvThread.detach();
                     break;
@@ -89,11 +100,13 @@ void GameServer::resetServer()
     strcpy(ip,"localhost");
 }
 
+//关联玩家掉线广播
 void GameServer::disconnectClient(Ref* pdata)
 {
     int socketId = atoi((char*)pdata);
     int index = 0;
     std::vector<playerClient*>::iterator iter;
+    //connectSocket[0]->connectSocket->Send("hello",1024);
     for (iter = connectSocket.begin() ; iter != connectSocket.end() ; iter++)
     {
         if (index == socketId)
@@ -105,4 +118,16 @@ void GameServer::disconnectClient(Ref* pdata)
         }
         index++;
     }
+}
+
+//发送新玩家坐标广播
+void GameServer::sendNewPlayerPos(Ref* pos)
+{
+    int sendPlayerId = ((char*)(pos))[0]-48;
+    connectSocket[sendPlayerId]->connectSocket->Send((char*)pos,strlen((char*)pos));
+}
+//关联往所有socket发送广播
+void GameServer::sendGameMsg(Ref* pdata)
+{
+
 }

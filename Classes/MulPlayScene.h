@@ -40,6 +40,7 @@ public:
 
 private:
     int playerNum;
+    int bookPlayer[6];
 
 };
 #endif

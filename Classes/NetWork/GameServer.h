@@ -22,9 +22,15 @@ public:
     ~GameServer();
     virtual bool init();
     CREATE_FUNC(GameServer);
+    //服务器初始化
     void resetServer();
-    static void sendGameMsg();
+    //往所有服务器发送新玩家坐标广播
+    void sendNewPlayerPos(Ref* pos);
+    //往所有服务器发送广播
+    void sendGameMsg(Ref* pdata);
+    //断线检测
     void disconnectClient(Ref* pdata);
+    //循环接受服务端消息
     static void recvGameMsg(playerClient* newPlayer);
 
 private:

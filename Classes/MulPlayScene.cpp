@@ -5,11 +5,14 @@
 #include "NetWork/GameServer.h"
 #include "MulPlayScene.h"
 #include <thread>
+#include <cstring>
+#include <string>
 USING_NS_CC;
 
 MulPlayScene::MulPlayScene()
 {
     this->playerNum = 0;
+    memset(this->bookPlayer,0,sizeof(this->bookPlayer));
 }
 
 MulPlayScene::~MulPlayScene()
@@ -90,10 +93,12 @@ void MulPlayScene::serverStart(GameServer* playerGameServer)
     playerGameServer = new GameServer();
     playerGameServer->retain();
 }
+//关联客户端玩家发送信息的广播
 void MulPlayScene::recvServer(Ref* playerAction)
 {
     log("%s",playerAction);
 }
+//关联新增玩家的广播
 void MulPlayScene::serverAddNewPlayer(Ref* newPlayer)
 {
     int index = 0;
@@ -102,16 +107,39 @@ void MulPlayScene::serverAddNewPlayer(Ref* newPlayer)
         if (index == playerNum)
         {
             player->setPlayerServerPos();
+            //这里需要向新玩家老玩家坐标
+            /*
+            for (int i = 0 ; i < 6 ; i++)
+            {
+                log("%d",this->bookPlayer[i]);
+            }
+            */
+            //这里需要往已经存在的玩家发送新玩家坐标
+            std::string posX = Value(player->getPositionX()).asString();
+            std::string posY = Value(player->getPositionY()).asString();
+
+            for (int i = 0 ; i < 6 ; i++)
+            {
+                std::string id = Value(i).asString();
+                if (this->bookPlayer[i] == 1)
+                {
+                    std::string sendPosMsg = id +"add"+',' + posX+','+posY;
+                    NotificationCenter::getInstance()->postNotification("sendNewPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+                }
+            }
             break;
         }
         index++;
     }
+    this->bookPlayer[atoi((char*)newPlayer)] = 1;
     this->playerNum++;
 }
 
+//关联删除玩家的广播
 void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
 {
     int playerId = atoi((char*)delPlayer);
+    this->bookPlayer[playerId] = 0;
     int index = 0;
     for (auto player : this->playerTankmanager->returnPlayerTankManager())
     {
