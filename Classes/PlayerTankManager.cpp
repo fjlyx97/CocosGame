@@ -1,7 +1,9 @@
 #include "PlayerTankManager.h"
+#include "time.h"
 
 bool PlayerTankManager::init()
 {
+    srand((int)time(0));
     return true;
 }
 
@@ -19,7 +21,7 @@ void PlayerTankManager::addNewPlayer()
 {
     auto player = Player::create();
     player->bindSprite(Sprite::create("Q版坦克素材/plane1.png"));
-    player->setPosition(200,100);
+    player->setPosition(CCRANDOM_0_1()*400,100);
     player->setPlayerScale(0.15);
     player->setPlayerPos(player->getPosition());
     this->addChild(player);

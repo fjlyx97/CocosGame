@@ -2,6 +2,7 @@
 
 Player::Player()
 {
+    this->playerBulletStyle = "Q版坦克素材/bullet/bullet7.png";
     this->playerSpeedX = 0;
     this->playerSpeedY = 0;
     this->playerRotation = 0;
@@ -46,7 +47,7 @@ void Player::actionPlayer(EventKeyboard::KeyCode key , bool isMove)
 {
     if (key == EventKeyboard::KeyCode::KEY_J && isMove)
     {
-        this->playerBulletManager->addNewBullet(this->playerRotation,this->playerX,this->playerY);
+        this->playerBulletManager->addNewBullet(this->playerRotation,this->playerX,this->playerY,this->playerBulletStyle);
     }
     else
     {
@@ -91,24 +92,34 @@ void Player::update(float dt)
         this->playerX += this->playerSpeedX;
         this->playerY += this->playerSpeedY;
         this->setPosition(this->playerX,this->playerY);
-        if(this->getPositionX() > visibleSize.width)
+
+        if(this->getPositionX() > visibleSize.width + 20 || this->getPositionX() < 10 || this->getPositionY() > (visibleSize.height) || this->getPositionY() < 10)
         {
-            this->setPosition(Vec2(0,this->getPositionY()));
+            if(this->getPositionX() > visibleSize.width + 20)
+            {
+                this->playerX = 10;
+                this->setPosition(Vec2(10,this->getPositionY()));
+            }
+            if(this->getPositionX() < 10)
+            {
+            
+                this->playerX = visibleSize.width + 20;
+                this->setPosition(Vec2(visibleSize.width + 20,this->getPositionY()));
+            }
+            if(this->getPositionY() > visibleSize.height)
+            {
+                this->playerY = 10;
+                this->setPosition(Vec2(this->getPositionX(),10));
+            }
+            if(this->getPositionY() < 10)
+            {
+                this->playerY = visibleSize.height;
+                this->setPosition(Vec2(this->getPositionX(),visibleSize.height));
+            }  
         }
-        if(this->getPositionX() < 0)
-        {
-            this->setPosition(Vec2(visibleSize.width + 30,this->getPositionY()));
-        }
-        if(this->getPositionY() > visibleSize.height)
-        {
-            this->setPosition(Vec2(this->getPositionX(),0));
-        }
-        if(this->getPositionY() < 0)
-        {
-            this->setPosition(Vec2(this->getPositionX(),visibleSize.height));
-        }  
     }
 }
+
 
 BulletManager* Player::returnBulletManager()
 {

@@ -11,7 +11,7 @@ class BulletManager : public Node
 public:
     BulletManager();
     ~BulletManager();
-    void addNewBullet(double bulletRotation,double posX , double posY);
+    void addNewBullet(double bulletRotation,double posX , double posY,char* path);
     void recvBulletMessage(Ref* data);
     friend class CollisionDetection;
 

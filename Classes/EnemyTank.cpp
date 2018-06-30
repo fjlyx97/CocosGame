@@ -2,6 +2,7 @@
 
 EnemyTank::EnemyTank()
 {
+    this->enemyTankBulletStyle = "Q版坦克素材/bullet/bullet5.png";
     enemyBulletManager = new BulletManager();
     this->enemyRotation = 0;
     this->enemyIsAlive = false;
@@ -50,26 +51,26 @@ void EnemyTank::TankMove(float ft)
 {   
     auto visibleSize = Director::getInstance()->getVisibleSize();
 
-    if(this->getPositionX() > visibleSize.width || this->getPositionX() < 0|| this->getPositionY() > (visibleSize.height - 10 ) || this->getPositionY() < 0)
+    if(this->getPositionX() > visibleSize.width + 10 || this->getPositionX() < 10 || this->getPositionY() > (visibleSize.height - 10 ) || this->getPositionY() < 10)
     {
      //   MoveTo* moveto = MoveTo::create(10,Vec2(visibleSize.width/2,visibleSize.height/2));
      //  this->runAction(moveto);
       //  this->setPosition(this->playerX,this->playerY);
-        if(this->getPositionX() > visibleSize.width)
+        if(this->getPositionX() > visibleSize.width + 10)
         {
-            this->setPosition(Vec2(0,this->getPositionY()));
+            this->setPosition(Vec2(10,this->getPositionY()));
         }
-        if(this->getPositionX() < 0)
+        if(this->getPositionX() < 10)
         {
-            this->setPosition(Vec2(visibleSize.width,this->getPositionY()));
+            this->setPosition(Vec2(visibleSize.width + 10,this->getPositionY()));
         }
-        if(this->getPositionY() > visibleSize.height)
+        if(this->getPositionY() > visibleSize.height - 10)
         {
-            this->setPosition(Vec2(this->getPositionX(),0));
+            this->setPosition(Vec2(this->getPositionX(),10));
         }
-        if(this->getPositionY() < 0)
+        if(this->getPositionY() < 10)
         {
-            this->setPosition(Vec2(this->getPositionX(),visibleSize.height));
+            this->setPosition(Vec2(this->getPositionX(),visibleSize.height - 10));
         } 
         return;
     }
@@ -112,7 +113,7 @@ void EnemyTank::TankMove(float ft)
     }
     if(CCRANDOM_0_1() < 0.6)
     {
-        this->enemyBulletManager->addNewBullet(this->enemyRotation,this->getPositionX(),this->getPositionY());
+        this->enemyBulletManager->addNewBullet(this->enemyRotation,this->getPositionX(),this->getPositionY(),enemyTankBulletStyle);
     }
     return;
 }

@@ -12,19 +12,19 @@ BulletManager::~BulletManager()
 
 }
 
-void BulletManager::addNewBullet(double bulletRotation , double posX , double posY)
+void BulletManager::addNewBullet(double bulletRotation , double posX , double posY,char* path)
 {
     //初始化新子弹
     //log("%d",maxBulletNum);
     if (BulletNum <= maxBulletNum)
     {
         auto newBullet = Bullet::create();
-        newBullet->bindSprite(Sprite::create("Q版坦克素材/bullet/bullet1.png"));
+        newBullet->bindSprite(Sprite::create(path));
         newBullet->setBulletPos(posX,posY);
         newBullet->setRotation(bulletRotation);
         newBullet->setBulletSpeed(bulletRotation,2);
         newBullet->setPosition(posX,posY);
-        //newBullet->setScale(1.2);
+        newBullet->setScale(0.5);
         //log ("%.2f %.2f" , newBullet->getSprite()->getBoundingBox().size.width, newBullet->getSprite()->getBoundingBox().size.height);
         this->BulletNum++;
         playerBullet.pushBack(newBullet);
