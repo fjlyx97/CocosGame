@@ -165,8 +165,8 @@ void HelloWorld::menuMultiBeginGame()
         std::string ip = ipEditBox->getText();
         std::string port = portEditBox->getText();
         std::string sendmsg = ip+' '+port;
-        Director::getInstance()->replaceScene(mulBeginGameScene);
         NotificationCenter::getInstance()->postNotification("sendIp",(Ref*)((char*)sendmsg.data()));
+        Director::getInstance()->replaceScene(mulBeginGameScene);
     });
     createMenuLabelItem->setName("createMenuLabelItem");
 
@@ -177,8 +177,8 @@ void HelloWorld::menuMultiBeginGame()
         std::string ip = ipEditBox->getText();
         std::string port = portEditBox->getText();
         std::string sendmsg = ip+' '+port;
-        Director::getInstance()->replaceScene(mulBeginGameScene);
         NotificationCenter::getInstance()->postNotification("sendIp",(Ref*)((char*)sendmsg.data()));
+        Director::getInstance()->replaceScene(mulBeginGameScene);
     });
     connectMenuLabelItem->setName("connectMenuLabelItem");
 

@@ -19,8 +19,8 @@ GameServer::GameServer()
     //初始化玩家断线观察者
     NotificationCenter::getInstance()->addObserver(
             this,
-            callfuncO_selector(GameServer::getIP),
-            "sendIp",
+            callfuncO_selector(GameServer::disconnectClient),
+            "playerDisconnect",
             NULL);
     
     //初始化发送玩家位置观察者
@@ -146,5 +146,5 @@ void GameServer::sendGameMsg(Ref* pdata)
 void GameServer::sendOldPlayer(Ref* pdata)
 {
     //此处发送数据，代码待编写
-
+    log("%s",pdata);
 }

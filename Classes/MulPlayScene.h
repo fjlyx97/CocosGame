@@ -29,6 +29,8 @@ public:
     void serverAddNewPlayer(Ref* newPlayer);
     void serverDeletePlayer(Ref* delPlayer);
 
+    //不断发送服务器信息
+    void update(float dt);
     //玩家子弹管理器
     BulletManager* playerBulletmanager;
     //敌人子弹管理器
