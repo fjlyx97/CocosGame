@@ -87,7 +87,7 @@ void Player::update(float dt)
     //log("updating");
     if (this->playerIsMove)
     {
-    //    auto visibleSize = Director::getInstance()->getVisibleSize();
+        auto visibleSize = Director::getInstance()->getVisibleSize();
         this->playerX += this->playerSpeedX;
         this->playerY += this->playerSpeedY;
         this->setPosition(this->playerX,this->playerY);

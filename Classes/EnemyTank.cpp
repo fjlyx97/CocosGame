@@ -50,10 +50,27 @@ void EnemyTank::TankMove(float ft)
 {   
     auto visibleSize = Director::getInstance()->getVisibleSize();
 
-    if(this->getPositionX() > visibleSize.width || this->getPositionX() < 0|| this->getPositionY() > (visibleSize.height - 20) || this->getPositionY() < 30)
+    if(this->getPositionX() > visibleSize.width || this->getPositionX() < 0|| this->getPositionY() > (visibleSize.height - 10 ) || this->getPositionY() < 0)
     {
-        MoveTo* moveto = MoveTo::create(10,Vec2(visibleSize.width/2,visibleSize.height/2));
-        this->runAction(moveto);
+     //   MoveTo* moveto = MoveTo::create(10,Vec2(visibleSize.width/2,visibleSize.height/2));
+     //  this->runAction(moveto);
+      //  this->setPosition(this->playerX,this->playerY);
+        if(this->getPositionX() > visibleSize.width)
+        {
+            this->setPosition(Vec2(0,this->getPositionY()));
+        }
+        if(this->getPositionX() < 0)
+        {
+            this->setPosition(Vec2(visibleSize.width,this->getPositionY()));
+        }
+        if(this->getPositionY() > visibleSize.height)
+        {
+            this->setPosition(Vec2(this->getPositionX(),0));
+        }
+        if(this->getPositionY() < 0)
+        {
+            this->setPosition(Vec2(this->getPositionX(),visibleSize.height));
+        } 
         return;
     }
     else 
@@ -63,28 +80,28 @@ void EnemyTank::TankMove(float ft)
         switch(EnemyTank::crashWall())
         {
             case 1:
-                speed = 40;
+                speed = 20;
                 this->setRotation(90);
                 this->enemyRotation = 90;
                 movebyX = MoveBy::create(1.0f,Vec2(speed,0));
                 this->runAction(movebyX);
                 break;
             case 2:
-                speed = -40;
+                speed = -20;
                 this->setRotation(270);
                 this->enemyRotation = 270;
                 movebyX = MoveBy::create(1.0f,Vec2(speed,0));
                 this->runAction(movebyX);
                 break;
             case 3:
-                speed = 40;
+                speed = 20;
                 this->setRotation(0);
                 this->enemyRotation = 0;
                 movebyY = MoveBy::create(1.0f,Vec2(0,speed));
                 this->runAction(movebyY);
                 break;
             case 4:
-                speed = -40;
+                speed = -20;
                 this->setRotation(180);
                 this->enemyRotation = 180;
                 movebyY = MoveBy::create(1.0f,Vec2(0,speed));
