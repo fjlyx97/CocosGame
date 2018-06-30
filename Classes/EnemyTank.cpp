@@ -95,7 +95,7 @@ void EnemyTank::TankMove(float ft)
         }
     }
     if(CCRANDOM_0_1() < 0.6)
-    {testSocket
+    {
         this->enemyBulletManager->addNewBullet(this->enemyRotation,this->getPositionX(),this->getPositionY());
     }
     return;

@@ -25,6 +25,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "PlayScene.h"
+#include "MulPlayScene.h"
 
 USING_NS_CC;
 
@@ -171,6 +172,8 @@ void HelloWorld::menuMultiBeginGame()
     netWorkMenu->setPosition(Vec2(visibleSize.width/2+95,visibleSize.height/2-80));
     this->addChild(netWorkMenu,6);
 
+    auto mulBeginGameScene = MulPlayScene::create();
+    Director::getInstance()->replaceScene(mulBeginGameScene);
     log("%s",ipEditBox->getText());
     log("%s",portEditBox->getText());
 }
