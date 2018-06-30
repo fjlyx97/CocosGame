@@ -34,6 +34,7 @@ public:
     //获得子弹管理器
     BulletManager* returnBulletManager();
 private:
+    char* playerBulletStyle;
     //横纵速度
     double playerSpeedX;
     double playerSpeedY;

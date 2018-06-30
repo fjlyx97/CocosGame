@@ -23,12 +23,14 @@ public:
     CREATE_FUNC(EnemyTank);
 
 private:
+    char* enemyTankBulletStyle;
     double speed;
     double enemyRotation;
     bool enemyIsAlive;
     double enemyPositionX;
     double enemyPositionY;
     char enemyDir; //判断当前坦克对准的方向，wsad分别对应
+    //获得子弹管理器
     BulletManager*  enemyBulletManager;
 };
 
