@@ -52,8 +52,10 @@ void CollisionDetection::update(float dt)
                     player->returnBulletManager()->BulletNum -= 1;
 
                     //被击中的坦克重新初始化位置
-                    
                     enemy->reset();
+                    enemy->returnBulletManager()->playerBullet.clear();
+                    //enemy->returnBulletManager()->BulletNum -= 1;
+                    
                     return;
                 }
             }
