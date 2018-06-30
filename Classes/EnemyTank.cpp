@@ -14,6 +14,7 @@ EnemyTank::~EnemyTank()
 
 bool EnemyTank::init()
 {
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
     this->schedule(schedule_selector(EnemyTank::TankMove),1,999,0);
     return true;
 }
@@ -48,7 +49,7 @@ int EnemyTank::crashWall()
     return state;
 }
 void EnemyTank::TankMove(float ft)
-{   
+{
     auto visibleSize = Director::getInstance()->getVisibleSize();
 
     if(this->getPositionX() > visibleSize.width + 10 || this->getPositionX() < 10 || this->getPositionY() > (visibleSize.height - 10 ) || this->getPositionY() < 10)
@@ -74,8 +75,8 @@ void EnemyTank::TankMove(float ft)
         } 
         return;
     }
-    else 
-    {   
+    else
+    {
         MoveBy* movebyX;
         MoveBy* movebyY;
         switch(EnemyTank::crashWall())

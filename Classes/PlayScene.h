@@ -7,6 +7,7 @@
 #include "EnemyTankManager.h"
 #include "PlayerTankManager.h"
 #include "CollisionDetection.h"
+#include "NetWork/GameServer.h"
 
 using namespace cocos2d::extension;
 USING_NS_CC;
@@ -15,6 +16,8 @@ class PlayScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
+    PlayScene();
+    ~PlayScene();
 
     virtual bool init();
     
@@ -23,10 +26,11 @@ public:
 
     CREATE_FUNC(PlayScene);
 private:
-    bool isSingleGame;
-    bool isMulGame;
+    //敌人管理器
     EnemyTankManager* enemyTank;
+    //玩家管理器
     PlayerTankManager* playerTank;
+    //碰撞管理器
     CollisionDetection* collisionDetectionTank;
 };
 
