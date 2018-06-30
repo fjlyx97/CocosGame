@@ -28,33 +28,42 @@ GameServer::GameServer()
     log("开始监听端口");
     while (true)
     {
-        log("监听端口成功");
         log("当前监听端口为：%d",this->port);
         ODSocket* clientSocket = new ODSocket;
         if (mSocket->Accept(*clientSocket,ip))
         {
-            connectSocket.push_back(clientSocket);
-            NotificationCenter::getInstance()->postNotification("addNewPlayer",NULL);
-            std::thread recvThread(GameServer::recvGameMsg,clientSocket,this->currentId);
-            recvThread.detach();
+            log("新玩家连入，id为%d",this->currentId);
+            for (int i = 0 ; i < 6 ; i++)
+            {
+                if (this->bookId[i] == 0)
+                {
+                    this->bookId[i] = 1;
+                    playerClient* newPlayer = new playerClient(clientSocket,i);
+                    connectSocket.push_back(newPlayer);
+                    NotificationCenter::getInstance()->postNotification("addNewPlayer",NULL);
+                    std::thread recvThread(GameServer::recvGameMsg,newPlayer);
+                    recvThread.detach();
+                    break;
+                }
+            }
             this->currentId++;
         }
         //此处似乎有内存泄露
     }
 }
 
-void GameServer::recvGameMsg(ODSocket * clientSocket , int clientId)
+void GameServer::recvGameMsg(playerClient * newPlayer)
 {
     char message[1024];
     while (true)
     {
         memset(message,0,sizeof(message));
-        int status = clientSocket->Recv(message,1024,0);
+        int status = newPlayer->connectSocket->Recv(message,1024,0);
         if (status == 0)
         {
-            log("客户端已经断开");
+            //log("客户端已经断开");
             char disconnectMsg[2];
-            disconnectMsg[0] = clientId+'0';
+            disconnectMsg[0] = newPlayer->id+'0';
             disconnectMsg[1] = '\0';
             NotificationCenter::getInstance()->postNotification("playerDisconnect",(Ref*)disconnectMsg);
             break;
@@ -68,13 +77,14 @@ GameServer::~GameServer()
     this->mSocket->Clean();
     for (auto socket : connectSocket)
     {
-        delete socket;
+        delete socket->connectSocket;
     }
 }
 void GameServer::resetServer()
 {
     this->currentId = 0;
     this->port = 8000;
+    memset(this->bookId,0,sizeof(this->bookId));
     strcpy(ip,"localhost");
 }
 
@@ -82,13 +92,14 @@ void GameServer::disconnectClient(Ref* pdata)
 {
     int socketId = atoi((char*)pdata);
     int index = 0;
-    std::vector<ODSocket*>::iterator iter;
+    std::vector<playerClient*>::iterator iter;
     for (iter = connectSocket.begin() ; iter != connectSocket.end() ; iter++)
     {
         if (index == socketId)
         {
             connectSocket.erase(iter);
-            this->currentId--;
+            log("当前%d玩家退出",socketId);
+            bookId[socketId] = 0;
             break;
         }
         index++;

@@ -9,7 +9,7 @@ USING_NS_CC;
 
 MulPlayScene::MulPlayScene()
 {
-
+    this->playerNum = 0;
 }
 
 MulPlayScene::~MulPlayScene()
@@ -27,7 +27,6 @@ bool MulPlayScene::init()
     {
         return false;
     }
-    log("开启监听");
     //初始化游戏背景
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -40,6 +39,26 @@ bool MulPlayScene::init()
     {
         background_image->setPosition(Vec2(visibleSize.width/2,visibleSize.height/2));
         this->addChild(background_image);
+    }
+    //创建怪物管理器
+    enemyTankmanager = EnemyTankManager::create();
+    //创建人物管理器
+    playerTankmanager = PlayerTankManager::create();
+    //初始化碰撞检测管理器
+    collisionDetectionTank = CollisionDetection::create();
+    collisionDetectionTank->bindEnemyTankManager(enemyTankmanager);
+    collisionDetectionTank->bindPlayerTankManager(playerTankmanager);
+    this->addChild(enemyTankmanager,10);
+    this->addChild(playerTankmanager,10);
+    this->addChild(collisionDetectionTank,10);
+    //初始化服务器端玩家坦克
+    for (int i = 1 ; i <= 6 ; i++)
+    {
+        playerTankmanager->addNewPlayer();
+    }
+    for (auto player : playerTankmanager->returnPlayerTankManager())
+    {
+        player->setPlayerHidePos();
     }
 
     std::thread server(MulPlayScene::serverStart,this->playerGameServer);
@@ -71,6 +90,15 @@ void MulPlayScene::recvServer(Ref* playerAction)
 }
 void MulPlayScene::serverAddNewPlayer(Ref* newPlayer)
 {
-    //playerTank->recvKey(EventKeyboard::KeyCode::KEY_W,true,0);
-    //this->playerTank->addNewPlayer();
+    int index = 0;
+    for (auto player : playerTankmanager->returnPlayerTankManager())
+    {
+        if (index == playerNum)
+        {
+            player->setPlayerServerPos();
+            break;
+        }
+        index++;
+    }
+    this->playerNum++;
 }

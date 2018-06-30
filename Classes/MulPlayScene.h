@@ -26,10 +26,19 @@ public:
     void recvServer(Ref* playerAction);
     void serverAddNewPlayer(Ref* newPlayer);
 
+    //敌人管理器
+    EnemyTankManager* enemyTankmanager;
+    //玩家管理器
+    PlayerTankManager* playerTankmanager;
+    //碰撞管理器
+    CollisionDetection* collisionDetectionTank;
     //网络管理器
     GameServer* playerGameServer;
 
     CREATE_FUNC(MulPlayScene);
+
+private:
+    int playerNum;
 
 };
 #endif

@@ -13,10 +13,13 @@ public:
     virtual bool init();
     CREATE_FUNC(PlayerTankManager);
 
+
     void addNewPlayer();
     void recvKey(EventKeyboard::KeyCode keyCode , bool isMove , int playerIndex);
+    Vector<Player*> returnPlayerTankManager();
+
     //实现碰撞的友元类
-    friend class CollisionDetection;
+    //friend class CollisionDetection;
 
 
 private:

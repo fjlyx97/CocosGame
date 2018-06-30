@@ -41,3 +41,8 @@ void PlayerTankManager::recvKey(EventKeyboard::KeyCode keyCode , bool isMove , i
         index++;
     }
 }
+
+Vector<Player*> PlayerTankManager::returnPlayerTankManager()
+{
+    return this->myPlayer;
+}

@@ -73,6 +73,6 @@ void PlayScene::onKeyPressed(EventKeyboard::KeyCode keyCode ,Event * event)
 
 void PlayScene::onKeyReleased(EventKeyboard::KeyCode keyCode ,Event * event)
 {
-    this->playerTank->recvKey(keyCode,false,0);
+    this->playerTank->recvKey(EventKeyboard::KeyCode::KEY_0,false,0);
 }
 

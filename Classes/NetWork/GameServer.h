@@ -5,6 +5,16 @@
 #include <vector>
 #include <string>
 USING_NS_CC;
+struct playerClient
+{
+    ODSocket* connectSocket;
+    int id;
+    playerClient(ODSocket* s , int clientId)
+    {
+        connectSocket = s;
+        id = clientId;
+    }
+};
 class GameServer : public Ref
 {
 public:
@@ -15,12 +25,13 @@ public:
     void resetServer();
     static void sendGameMsg();
     void disconnectClient(Ref* pdata);
-    static void recvGameMsg(ODSocket* clientSocket , int clientId);
+    static void recvGameMsg(playerClient* newPlayer);
 
 private:
     ODSocket* mSocket;
     int currentId;
-    std::vector<ODSocket*> connectSocket;
+    int bookId[6];
+    std::vector<playerClient*> connectSocket;
     char ip[101];
     int port;
 };
