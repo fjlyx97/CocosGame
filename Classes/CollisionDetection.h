@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "EnemyTankManager.h"
 #include "PlayerTankManager.h"
+#include "EnemyTank.h"
 
 USING_NS_CC;
 
