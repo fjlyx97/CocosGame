@@ -10,9 +10,14 @@ public:
     GameClient();
     ~GameClient();
     virtual bool init();
+    void connectServer(Ref* pdata);
     CREATE_FUNC(GameClient);
+    void resetClient();
 
 private:
+    ODSocket* mSocket;
+    char ip[101];
+    int port;
 
 };
 #endif

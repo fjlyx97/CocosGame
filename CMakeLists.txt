@@ -66,6 +66,7 @@ list(APPEND GAME_SOURCE
      Classes/PlayerTankManager.cpp
      Classes/CollisionDetection.cpp
      Classes/MulPlayScene.cpp
+     Classes/MulPlayClientScene.cpp
      #引入网络模块
      Classes/ODSocket/stdafx.cpp
      Classes/ODSocket/ODSocket.cpp
@@ -85,6 +86,7 @@ list(APPEND GAME_HEADER
      Classes/PlayerTankManager.h
      Classes/CollisionDetection.h
      Classes/MulPlayScene.h
+     Classes/MulPlayClientScene.h
      #引入网络模块
      Classes/ODSocket/ODSocket.h
      Classes/ODSocket/stdafx.h

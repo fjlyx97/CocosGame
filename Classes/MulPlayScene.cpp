@@ -88,6 +88,52 @@ bool MulPlayScene::init()
     return true;
 }
 
+void MulPlayScene::sendPosition()
+{
+    int index = 0;
+    std::string posX,posY,sendPosMsg;
+    for(auto otherPlayer : playerTankmanager->returnPlayerTankManager())
+    {   
+        posX = otherPlayer->getPositionX();
+        posY = otherPlayer->getPositionY();
+        std::string id = Value(index).asString();
+        sendPosMsg = id + "addPlayer" + "," + posX + "," + posY + '\n';
+        index++;
+        //NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+    }
+    index = 0;
+    for(auto enemy : enemyTankmanager->returnEnemyTankManager())
+    {
+        posX = enemy->getPositionX();
+        posY = enemy->getPositionY();
+        std::string id = Value(index).asString();
+        sendPosMsg = id + "addEnemy" + "," + posX + "," + posY + '\n';
+        index++;
+        //NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+    }
+    index = 0;
+    for(auto playerbullet : playerBulletmanager->returnPlayerBullet())
+    {
+        posX = playerbullet->getPositionX();
+        posY = playerbullet->getPositionY();
+        std::string id = Value(index).asString();
+        sendPosMsg = id + "addPlayerBullet" + "," + posX + "," + posY + '\n';
+        index++;
+        //NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+    }
+    index = 0;
+    for(auto enemybullet : enemyBulletmanager->returnPlayerBullet())
+    {
+        posX = enemybullet->getPositionX();
+        posY = enemybullet->getPositionY();
+        std::string id = Value(index).asString();
+        sendPosMsg = id + "addEnemyBullet" + "," + posX + "," + posY + '\n';
+        index++;
+        //NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+    }
+    
+}
+
 void MulPlayScene::serverStart(GameServer* playerGameServer)
 {
     playerGameServer = new GameServer();
@@ -132,7 +178,7 @@ void MulPlayScene::serverAddNewPlayer(Ref* newPlayer)
                 if (this->bookPlayer[i] == 1)
                 {
                     //格式在这里
-                    std::string sendPosMsg = id +"add"+',' + posX+','+posY;
+                    std::string sendPosMsg = id +"add"+',' + posX+','+posY+'\n';
                     NotificationCenter::getInstance()->postNotification("sendNewPlayerPos",(Ref*)((char*)sendPosMsg.data()));
                 }
             }

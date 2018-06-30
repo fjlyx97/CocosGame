@@ -20,6 +20,8 @@ public:
     ~MulPlayScene();
     virtual bool init();
 
+    //发送坐标
+    void sendPosition();
     //开始服务器
     static void serverStart(GameServer* playerGameServer);
     //接受服务器消息
@@ -27,6 +29,10 @@ public:
     void serverAddNewPlayer(Ref* newPlayer);
     void serverDeletePlayer(Ref* delPlayer);
 
+    //玩家子弹管理器
+    BulletManager* playerBulletmanager;
+    //敌人子弹管理器
+    BulletManager* enemyBulletmanager;
     //敌人管理器
     EnemyTankManager* enemyTankmanager;
     //玩家管理器

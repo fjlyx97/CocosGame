@@ -26,6 +26,8 @@
 #include "SimpleAudioEngine.h"
 #include "PlayScene.h"
 #include "MulPlayScene.h"
+#include "MulPlayClientScene.h"
+#include "string"
 
 USING_NS_CC;
 
@@ -156,12 +158,30 @@ void HelloWorld::menuMultiBeginGame()
     this->addChild(portEditBox,5);
     
     //生成联机菜单
+    //创建服务器
     auto createMenuLabel = Label::createWithTTF("Create", "fonts/Marker Felt.ttf", 20);
-    auto createMenuLabelItem = MenuItemLabel::create(createMenuLabel,CC_CALLBACK_0(HelloWorld::menuSingleBeginGame,this));
+    auto createMenuLabelItem = MenuItemLabel::create(createMenuLabel,[=](Ref* sender){
+        auto mulBeginGameScene = MulPlayScene::create();
+        std::string ip = ipEditBox->getText();
+        std::string port = portEditBox->getText();
+        std::string sendmsg = ip+' '+port;
+        Director::getInstance()->replaceScene(mulBeginGameScene);
+        NotificationCenter::getInstance()->postNotification("sendIp",(Ref*)((char*)sendmsg.data()));
+    });
     createMenuLabelItem->setName("createMenuLabelItem");
+
+    //连接服务器
     auto connectMenuLabel = Label::createWithTTF("Connect", "fonts/Marker Felt.ttf", 20);
-    auto connectMenuLabelItem = MenuItemLabel::create(connectMenuLabel,CC_CALLBACK_0(HelloWorld::menuSingleBeginGame,this));
+    auto connectMenuLabelItem = MenuItemLabel::create(connectMenuLabel,[=](Ref* sender){
+        auto mulBeginGameScene = MulPlayClientScene::create();
+        std::string ip = ipEditBox->getText();
+        std::string port = portEditBox->getText();
+        std::string sendmsg = ip+' '+port;
+        Director::getInstance()->replaceScene(mulBeginGameScene);
+        NotificationCenter::getInstance()->postNotification("sendIp",(Ref*)((char*)sendmsg.data()));
+    });
     connectMenuLabelItem->setName("connectMenuLabelItem");
+
     auto backMenuLabel = Label::createWithTTF("Back", "fonts/Marker Felt.ttf", 20);
     auto backMenuLabelItem = MenuItemLabel::create(backMenuLabel,CC_CALLBACK_0(HelloWorld::backCallback,this));
     backMenuLabelItem->setName("backMenuLabelItem");
@@ -171,11 +191,6 @@ void HelloWorld::menuMultiBeginGame()
     netWorkMenu->alignItemsHorizontallyWithPadding(15);
     netWorkMenu->setPosition(Vec2(visibleSize.width/2+95,visibleSize.height/2-80));
     this->addChild(netWorkMenu,6);
-
-    auto mulBeginGameScene = MulPlayScene::create();
-    Director::getInstance()->replaceScene(mulBeginGameScene);
-    log("%s",ipEditBox->getText());
-    log("%s",portEditBox->getText());
 }
 
 void HelloWorld::backCallback()
@@ -186,12 +201,7 @@ void HelloWorld::backCallback()
     ipEditBox->removeFromParent();
     auto portEditBox = this->getChildByName("portEditBox");
     portEditBox->removeFromParent();
-    //auto createMenuLabelItem = this->getChildByName("createMenuLabelItem");
-    //createMenuLabelItem->removeFromParent();
-    //auto connectMenuLabelItem = this->getChildByName("connectMenuLabelItem");   
-    //connectMenuLabelItem->removeFromParent();
-    //auto backMenuLabelItem = this->getChildByName("backMenuLabelItem");
-    //backMenuLabelItem->removeFromParent();
     auto netWorkMenu = this->getChildByName("netWorkMenu");
     netWorkMenu->removeFromParent();
 }
+

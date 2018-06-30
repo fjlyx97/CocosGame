@@ -10,6 +10,7 @@ bool GameServer::init()
 
 GameServer::GameServer()
 {
+    //初始化监听IP，端口
     resetServer();
     this->mSocket = new ODSocket();
     this->mSocket->Init();
@@ -18,8 +19,8 @@ GameServer::GameServer()
     //初始化玩家断线观察者
     NotificationCenter::getInstance()->addObserver(
             this,
-            callfuncO_selector(GameServer::disconnectClient),
-            "playerDisconnect",
+            callfuncO_selector(GameServer::getIP),
+            "sendIp",
             NULL);
     
     //初始化发送玩家位置观察者
@@ -34,7 +35,6 @@ GameServer::GameServer()
             callfuncO_selector(GameServer::sendOldPlayer),
             "sendOldPlayerPos",
             NULL);
-
 
     if (!(this->mSocket->Listen(6)))
     {
@@ -68,6 +68,11 @@ GameServer::GameServer()
         }
         //此处似乎有内存泄露
     }
+}
+
+void GameServer::getIP(Ref* data)
+{
+    log("%s",(char*)data);
 }
 
 void GameServer::recvGameMsg(playerClient * newPlayer)
