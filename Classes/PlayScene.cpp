@@ -3,11 +3,22 @@
 #include "Entity.h"
 #include "EnemyTankManager.h"
 #include "HelloWorldScene.h"
+#include "NetWork/GameServer.h"
+#include <thread>
 USING_NS_CC;
 
 Scene* PlayScene::createScene()
 {
     return PlayScene::create();
+}
+
+PlayScene::PlayScene()
+{
+}
+
+PlayScene::~PlayScene()
+{
+    
 }
 
 bool PlayScene::init()
@@ -36,9 +47,6 @@ bool PlayScene::init()
     listener->onKeyPressed = CC_CALLBACK_2(PlayScene::onKeyPressed,this);
     listener->onKeyReleased = CC_CALLBACK_2(PlayScene::onKeyReleased,this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener,this);
-    // 初始化场景
-    isSingleGame = false;
-    isMulGame = true;
     //创建怪物管理器
     enemyTank = EnemyTankManager::create();
     //创建人物管理器
@@ -48,21 +56,13 @@ bool PlayScene::init()
     this->addChild(enemyTank,10);
     this->addChild(playerTank,10);
     this->addChild(collisionDetectionTank,10);
+
     //初始化本地坦克
     playerTank->addNewPlayer();
     //绑定我方坦克
     collisionDetectionTank->bindPlayerTankManager(playerTank);
     //绑定敌方坦克
     collisionDetectionTank->bindEnemyTankManager(enemyTank);
-
-    if (isSingleGame)
-    {
-
-    }
-    else if (isMulGame)
-    {
-    }
-
     return true;
 }
 
@@ -75,3 +75,4 @@ void PlayScene::onKeyReleased(EventKeyboard::KeyCode keyCode ,Event * event)
 {
     this->playerTank->recvKey(keyCode,false,0);
 }
+

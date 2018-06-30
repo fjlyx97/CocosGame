@@ -12,6 +12,7 @@ public:
     CREATE_FUNC(EnemyTankManager);
     virtual bool init();
     friend class CollisionDetection;
+    Vector<EnemyTank*> returnEnemyTankManager();
 
 private:
     void createEnemyTank();             //创建敌方坦克对象

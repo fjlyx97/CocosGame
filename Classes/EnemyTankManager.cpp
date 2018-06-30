@@ -39,3 +39,7 @@ void EnemyTankManager::createEnemyTank()
         enemyTankArr.pushBack(enemyTank);
     }
 }
+Vector<EnemyTank*> EnemyTankManager::returnEnemyTankManager()
+{
+    return this->enemyTankArr;
+}

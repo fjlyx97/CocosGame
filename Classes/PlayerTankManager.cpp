@@ -20,8 +20,11 @@ PlayerTankManager::~PlayerTankManager()
 void PlayerTankManager::addNewPlayer()
 {
     auto player = Player::create();
+    auto visibleSize = Director::getInstance()->getVisibleSize();
     player->bindSprite(Sprite::create("Q版坦克素材/plane1.png"));
+
     player->setPosition(CCRANDOM_0_1()*400,100);
+
     player->setPlayerScale(0.15);
     player->setPlayerPos(player->getPosition());
     this->addChild(player);
@@ -41,4 +44,9 @@ void PlayerTankManager::recvKey(EventKeyboard::KeyCode keyCode , bool isMove , i
         }
         index++;
     }
+}
+
+Vector<Player*> PlayerTankManager::returnPlayerTankManager()
+{
+    return this->myPlayer;
 }

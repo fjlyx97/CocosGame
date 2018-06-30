@@ -17,6 +17,10 @@ public:
     void setPlayerScale(float scale);
     //设置玩家速度
     void setPlayerSpeed(float speedX ,float speedY);
+    //设置玩家隐藏初始位置
+    void setPlayerHidePos();
+    //设置玩家服务器端初始位置
+    void setPlayerServerPos();
     //设置玩家初始位置
     void setPlayerPos(Vec2 pos);
     //返回玩家位置

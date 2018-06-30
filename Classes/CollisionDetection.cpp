@@ -29,7 +29,7 @@ void CollisionDetection::bindPlayerTankManager(PlayerTankManager* playerTankMana
 
 void CollisionDetection::update(float dt)
 {
-    for (auto player : playerTankManager->myPlayer)
+    for (auto player : playerTankManager->returnPlayerTankManager())
     {
         for (auto bullet : player->returnBulletManager()->playerBullet)
         {

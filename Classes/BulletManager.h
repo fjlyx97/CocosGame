@@ -14,6 +14,7 @@ public:
     void addNewBullet(double bulletRotation,double posX , double posY,char* path);
     void recvBulletMessage(Ref* data);
     friend class CollisionDetection;
+    Vector<Bullet*> returnPlayerBullet();
 
 private:
     int maxBulletNum;

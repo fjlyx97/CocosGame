@@ -45,6 +45,7 @@ Vec2 Player::returnPlayerPos()
 
 void Player::actionPlayer(EventKeyboard::KeyCode key , bool isMove)
 {
+    this->setPlayerSpeed(0,0);
     if (key == EventKeyboard::KeyCode::KEY_J && isMove)
     {
         this->playerBulletManager->addNewBullet(this->playerRotation,this->playerX,this->playerY,this->playerBulletStyle);
@@ -124,4 +125,15 @@ void Player::update(float dt)
 BulletManager* Player::returnBulletManager()
 {
     return this->playerBulletManager;
+}
+
+void Player::setPlayerHidePos()
+{
+    this->setPosition(Vec2(-1,-1));
+}
+
+void Player::setPlayerServerPos()
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    this->setPosition(Vec2(CCRANDOM_0_1() * visibleSize.width,CCRANDOM_0_1() * visibleSize.height));
 }

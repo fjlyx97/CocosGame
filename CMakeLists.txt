@@ -65,10 +65,13 @@ list(APPEND GAME_SOURCE
      Classes/BulletManager.cpp
      Classes/PlayerTankManager.cpp
      Classes/CollisionDetection.cpp
+     Classes/MulPlayScene.cpp
+     Classes/MulPlayClientScene.cpp
      #引入网络模块
      Classes/ODSocket/stdafx.cpp
      Classes/ODSocket/ODSocket.cpp
      Classes/NetWork/GameServer.cpp
+     Classes/NetWork/GameClient.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -82,12 +85,15 @@ list(APPEND GAME_HEADER
      Classes/BulletManager.h
      Classes/PlayerTankManager.h
      Classes/CollisionDetection.h
+     Classes/MulPlayScene.h
+     Classes/MulPlayClientScene.h
      #引入网络模块
      Classes/ODSocket/ODSocket.h
      Classes/ODSocket/stdafx.h
      Classes/ODSocket/targetver.h
      Classes/ODSocket/tchar.h
      Classes/NetWork/GameServer.h
+     Classes/NetWork/GameClient.h
      )
 
 if(ANDROID)
