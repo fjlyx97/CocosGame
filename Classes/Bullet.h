@@ -20,6 +20,8 @@ public:
     CREATE_FUNC(Bullet);
     virtual bool init();
 
+    double returnBulletRotation();   
+
     void sendMessage(float dt);
 
     void testMessage(Ref* sender);
@@ -29,5 +31,6 @@ private:
     double bulletPosY;
     double bulletSpeedX;
     double bulletSpeedY;
+    int bulletRotation;
 };
 #endif

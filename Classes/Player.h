@@ -25,6 +25,8 @@ public:
     void setPlayerPos(Vec2 pos);
     //返回玩家位置
     Vec2 returnPlayerPos();
+    //返回玩家角度
+    double returnPlayerRotation();
     //获得按键，操纵玩家
     void actionPlayer(EventKeyboard::KeyCode key , bool isMove);
     //移动玩家

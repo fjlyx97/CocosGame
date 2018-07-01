@@ -51,8 +51,11 @@ bool MulPlayClientScene::init()
     }
     //创建人物管理器
     playerTankmanager = PlayerTankManager::create();
+    //创建怪物管理器
+    //enemyTankmanager = EnemyTankManager::create();
 
-    this->addChild(playerTankmanager);
+    this->addChild(playerTankmanager,10);
+    //this->addChild(enemyTankmanager,10);
     //初始化客户端坦克
     for (int i = 1 ; i <= 6 ; i++)
     {
@@ -102,8 +105,10 @@ void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
     char cmd[20];
     char strPosX[20];
     char strPosY[20];
+    char strRotation[20];
     int posX;
     int posY;
+    int rotation;
     int roleIndex = Info[0] - '0';
     int i;
     int index = 0;
@@ -137,12 +142,27 @@ void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
     index = 0;
     for ( ; i < strlen(Info) ; i++)
     {
+        if (Info[i] != ',')
+        {
+            strRotation[index++] = Info[i];
+        }
+        else
+        {
+            strRotation[index]  = '\0';
+            i++;
+            break;
+        }
+    }
+    index = 0;
+    for ( ; i < strlen(Info) ; i++)
+    {
         strPosY[index++] = Info[i];
     }
     Info[index] = '\0';
     posX = atoi(strPosX);
     posY = atoi(strPosY);
-    //log("角色索引 %d 命令 %s X坐标 %d Y坐标 %d",roleIndex,cmd,posX,posY);
+    rotation = atoi(strRotation);
+    //log("角色索引 %d 命令 %s X坐标 %d Y坐标 %d 转向 %d",roleIndex,cmd,posX,posY,rotation);
     if (strcmp(cmd,"addPlayer") == 0)
     {
         index = 0;
@@ -156,4 +176,17 @@ void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
             index++;
         }
     }
+    //else if (strcmp(cmd,"addPlayerBullet") == 0)
+    //{
+    //    index = 0;
+    //    for (auto player : playerTankmanager->returnPlayerTankManager())
+    //    {
+    //        if (index == roleIndex)
+    //        {
+    //            //player->returnBulletManager()->addNewBullet(Vec2(posX,posY));
+    //            break;
+    //        }
+    //        index++;
+    //    }
+    //}
 }

@@ -4,6 +4,7 @@
 #include "cocos-ext.h"
 #include "NetWork/GameClient.h"
 #include "PlayerTankManager.h"
+#include "EnemyTankManager.h"
 
 
 USING_NS_CC;
@@ -29,6 +30,8 @@ private:
     GameClient* gameClientSocket;
     //玩家管理器
     PlayerTankManager* playerTankmanager;
+    //敌人管理器
+    EnemyTankManager* enemyTankmanager;
 
 };
 #endif

@@ -15,6 +15,7 @@ public:
     void reset();   //重置坦克数据
     bool isAlive(); //获得是否存活状态
     int crashWall(); //判断是否撞墙
+    double returnEnemyTankRotation(); //返回敌人玩家角度
 
     void Fire();
     void TankMove(float dt);

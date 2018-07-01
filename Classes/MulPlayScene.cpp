@@ -59,8 +59,15 @@ bool MulPlayScene::init()
     {
         playerTankmanager->addNewPlayer();
     }
+    int index = 0;
+    this->bookPlayer[0] = 1;
     for (auto player : playerTankmanager->returnPlayerTankManager())
     {
+        if (index == 0)
+        {
+            index++;
+            continue;
+        }
         player->setPlayerHidePos();
     }
 
@@ -95,13 +102,14 @@ bool MulPlayScene::init()
 void MulPlayScene::sendPosition()
 {
     int index = 0;
-    std::string posX,posY,sendPosMsg;
+    std::string posX,posY,sendPosMsg,rotation;
     for(auto otherPlayer : playerTankmanager->returnPlayerTankManager())
     {   
         posX = Value(Value(otherPlayer->getPositionX()).asInt()).asString();
         posY = Value(Value(otherPlayer->getPositionY()).asInt()).asString();
+        rotation = Value(Value(otherPlayer->returnPlayerRotation()).asInt()).asString();
         std::string id = Value(index).asString();
-        sendPosMsg = id + "addPlayer" + "," + posX + "," + posY + "\n";
+        sendPosMsg = id + "addPlayer" + "," + posX + "," + posY + "," + rotation +"\n";
         index++;
         NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
     }
@@ -110,8 +118,9 @@ void MulPlayScene::sendPosition()
     {
         posX = Value(Value(enemy->getPositionX()).asInt()).asString();
         posY = Value(Value(enemy->getPositionY()).asInt()).asString();
+        rotation = Value(Value(enemy->returnEnemyTankRotation()).asInt()).asString();
         std::string id = Value(index).asString();
-        sendPosMsg = id + "addEnemy" + "," + posX + "," + posY + "\n";
+        sendPosMsg = id + "addEnemy" + "," + posX + "," + posY + "," + rotation + "\n";
         index++;
         NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
     }
@@ -123,8 +132,9 @@ void MulPlayScene::sendPosition()
         {
             posX = Value(Value(bullet->getPositionX()).asInt()).asString();
             posY = Value(Value(bullet->getPositionY()).asInt()).asString();
+            rotation = Value(Value(bullet->returnBulletRotation()).asInt()).asString();
             std::string id = Value(index).asString();
-            sendPosMsg = id + "addPlayerBullet" + "," + posX + "," + posY + "\n";
+            sendPosMsg = id + "addPlayerBullet" + "," + posX + "," + posY + "," + rotation + "\n";
             index++;
             NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
         }
@@ -136,8 +146,9 @@ void MulPlayScene::sendPosition()
         {
             posX = Value(Value(enemybullet->getPositionX()).asInt()).asString();
             posY = Value(Value(enemybullet->getPositionY()).asInt()).asString();
+            rotation = Value(Value(enemybullet->returnBulletRotation()).asInt()).asString();
             std::string id = Value(index).asString();
-            sendPosMsg = id + "addEnemyBullet" + "," + posX + "," + posY + "\n";
+            sendPosMsg = id + "addEnemyBullet" + "," + posX + "," + posY + "," + rotation + "\n";
             index++;
             NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
         }
@@ -180,8 +191,9 @@ void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
     {
         if (index == playerId)
         {
-            player->removeFromParent();
-            playerTankmanager->returnPlayerTankManager().eraseObject(player);
+            player->setPlayerHidePos();
+            //player->removeFromParent();
+            //playerTankmanager->returnPlayerTankManager().eraseObject(player);
             break;
         }
         index++;

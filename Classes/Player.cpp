@@ -137,3 +137,8 @@ void Player::setPlayerServerPos()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     this->setPosition(Vec2(CCRANDOM_0_1() * visibleSize.width,CCRANDOM_0_1() * visibleSize.height));
 }
+
+double Player::returnPlayerRotation()
+{
+    return this->playerRotation;
+}
