@@ -12,10 +12,14 @@ public:
     static cocos2d::Scene* createScene();
     MulPlayClientScene();
     ~MulPlayClientScene();
-
+    void getConnectIp(Ref* pIpdata);
+    void createClient();
     virtual bool init();
-
-
     CREATE_FUNC(MulPlayClientScene);
+
+private:
+    char ip[101];
+    int port;
+
 };
 #endif

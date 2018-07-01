@@ -1,4 +1,5 @@
 #include "MulPlayClientScene.h"
+#include <thread>
 
 USING_NS_CC;
 
@@ -9,7 +10,13 @@ Scene* MulPlayClientScene::createScene()
 
 MulPlayClientScene::MulPlayClientScene()
 {
-
+    //初始化连接服务端
+    //this->addChild(this->connectClient);
+    NotificationCenter::getInstance()->addObserver(
+        this,
+        callfuncO_selector(MulPlayClientScene::getConnectIp),
+        "sendIp",
+        NULL);
 }
 
 MulPlayClientScene::~MulPlayClientScene()
@@ -35,7 +42,19 @@ bool MulPlayClientScene::init()
         background_image->setPosition(Vec2(visibleSize.width/2,visibleSize.height/2));
         this->addChild(background_image);
     }
-
-
+    //增加观察者，接收玩家连接服务器I
+    
     return true;
+}
+
+void MulPlayClientScene::getConnectIp(Ref* pIpData)
+{
+    log("%s",pIpData);
+    strcmp(this->ip,pIpData);
+    std::thread temp = std::thread(&MulPlayClientScene::createClient,this);
+    temp.detach();
+}
+void MulPlayClientScene::createClient()
+{
+    log("成功运行");
 }

@@ -148,9 +148,7 @@ void MulPlayScene::sendPosition()
 void MulPlayScene::serverStart(GameServer* playerGameServer , char* ip , int port)
 {
     playerGameServer = GameServer::create();
-    //临时写死
-    //playerGameServer->setIp("localhost",8000);
-    //playerGameServer->start();
+    playerGameServer->retain();
 }
 //关联客户端玩家发送信息的广播
 void MulPlayScene::recvServer(Ref* playerAction)

@@ -7,7 +7,12 @@ GameClient::GameClient()
     this->mSocket = new ODSocket;
     this->mSocket->Init();
     this->mSocket->Create(AF_INET, SOCK_STREAM , 0);
-    
+    //添加获得IP的观察者
+    NotificationCenter::getInstance()->addObserver(
+        this,
+        callfuncO_selector(GameClient::connectServer),
+        "connectIp",
+        NULL);
 }
 
 GameClient::~GameClient()
@@ -17,7 +22,6 @@ GameClient::~GameClient()
 
 bool GameClient::init()
 {
-
     return true;
 }
 
@@ -27,8 +31,12 @@ void GameClient::resetClient()
     strcpy(ip,"localhost");
 }
 
-void GameClient::connectServer(Ref* pdata)
+void GameClient::connectServer(Ref* ipData)
 {
+    log("Login");
+    log("%s",ipData);
+    
+
     bool result = this->mSocket->Connect(ip,port);
     int retryTimes = 0;
     while (result == false && retryTimes < 7)
@@ -48,3 +56,10 @@ void GameClient::connectServer(Ref* pdata)
 
     }
 }
+
+/*
+void GameClient::getIp(Ref* data)
+{
+    log("成功得到ip , %s ",data);
+}
+*/
