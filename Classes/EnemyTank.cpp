@@ -3,122 +3,116 @@
 EnemyTank::EnemyTank()
 {
     this->enemyTankBulletStyle = "Q版坦克素材/bullet/bullet5.png";
-    enemyBulletManager = new BulletManager();
+    this->enemyPositionX = 0;
+    this->enemyPositionY = 0;
+    this->enemyspeedX = 20;
+    this->enemyspeedY = 20;
     this->enemyRotation = 0;
     this->enemyIsAlive = false;
+    enemyBulletManager = new BulletManager();
 }
 EnemyTank::~EnemyTank()
 {
-   
     delete enemyBulletManager;
 }
-
 bool EnemyTank::init()
 {
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
     this->schedule(schedule_selector(EnemyTank::TankAI),1,999,0);
     return true;
 }
-/*
-void EnemyTank::show()
-{
-    if(getSprite() != NULL)
-    {
-        setVisible(true);       //设置可见
-        enemyIsAlive = true;    //标记坦克为活动状态
-    }
-}
-*/
 void EnemyTank::reset()
 {
     if(getSprite() != NULL)
     {
         auto visibleSize = Director::getInstance()->getVisibleSize();
-        this->setPosition(Vec2(CCRANDOM_0_1()*visibleSize.width,visibleSize.height-100));
+        this->setPosition(Vec2(CCRANDOM_0_1()*visibleSize.width,CCRANDOM_0_1()*visibleSize.height));
     }
     return;
 }
-
 bool EnemyTank::isAlive()
 {
+    this->enemyIsAlive = true;
     return this->enemyIsAlive;
 }
-
-int EnemyTank::crashWall()
+void EnemyTank::setEnemyScale(float scale)
 {
-    int state = CCRANDOM_0_1()*5;
-    return state;
+    getSprite()->setScale(scale);
+}
+
+void EnemyTank::setEnemySpeed(float speedX, float speedY)
+{
+    this->enemyspeedX = speedX;
+    this->enemyspeedY = speedY;
+}
+void EnemyTank::setEnemyPos(Vec2 pos)
+{
+    this->enemyPositionX = pos.x;
+    this->enemyPositionY = pos.y;
+}
+Vec2 EnemyTank::returnEnemyPos()
+{
+    return Vec2(this->enemyPositionX,this->enemyPositionY);
 }
 void EnemyTank::TankAI(float ft)
 {
-    auto visibleSize = Director::getInstance()->getVisibleSize();
+    if(this->enemyIsAlive)
+    {
+        auto visibleSize = Director::getInstance()->getVisibleSize();
 
-    if(this->getPositionX() > visibleSize.width + 10 || this->getPositionX() < 10 || this->getPositionY() > (visibleSize.height - 10 ) || this->getPositionY() < 10)
-    {
-     //   MoveTo* moveto = MoveTo::create(10,Vec2(visibleSize.width/2,visibleSize.height/2));
-     //  this->runAction(moveto);
-      //  this->setPosition(this->playerX,this->playerY);
-        if(this->getPositionX() > visibleSize.width + 10)
+        if(this->getPositionX() > visibleSize.width + 10 || this->getPositionX() < 10 || this->getPositionY() > (visibleSize.height - 10 ) || this->getPositionY() < 10)
         {
-            this->setPosition(Vec2(10,this->getPositionY()));
+            if(this->getPositionX() > visibleSize.width + 10)
+            {
+                this->setPosition(Vec2(10,this->getPositionY()));
+            }
+            if(this->getPositionX() < 10)
+            {
+                this->setPosition(Vec2(visibleSize.width + 10,this->getPositionY()));
+            }
+            if(this->getPositionY() > visibleSize.height - 10)
+            {
+                this->setPosition(Vec2(this->getPositionX(),10));
+            }
+            if(this->getPositionY() < 10)
+            {
+                this->setPosition(Vec2(this->getPositionX(),visibleSize.height - 10));
+            } 
         }
-        if(this->getPositionX() < 10)
+        else
         {
-            this->setPosition(Vec2(visibleSize.width + 10,this->getPositionY()));
-        }
-        if(this->getPositionY() > visibleSize.height - 10)
-        {
-            this->setPosition(Vec2(this->getPositionX(),10));
-        }
-        if(this->getPositionY() < 10)
-        {
-            this->setPosition(Vec2(this->getPositionX(),visibleSize.height - 10));
-        } 
-        return;
-    }
-    else
-    {
-        MoveBy* movebyX;
-        MoveBy* movebyY;
-        switch(EnemyTank::crashWall())
-        {
-            case 1:
-                speed = 20;
-                this->setRotation(90);
-                this->enemyRotation = 90;
-                movebyX = MoveBy::create(1.0f,Vec2(speed,0));
-                this->runAction(movebyX);
-                break;
-            case 2:
-                speed = -20;
-                this->setRotation(270);
-                this->enemyRotation = 270;
-                movebyX = MoveBy::create(1.0f,Vec2(speed,0));
-                this->runAction(movebyX);
-                break;
-            case 3:
-                speed = 20;
-                this->setRotation(0);
-                this->enemyRotation = 0;
-                movebyY = MoveBy::create(1.0f,Vec2(0,speed));
-                this->runAction(movebyY);
-                break;
-            case 4:
-                speed = -20;
-                this->setRotation(180);
-                this->enemyRotation = 180;
-                movebyY = MoveBy::create(1.0f,Vec2(0,speed));
-                this->runAction(movebyY);
-                break;
-            //default: log("error");break;
+            MoveBy* movebyX;
+            MoveBy* movebyY;
+            auto AI = (int)CCRANDOM_0_1()*5;
+            switch(AI)
+            {
+                case 1:
+                    this->setRotation(90);
+                    this->enemyRotation = 90;
+                    movebyX = MoveBy::create(1.0f,Vec2(enemyspeedX,0));
+                    this->runAction(movebyX);
+                    break;
+                case 2:
+                    this->setRotation(270);
+                    this->enemyRotation = 270;
+                    movebyX = MoveBy::create(1.0f,Vec2(-enemyspeedX,0));
+                    this->runAction(movebyX);
+                    break;
+                case 3:
+                    this->setRotation(0);
+                    this->enemyRotation = 0;
+                    movebyY = MoveBy::create(1.0f,Vec2(0,enemyspeedY));
+                    this->runAction(movebyY);
+                    break;
+                case 4:
+                    this->setRotation(180);
+                    this->enemyRotation = 180;
+                    movebyY = MoveBy::create(1.0f,Vec2(0,-enemyspeedY));
+                    this->runAction(movebyY);
+                    break;
+                //default: log("error");break;
+            }
         }
     }
-    if(CCRANDOM_0_1() < 0.05)
-    {
-        this->enemyBulletManager->addNewBullet(this->enemyRotation,this->getPositionX(),this->getPositionY(),enemyTankBulletStyle);
-    }
-
-    return;
 }
 BulletManager* EnemyTank::returnBulletManager()
 {
