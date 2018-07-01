@@ -56,9 +56,9 @@ bool MulPlayScene::init()
     //创建人物管理器
     playerTankmanager = PlayerTankManager::create();
     //初始化碰撞检测管理器
-    collisionDetectionTank = CollisionDetection::create();
-    collisionDetectionTank->bindEnemyTankManager(enemyTankmanager);
-    collisionDetectionTank->bindPlayerTankManager(playerTankmanager);
+    //collisionDetectionTank = CollisionDetection::create();
+    //collisionDetectionTank->bindEnemyTankManager(enemyTankmanager);
+    //collisionDetectionTank->bindPlayerTankManager(playerTankmanager);
     this->addChild(enemyTankmanager,10);
     this->addChild(playerTankmanager,10);
     //this->addChild(collisionDetectionTank,10);
@@ -81,6 +81,13 @@ bool MulPlayScene::init()
         }
         player->setPlayerHidePos();
     }
+
+    //服务器打开BOT
+    for (auto enemy : this->enemyTankmanager->returnEnemyTankManager())
+    {
+        enemy->isAlive();
+    }
+    
 
     //开启玩家消息监听
     NotificationCenter::getInstance()->addObserver(
@@ -121,7 +128,7 @@ void MulPlayScene::sendPosition()
         posY = Value(otherPlayer->getPositionY()).asString();
         rotation = Value(Value(otherPlayer->returnPlayerRotation()).asInt()).asString();
         std::string id = Value(index).asString();
-        sendPosMsg = + id + "addPlayer" + "," + posX + "," + posY + "," + rotation +"\n";
+        sendPosMsg = id + "addPlayer" + "," + posX + "," + posY + "," + rotation + "\n";
         index++;
         NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
     }

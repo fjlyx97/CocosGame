@@ -17,7 +17,7 @@ EnemyTank::~EnemyTank()
 }
 bool EnemyTank::init()
 {
-    this->schedule(schedule_selector(EnemyTank::TankAI),1,999,0);
+    this->schedule(schedule_selector(EnemyTank::TankAI),0.1f);
     return true;
 }
 void EnemyTank::reset()
@@ -122,4 +122,9 @@ BulletManager* EnemyTank::returnBulletManager()
 double EnemyTank::returnEnemyTankRotation()
 {
     return this->enemyRotation;
+}
+
+void EnemyTank::setEnemyRotation(double rotation)
+{
+    this->enemyRotation = rotation;
 }

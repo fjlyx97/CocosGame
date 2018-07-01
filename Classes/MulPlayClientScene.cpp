@@ -53,12 +53,11 @@ bool MulPlayClientScene::init()
 
     //创建人物管理器
     playerTankmanager = PlayerTankManager::create();
-    playerTankmanager->retain();
     //创建怪物管理器
-    //enemyTankmanager = EnemyTankManager::create();
+    enemyTankmanager = EnemyTankManager::create();
 
     this->addChild(playerTankmanager,10);
-    //this->addChild(enemyTankmanager,10);
+    this->addChild(enemyTankmanager,10);
     //初始化客户端坦克
     for (int i = 1 ; i <= 6 ; i++)
     {
@@ -215,14 +214,16 @@ void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
         }
     }
     */
-    else if (strcmp(cmd,"addEnemy") == 0)
+    if (strcmp(cmd,"addEnemy") == 0)
     {
         index = 0;
         for(auto enemy : enemyTankmanager->returnEnemyTankManager())
         {
-            if(index = roleIndex)
+            if(index == roleIndex)
             {
-                enemy->setPosition(rotation,posX,posY,"Q版坦克素材/enemy/canon11.png");
+                enemy->setPosition(Vec2(posX,posY));
+                enemy->setRotation(rotation);
+                break;
             }
             index++;
         }

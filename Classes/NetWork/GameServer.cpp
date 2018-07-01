@@ -155,7 +155,6 @@ void GameServer::sendOldPlayer(Ref* pdata)
 {
     //此处发送数据，代码待编写
     //log("%s",pdata);
-    mMutex.lock();
     char* sendMsg = (char*)pdata;
     int i = 0;
     for (auto client : connectSocket)
@@ -173,5 +172,4 @@ void GameServer::sendOldPlayer(Ref* pdata)
         }
         i++;
     }
-    mMutex.unlock();
 }
