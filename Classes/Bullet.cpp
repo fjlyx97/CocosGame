@@ -52,6 +52,7 @@ void Bullet::setBulletSpeed(double bulletRotation , double bulletSpeed)
         this->bulletSpeedX = -bulletSpeed;
         this->bulletSpeedY = 0;
     }
+    this->bulletRotation = bulletRotation;
 }
 
 void Bullet::setBulletPos(double posX , double posY)
@@ -93,4 +94,8 @@ void Bullet::update(float dt)
 Vec2 Bullet::getBulletPos()
 {
     return Vec2(this->bulletPosX,this->bulletPosY);
+}
+double Bullet::returnBulletRotation()
+{
+    return this->bulletRotation;
 }

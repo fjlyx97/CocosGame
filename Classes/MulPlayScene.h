@@ -45,8 +45,10 @@ public:
     //网络管理器
     GameServer* playerGameServer;
 
-    CREATE_FUNC(MulPlayScene);
+    void onKeyPressed(EventKeyboard::KeyCode keyCode ,Event * event);
+    void onKeyReleased(EventKeyboard::KeyCode keyCode ,Event * event);
 
+    CREATE_FUNC(MulPlayScene);
 private:
     int playerNum;
     int bookPlayer[6];

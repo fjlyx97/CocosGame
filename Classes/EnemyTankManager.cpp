@@ -17,14 +17,7 @@ void EnemyTankManager::createEnemyTank()
         //创建敌方坦克对象
         enemyTank = EnemyTank::create();
         //绑定精灵
-        if(CCRANDOM_0_1()*1 < 0.7)
-        {
-            enemyTank->bindSprite(Sprite::create("Q版坦克素材/enemy/canon17.png"));
-        }
-        else
-        {
-            enemyTank->bindSprite(Sprite::create("Q版坦克素材/enemy/canon11.png"));
-        }
+        enemyTank->bindSprite(Sprite::create("Q版坦克素材/enemy/canon11.png"));
         enemyTank->setScale(0.5);
         //enemyTank->setContentSize()
         enemyTank->reset();
