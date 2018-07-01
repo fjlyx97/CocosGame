@@ -58,6 +58,22 @@ void CollisionDetection::update(float dt)
                     }
                     enemy->returnBulletManager()->returnPlayerBullet().clear();
                     enemy->reset();
+                    
+                    //SpriteFrameCache* frameCache = SpriteFrameCache::getInstance();
+                    //frameCache->addSpriteFramesWithFile("Q版坦克素材/animation/frozenef.plist","Q版坦克素材/animation/frozenef.png");
+                    //SpriteFrame* frame = NULL;
+                    //Vector<SpriteFrame*> frameVec;
+                    //for (int i = 1 ; i <= 4 ; i++)
+                    //{   
+                    //    frame = frameCache->getSpriteFrameByName(StringUtils::format("%d.png",i));
+                    //    frameVec.pushBack(frame);
+                    //}
+                    //Animation* animation = Animation::createWithSpriteFrames(frameVec);
+                    //animation->setLoops(1);
+                    //animation->setDelayPerUnit(0.1f);
+                    //Animate* action = Animate::create(animation);
+                    //enemy->runAction(action);
+
                     return;
                 }
             }

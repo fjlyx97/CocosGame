@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "Entity.h"
 #include "BulletManager.h"
+#include "PlayerTankManager.h"
 
 USING_NS_CC;
 
@@ -17,10 +18,11 @@ public:
     int crashWall(); //判断是否撞墙
 
     void Fire();
-    void TankMove(float dt);
+    void TankAI(float dt);
     BulletManager* returnBulletManager();
     virtual bool init();    
     CREATE_FUNC(EnemyTank);
+    PlayerTankManager* playerTankManager;
 
 private:
     char* enemyTankBulletStyle;

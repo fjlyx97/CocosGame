@@ -9,13 +9,14 @@ EnemyTank::EnemyTank()
 }
 EnemyTank::~EnemyTank()
 {
+   
     delete enemyBulletManager;
 }
 
 bool EnemyTank::init()
 {
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    this->schedule(schedule_selector(EnemyTank::TankMove),1,999,0);
+    this->schedule(schedule_selector(EnemyTank::TankAI),1,999,0);
     return true;
 }
 /*
@@ -48,7 +49,7 @@ int EnemyTank::crashWall()
     int state = CCRANDOM_0_1()*5;
     return state;
 }
-void EnemyTank::TankMove(float ft)
+void EnemyTank::TankAI(float ft)
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
 
@@ -116,6 +117,7 @@ void EnemyTank::TankMove(float ft)
     {
         this->enemyBulletManager->addNewBullet(this->enemyRotation,this->getPositionX(),this->getPositionY(),enemyTankBulletStyle);
     }
+
     return;
 }
 BulletManager* EnemyTank::returnBulletManager()
