@@ -150,7 +150,7 @@ void MulPlayScene::serverStart(GameServer* playerGameServer , char* ip , int por
     playerGameServer = GameServer::create();
     playerGameServer->retain();
 }
-//关联客户端玩家发送信息的广播
+//关联客户端玩家发送信息的广播（未完成）
 void MulPlayScene::recvServer(Ref* playerAction)
 {
     log("%s",playerAction);

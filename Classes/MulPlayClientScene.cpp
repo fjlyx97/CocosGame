@@ -1,5 +1,6 @@
 #include "MulPlayClientScene.h"
 #include <thread>
+#include <ODSocket/ODSocket.h>
 
 USING_NS_CC;
 
@@ -46,15 +47,32 @@ bool MulPlayClientScene::init()
     
     return true;
 }
-
 void MulPlayClientScene::getConnectIp(Ref* pIpData)
 {
     log("%s",pIpData);
-    strcmp(this->ip,pIpData);
-    std::thread temp = std::thread(&MulPlayClientScene::createClient,this);
-    temp.detach();
+    char* ipInfo = (char*)pIpData;
+    int i;
+    for (i = 0 ; i < strlen(ipInfo) ; i++)
+    {
+        if (ipInfo[i] != ' ')
+        {
+            this->ip[i]  = ipInfo[i];
+        }
+        else
+        {
+            this->ip[i] = '\0';
+            break;
+        }
+    }
+    this->port = 8000;
+    std::thread client = std::thread(&MulPlayClientScene::createClient,this);
+    client.detach();
 }
 void MulPlayClientScene::createClient()
 {
     log("成功运行");
+    gameClientSocket = new GameClient();
+    gameClientSocket->retain();
+    gameClientSocket->setClient(this->ip,this->port);
+    gameClientSocket->connectServer();
 }
