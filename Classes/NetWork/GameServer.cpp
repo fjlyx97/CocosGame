@@ -1,5 +1,7 @@
 #include "GameServer.h"
+#include <string>
 #include <thread>
+#include <mutex>
 #include <cstring>
 #include <cstdlib>
 
@@ -74,12 +76,6 @@ GameServer::GameServer()
     }
 }
 
-void GameServer::start()
-{
-    
-
-}
-
 void GameServer::setIp(char* ip , int port)
 {
     this->port = port;
@@ -152,11 +148,29 @@ void GameServer::sendNewPlayerPos(Ref* pos)
 //关联往所有socket发送广播
 void GameServer::sendGameMsg(Ref* pdata)
 {
-
+    //待编写
 }
 //向新玩家发送所有数据
 void GameServer::sendOldPlayer(Ref* pdata)
 {
     //此处发送数据，代码待编写
-    log("%s",pdata);
+    //log("%s",pdata);
+    mMutex.lock();
+    char* sendMsg = (char*)pdata;
+    int i = 0;
+    for (auto client : connectSocket)
+    {
+        if (bookId[i] == 1)
+        {
+            int size = strlen(sendMsg);
+            char max_size[3];
+            max_size[1] = size % 10 + 48;
+            max_size[0] = size / 10 + 48;
+            max_size[2] = '\0';
+            client->connectSocket->Send(max_size,3);
+            client->connectSocket->Send(sendMsg,strlen(sendMsg));
+        }
+        i++;
+    }
+    mMutex.unlock();
 }

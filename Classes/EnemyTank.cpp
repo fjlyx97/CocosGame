@@ -118,3 +118,8 @@ BulletManager* EnemyTank::returnBulletManager()
 {
     return this->enemyBulletManager;
 }
+
+double EnemyTank::returnEnemyTankRotation()
+{
+    return this->enemyRotation;
+}

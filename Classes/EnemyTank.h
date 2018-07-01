@@ -10,7 +10,6 @@ class EnemyTank : public Entity
 public:
     EnemyTank();
     ~EnemyTank();
-
     virtual bool init();    
     CREATE_FUNC(EnemyTank);
 
