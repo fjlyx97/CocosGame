@@ -29,6 +29,8 @@ public:
     void setEnemyPos(Vec2 pos);
     //返回位置
     Vec2 returnEnemyPos();
+    //返回玩家方向
+    double returnEnemyTankRotation();
 
     void TankAI(float dt);
     

@@ -49,8 +49,11 @@ bool MulPlayClientScene::init()
         background_image->setPosition(Vec2(visibleSize.width/2,visibleSize.height/2));
         this->addChild(background_image);
     }
+
+
     //创建人物管理器
     playerTankmanager = PlayerTankManager::create();
+    playerTankmanager->retain();
     //创建怪物管理器
     //enemyTankmanager = EnemyTankManager::create();
 
@@ -102,13 +105,13 @@ void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
 {
     //log("%s",updateInfo);
     char* Info = (char*)updateInfo;
-    char cmd[20];
-    char strPosX[20];
-    char strPosY[20];
-    char strRotation[20];
-    int posX;
-    int posY;
-    int rotation;
+    char cmd[101];
+    char strPosX[101];
+    char strPosY[101];
+    char strRotation[101];
+    double posX;
+    double posY;
+    double rotation;
     int roleIndex = Info[0] - '0';
     int i;
     int index = 0;
@@ -144,6 +147,20 @@ void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
     {
         if (Info[i] != ',')
         {
+            strPosY[index++] = Info[i];
+        }
+        else
+        {
+            strPosY[index]  = '\0';
+            i++;
+            break;
+        }
+    }
+    index = 0;
+    for ( ; i < strlen(Info) ; i++)
+    {
+        if (Info[i] != ',')
+        {
             strRotation[index++] = Info[i];
         }
         else
@@ -159,10 +176,12 @@ void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
         strPosY[index++] = Info[i];
     }
     Info[index] = '\0';
-    posX = atoi(strPosX);
-    posY = atoi(strPosY);
-    rotation = atoi(strRotation);
-    //log("角色索引 %d 命令 %s X坐标 %d Y坐标 %d 转向 %d",roleIndex,cmd,posX,posY,rotation);
+    //已经有的数据
+    posX = atof(strPosX);
+    posY = atof(strPosY);
+    rotation = atof(strRotation);
+
+    //log("角色索引 %d 命令 %s X坐标 %lf Y坐标 %lf 转向 %lf",roleIndex,cmd,posX,posY,rotation);
     if (strcmp(cmd,"addPlayer") == 0)
     {
         index = 0;
@@ -170,23 +189,60 @@ void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
         {
             if (index == roleIndex)
             {
-                player->setPosition(Vec2(posX,posY));
+                if (posX != player->getPositionX() || posY != player->getPositionY())
+                {
+                    player->setPosition(Vec2(posX,posY));
+                    player->setRotation(rotation);
+                }
                 break;
             }
             index++;
         }
     }
-    //else if (strcmp(cmd,"addPlayerBullet") == 0)
-    //{
-    //    index = 0;
-    //    for (auto player : playerTankmanager->returnPlayerTankManager())
-    //    {
-    //        if (index == roleIndex)
-    //        {
-    //            //player->returnBulletManager()->addNewBullet(Vec2(posX,posY));
-    //            break;
-    //        }
-    //        index++;
-    //    }
-    //}
+    /*
+    else if (strcmp(cmd,"addPlayerBullet") == 0)
+    {
+        index = 0;
+        for(auto player : playerTankmanager->returnPlayerTankManager())
+        {
+            auto bulletManager = player->returnBulletManager();
+            if (index == roleIndex)
+            {
+                bulletManager->addNewBullet(rotation,posX,posY,"Q版坦克素材/bullet/bullet7.png");
+                break;
+            }
+            index++;
+        }
+    }
+    */
+    else if (strcmp(cmd,"addEnemy") == 0)
+    {
+        index = 0;
+        for(auto enemy : enemyTankmanager->returnEnemyTankManager())
+        {
+            if(index = roleIndex)
+            {
+                enemy->setPosition(rotation,posX,posY,"Q版坦克素材/enemy/canon11.png");
+            }
+            index++;
+        }
+    }
+    /*
+    else if(strcmp(cmd,"addEnemyBullet") == 0 )
+    {
+        index = 0;
+        for(auto enemy2 : enemyTankmanager->returnEnemyTankManager())
+        {
+            for(auto enemybullet : enemy2->returnBulletManager())
+            {
+                if(index = roleIndex)
+                {
+                    enemybullet->addNewBullet(rotation,posX,posY,"Q版坦克素材/bullet/bullet5.png");
+                }
+            }
+        }
+        index++;
+    }
+    */
 }
+

@@ -31,7 +31,7 @@ public:
     void sendIp(Ref* ipData);
 
     //不断发送服务器信息
-    void myUpdate(float dt);
+    void update(float dt);
     //玩家子弹管理器
     BulletManager* playerBulletmanager;
     //敌人子弹管理器
@@ -44,6 +44,9 @@ public:
     CollisionDetection* collisionDetectionTank;
     //网络管理器
     GameServer* playerGameServer;
+
+    void onKeyPressed(EventKeyboard::KeyCode keyCode ,Event * event);
+    void onKeyReleased(EventKeyboard::KeyCode keyCode ,Event * event);
 
     CREATE_FUNC(MulPlayScene);
 private:

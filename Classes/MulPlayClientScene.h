@@ -5,6 +5,7 @@
 #include "NetWork/GameClient.h"
 #include "PlayerTankManager.h"
 #include "EnemyTankManager.h"
+#include "BulletManager.h"
 
 
 USING_NS_CC;
@@ -19,6 +20,7 @@ public:
     void getConnectIp(Ref* pIpdata);
     void createClient();
     void updataGameInfo(Ref* updateInfo);
+
 
     virtual bool init();
     CREATE_FUNC(MulPlayClientScene);
