@@ -56,7 +56,7 @@ void CollisionDetection::update(float dt)
                     }
                     enemy->returnBulletManager()->returnPlayerBullet().clear();
                     enemy->returnBulletManager()->BulletNum = 0 ;
-                    //enemy->reset();
+                    enemy->reset();
                     
                     //SpriteFrameCache* frameCache = SpriteFrameCache::getInstance();
                     //frameCache->addSpriteFramesWithFile("Q版坦克素材/animation/frozenef.plist","Q版坦克素材/animation/frozenef.png");

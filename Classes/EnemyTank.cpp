@@ -44,6 +44,12 @@ void EnemyTank::setEnemySpeed(float speedX, float speedY)
     this->enemyspeedX = speedX;
     this->enemyspeedY = speedY;
 }
+
+void EnemyTank::setEnemyHidePos()
+{
+    this->enemyPositionX = -1;
+    this->enemyPositionY = -1;
+}
 void EnemyTank::setEnemyPos(Vec2 pos)
 {
     this->enemyPositionX = pos.x;
