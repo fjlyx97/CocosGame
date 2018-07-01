@@ -28,7 +28,9 @@ void PlayerTankManager::addNewPlayer()
     player->setPlayerScale(0.15);
     player->setPlayerPos(player->getPosition());
     this->addChild(player);
-    this->addChild(player->returnBulletManager());//添加子弹管理器
+
+    //添加子弹管理器
+    this->addChild(player->returnBulletManager());
     this->myPlayer.pushBack(player);
 }
 

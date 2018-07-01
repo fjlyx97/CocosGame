@@ -17,8 +17,7 @@ public:
     void bindPlayerTankManager(PlayerTankManager* playerTankManagerBind);
     
     void update(float dt);
-
-
+    void tankAI(float dt);
     CollisionDetection();
     ~CollisionDetection();
 

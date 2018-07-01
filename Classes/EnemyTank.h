@@ -3,7 +3,6 @@
 #include "cocos2d.h"
 #include "Entity.h"
 #include "BulletManager.h"
-
 USING_NS_CC;
 
 class EnemyTank : public Entity
@@ -11,26 +10,40 @@ class EnemyTank : public Entity
 public:
     EnemyTank();
     ~EnemyTank();
-  //  void show();    //显示敌方坦克
-    void reset();   //重置坦克数据
-    bool isAlive(); //获得是否存活状态
-    int crashWall(); //判断是否撞墙
-    double returnEnemyTankRotation(); //返回敌人玩家角度
-
-    void Fire();
-    void TankMove(float dt);
-    BulletManager* returnBulletManager();
     virtual bool init();    
     CREATE_FUNC(EnemyTank);
 
+    //坦克位置随机重置
+    void reset();   
+    //获得是否活动状态
+    bool isAlive();
+    //设置大小
+    void setEnemyScale(float scale);
+    //设置速度
+    void setEnemySpeed(float speedX ,float speedY);
+    //设置隐藏初始位置
+    void setEnemyHidePos();
+    //设置服务器端初始位置
+    //void setEnemyServerPos();
+    //设置初始位置
+    void setEnemyPos(Vec2 pos);
+    //返回位置
+    Vec2 returnEnemyPos();
+
+    void TankAI(float dt);
+    
+    friend class CollisionDetection;
+
+    BulletManager* returnBulletManager();
+
 private:
     char* enemyTankBulletStyle;
-    double speed;
+    double enemyspeedX;
+    double enemyspeedY;
     double enemyRotation;
     bool enemyIsAlive;
     double enemyPositionX;
     double enemyPositionY;
-    char enemyDir; //判断当前坦克对准的方向，wsad分别对应
     //获得子弹管理器
     BulletManager*  enemyBulletManager;
 };
