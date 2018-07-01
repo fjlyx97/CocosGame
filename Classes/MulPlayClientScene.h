@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "NetWork/GameClient.h"
+#include "PlayerTankManager.h"
 
 
 USING_NS_CC;
@@ -16,14 +17,18 @@ public:
     ~MulPlayClientScene();
     void getConnectIp(Ref* pIpdata);
     void createClient();
+    void updataGameInfo(Ref* updateInfo);
 
     virtual bool init();
     CREATE_FUNC(MulPlayClientScene);
+
 
 private:
     char ip[101];
     int port;
     GameClient* gameClientSocket;
+    //玩家管理器
+    PlayerTankManager* playerTankmanager;
 
 };
 #endif
