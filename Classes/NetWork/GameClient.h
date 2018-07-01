@@ -14,6 +14,7 @@ public:
     CREATE_FUNC(GameClient);
     void resetClient();
     void setClient(char* ip , int port);
+    void recvMsg();
 
 private:
     ODSocket* mSocket;

@@ -31,7 +31,7 @@ public:
     void sendIp(Ref* ipData);
 
     //不断发送服务器信息
-    void update(float dt);
+    void myUpdate(float dt);
     //玩家子弹管理器
     BulletManager* playerBulletmanager;
     //敌人子弹管理器

@@ -4,6 +4,7 @@
 #include "ODSocket/ODSocket.h"
 #include <vector>
 #include <string>
+#include <mutex>
 USING_NS_CC;
 struct playerClient
 {
@@ -24,7 +25,6 @@ public:
     CREATE_FUNC(GameServer);
     //服务器初始化
     void resetServer();
-    void start();
     //获得IP和端口
     void setIp(char* ip , int port);
     //往所有服务器玩家发送新玩家坐标广播
@@ -45,5 +45,6 @@ private:
     std::vector<playerClient*> connectSocket;
     char ip[101];
     int port;
+    std::mutex mMutex;
 };
 #endif
