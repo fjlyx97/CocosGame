@@ -42,12 +42,6 @@ void GameClient::connectServer()
             usleep(500);
         #endif
     }
-
-    
-    if (result)
-    {
-
-    }
 }
 
 void GameClient::setClient(char* ip , int port)

@@ -46,7 +46,6 @@ public:
     GameServer* playerGameServer;
 
     CREATE_FUNC(MulPlayScene);
-
 private:
     int playerNum;
     int bookPlayer[6];

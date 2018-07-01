@@ -88,7 +88,6 @@ bool MulPlayScene::init()
         callfuncO_selector(MulPlayScene::sendIp),
         "sendIp",
         NULL);
-
     this->scheduleUpdate();
     return true;
 }

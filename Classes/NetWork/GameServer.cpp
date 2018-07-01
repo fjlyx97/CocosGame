@@ -152,7 +152,7 @@ void GameServer::sendNewPlayerPos(Ref* pos)
 //关联往所有socket发送广播
 void GameServer::sendGameMsg(Ref* pdata)
 {
-
+    log("%s",pdata);
 }
 //向新玩家发送所有数据
 void GameServer::sendOldPlayer(Ref* pdata)
