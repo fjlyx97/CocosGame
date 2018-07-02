@@ -8,6 +8,7 @@
 #include "BulletManager.h"
 #include "EnemyTank.h"
 #include "Player.h"
+#include "MulPlayClientScene.h"
 
 USING_NS_CC;
 using namespace cocos2d::extension;
@@ -20,8 +21,8 @@ public:
     ~MulPlayClientScene();
     void getConnectIp(Ref* pIpdata);
     void createClient();
-    void updataGameInfo(Ref* updateInfo);
 
+    //void bindClient(MulPlayerClientScene* client);
 
     virtual bool init();
     CREATE_FUNC(MulPlayClientScene);

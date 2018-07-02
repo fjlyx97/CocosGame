@@ -23,7 +23,7 @@ public:
     //发送坐标
     void sendPosition();
     //开始服务器
-    static void serverStart(GameServer* playerGameServer, char* ip , int port);
+    void serverStart(GameServer* playerGameServer, char* ip , int port);
     //接受服务器消息
     void recvServer(Ref* playerAction);
     void serverAddNewPlayer(Ref* newPlayer);
