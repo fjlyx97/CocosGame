@@ -41,7 +41,7 @@ void CollisionDetection::update(float dt)
                 //得到玩家位置
                 auto bulletRec = bullet->boundingBox();
                 auto enemyRec = enemy->boundingBox();
-                if (enemyRec.intersectsRect(bulletRec) || bullet->getPositionX() < 0)
+                if (enemyRec.intersectsRect(bulletRec))
                 {
                     //log("子弹%.2f %.2f",bulletRec.size.width,bulletRec.size.height);
                     //log("敌人%.2f %.2f",enemyRec.size.width,enemyRec.size.height);
@@ -49,8 +49,10 @@ void CollisionDetection::update(float dt)
 
 
                     //移除子弹
-                    //bullet->setPosition(Vec2(-2,-2));
+                    bullet->setPosition(Vec2(-2,-2));
+                    eBulletManager->returnPlayerBullet()->
                     bullet->removeFromParent();
+                    
                     player->returnBulletManager()->playerBullet.eraseObject(bullet);
                     player->returnBulletManager()->BulletNum -= 1;
 
