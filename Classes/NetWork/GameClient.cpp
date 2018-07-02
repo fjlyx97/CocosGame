@@ -62,10 +62,13 @@ void GameClient::recvMsg()
         this->mSocket->Recv(recvData,3,0);
         int max_size = atoi(recvData);
         memset(recvData,0,sizeof(recvData));
-        this->mSocket->Recv(recvData,max_size,0);
-        this->mSocket->Clean();
-        //将接受到的字符串发送出去处理
+        int result = this->mSocket->Recv(recvData,max_size,0);
+        if (result < 0)
+        {
+            continue;
+        }
         //log("%s",recvData);
-        NotificationCenter::getInstance()->postNotification("sendContent",(Ref*)recvData);
+        //将接受到的字符串发送出去处理
+        //NotificationCenter::getInstance()->postNotification("sendContent",(Ref*)recvData);
     }
 }

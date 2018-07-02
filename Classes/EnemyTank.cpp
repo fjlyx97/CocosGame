@@ -10,7 +10,7 @@ EnemyTank::EnemyTank()
     this->enemyRotation = 0;
     this->enemyIsAlive = false;
     enemyBulletManager = new BulletManager();
-    this->isAlive();
+    //this->isAlive();
 }
 EnemyTank::~EnemyTank()
 {
@@ -18,7 +18,7 @@ EnemyTank::~EnemyTank()
 }
 bool EnemyTank::init()
 {
-    this->schedule(schedule_selector(EnemyTank::TankAI),0.1f);
+    this->schedule(schedule_selector(EnemyTank::TankAI),1.0f);
     return true;
 }
 void EnemyTank::reset()

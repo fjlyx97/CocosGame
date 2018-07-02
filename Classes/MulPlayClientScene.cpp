@@ -103,6 +103,7 @@ void MulPlayClientScene::createClient()
 void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
 {
     log("%s",updateInfo);
+    /*
     char* Info = (char*)updateInfo;
     char cmd[101];
     char strPosX[101];
@@ -181,6 +182,7 @@ void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
     rotation = atof(strRotation);
 
     //log("角色索引 %d 命令 %s X坐标 %lf Y坐标 %lf 转向 %lf",roleIndex,cmd,posX,posY,rotation);
+    /*
     if (strcmp(cmd,"addPlayer") == 0)
     {
         index = 0;
@@ -213,32 +215,25 @@ void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
             index++;
         }
     }
-<<<<<<< HEAD
     */
+   /*
     if (strcmp(cmd,"addEnemy") == 0)
-=======
-    
-    else if (strcmp(cmd,"addEnemy") == 0)
->>>>>>> 8271318870f1dac4d5df8572be0ba214991ed962
     {
         index = 0;
         for(auto enemy : enemyTankmanager->returnEnemyTankManager())
         {
             if(index == roleIndex)
             {
-<<<<<<< HEAD
                 enemy->setPosition(Vec2(posX,posY));
                 enemy->setRotation(rotation);
                 break;
-=======
-                enemy->setPosition(posX,posY);
-                enemy->setRotation(rotation);
->>>>>>> 8271318870f1dac4d5df8572be0ba214991ed962
             }
             index++;
         }
     }
+    */
     
+    /*
     else if(strcmp(cmd,"addEnemyBullet") == 0 )
     {
         index = 0;

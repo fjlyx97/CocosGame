@@ -85,7 +85,7 @@ bool MulPlayScene::init()
     //服务器打开BOT
     for (auto enemy : this->enemyTankmanager->returnEnemyTankManager())
     {
-        enemy->isAlive();
+        //enemy->isAlive();
     }
     
 
@@ -128,11 +128,7 @@ void MulPlayScene::sendPosition()
         posY = Value(otherPlayer->getPositionY()).asString();
         rotation = Value(Value(otherPlayer->returnPlayerRotation()).asInt()).asString();
         std::string id = Value(index).asString();
-<<<<<<< HEAD
         sendPosMsg = id + "addPlayer" + "," + posX + "," + posY + "," + rotation + "\n";
-=======
-        sendPosMsg = id + "addPlayer" + "," + posX + "," + posY + "," + rotation +"\n";
->>>>>>> 8271318870f1dac4d5df8572be0ba214991ed962
         index++;
         NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
     }
@@ -192,9 +188,10 @@ void MulPlayScene::recvServer(Ref* playerAction)
 void MulPlayScene::serverAddNewPlayer(Ref* newPlayer)
 {
     int index = 0;
+    int currentNum = atoi((char*)newPlayer);
     for (auto player : playerTankmanager->returnPlayerTankManager())
     {
-        if (index == playerNum)
+        if (index == currentNum)
         {
             player->setPlayerServerPos();
         }
@@ -215,8 +212,6 @@ void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
         if (index == playerId)
         {
             player->setPlayerHidePos();
-            //player->removeFromParent();
-            //playerTankmanager->returnPlayerTankManager().eraseObject(player);
             break;
         }
         index++;

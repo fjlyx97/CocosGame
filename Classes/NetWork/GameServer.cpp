@@ -47,6 +47,7 @@ GameServer::GameServer()
         log("监听端口失败");
     }
     log("开始监听端口");
+    this->bookId[0] = 1;
     while (true)
     {
         log("当前监听端口为：%d",this->port);
@@ -92,7 +93,7 @@ void GameServer::recvGameMsg(playerClient * newPlayer)
         int status = newPlayer->connectSocket->Recv(message,1024,0);
         if (status == 0)
         {
-            //log("客户端已经断开");
+            log("客户端已经断开");
             char disconnectMsg[2];
             disconnectMsg[0] = newPlayer->id+'0';
             disconnectMsg[1] = '\0';
