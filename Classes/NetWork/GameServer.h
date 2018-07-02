@@ -4,7 +4,8 @@
 #include "ODSocket/ODSocket.h"
 #include <vector>
 #include <string>
-#include <mutex>
+#include "PlayerTankManager.h"
+#include "EnemyTankManager.h"
 USING_NS_CC;
 struct playerClient
 {
@@ -29,14 +30,17 @@ public:
     void setIp(char* ip , int port);
     //往所有服务器玩家发送新玩家坐标广播
     void sendNewPlayerPos(Ref* pos);
-    //往新玩家发送服务器所有数据
+    //往玩家发送服务器所有数据
     void sendOldPlayer(Ref* pdata);
-    //往所有服务器发送广播
-    void sendGameMsg(Ref* pdata);
     //断线检测
     void disconnectClient(Ref* pdata);
     //循环接受服务端消息
-    static void recvGameMsg(playerClient* newPlayer);
+    void recvGameMsg(playerClient* newPlayer);
+    //开始接受
+    void start();
+    //绑定管理器
+    void bindEnemyTankManager(EnemyTankManager* enemyTankmanager);
+    void bindPlayerTankManager(PlayerTankManager* playerTankmanager);
 
 private:
     ODSocket* mSocket;
@@ -45,6 +49,9 @@ private:
     std::vector<playerClient*> connectSocket;
     char ip[101];
     int port;
-    std::mutex mMutex;
+    //敌人管理器
+    EnemyTankManager* enemyTankmanager;
+    //玩家管理器
+    PlayerTankManager* playerTankmanager;
 };
 #endif

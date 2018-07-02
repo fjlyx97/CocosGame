@@ -113,7 +113,11 @@ bool MulPlayScene::init()
         callfuncO_selector(MulPlayScene::sendIp),
         "sendIp",
         NULL);
+    
     this->scheduleUpdate();
+
+    std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
+    server.detach();
     //this->schedule(schedule_selector(MulPlayScene::myUpdate),0.1f);
     return true;
 }
@@ -189,11 +193,15 @@ void MulPlayScene::serverStart(GameServer* playerGameServer , char* ip , int por
 {
     playerGameServer = GameServer::create();
     playerGameServer->retain();
+    playerGameServer->bindPlayerTankManager(this->playerTankmanager);
+    playerGameServer->bindEnemyTankManager(this->enemyTankmanager);
+    playerGameServer->start();
 }
 //关联客户端玩家发送信息的广播（未完成）
 void MulPlayScene::recvServer(Ref* playerAction)
 {
-    log("%s",playerAction);
+    //log("%s",playerAction);
+    
 }
 //关联新增玩家的广播
 void MulPlayScene::serverAddNewPlayer(Ref* newPlayer)
@@ -259,10 +267,10 @@ void MulPlayScene::sendIp(Ref* ipData)
     log("%s %d",this->ip,this->port);
 
     //std::thread server(MulPlayScene::serverStart,this->playerGameServer,this,this->ip,this->port);
-    std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
-    server.detach();
+    //std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
+    //server.detach();
 
-    NotificationCenter::getInstance()->postNotification("sendServerIp",ipData);
+    //NotificationCenter::getInstance()->postNotification("sendServerIp",ipData);
 }
 
 void MulPlayScene::onKeyPressed(EventKeyboard::KeyCode keyCode ,Event * event)
