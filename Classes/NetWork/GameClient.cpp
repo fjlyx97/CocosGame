@@ -237,6 +237,21 @@ void GameClient::recvMsg()
                 bulletIndexTemp++;
             }
         }
+        else if (strcmp(cmd,"delPlayerBullet") == 0)
+        {
+            roleIndex++;
+            int bulletIndexAns = 5*(roleIndex-1);
+            int bulletIndexTemp = 0;
+            for (auto bullet : *(this->playerBulletmanager->returnPlayerBullet()))
+            {
+                if (bulletIndexTemp >= bulletIndexAns && bulletIndexTemp <= bulletIndexAns+5)
+                {
+                    bullet->setPosition(Vec2(-1,-1));
+                    bullet->setRotation(rotation);
+                }
+                bulletIndexTemp++;
+            }
+        }
         
         //log("%s",recvData);
         //将接受到的字符串发送出去处理

@@ -27,7 +27,8 @@ void CollisionDetection::bindPlayerTankManager(PlayerTankManager* playerTankMana
 }
 
 void CollisionDetection::update(float dt)
-{
+{   
+    int playerIndex = 0;
     for (auto player : playerTankManager->returnPlayerTankManager())
     {
         for (auto bullet : player->returnBulletManager()->playerBullet)
@@ -49,8 +50,7 @@ void CollisionDetection::update(float dt)
 
 
                     //移除子弹
-                    bullet->setPosition(Vec2(-2,-2));
-                    eBulletManager->returnPlayerBullet()->
+                    bullet->setPosition(Vec2(200,200));
                     bullet->removeFromParent();
                     
                     player->returnBulletManager()->playerBullet.eraseObject(bullet);
@@ -62,6 +62,8 @@ void CollisionDetection::update(float dt)
                     sendPosMsg = Value(enemyIndex).asString()+"9"+"delEnemyBullet"+","+"-1"+","+"-1"+"0"+"\n";
                     NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
 
+                    sendPosMsg = Value(playerIndex).asString()+"9"+"delPlayerBullet"+","+"-1"+","+"-1"+"0"+"\n";
+                    NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
                     for (auto enemybullet : *(enemy->returnBulletManager()->returnPlayerBullet()))
                     {
                         enemybullet->removeFromParent();
@@ -70,11 +72,12 @@ void CollisionDetection::update(float dt)
                     enemy->returnBulletManager()->BulletNum = 0 ;
                     enemy->reset();
 
-                    enemyIndex++;
                     return;
                 }
+                enemyIndex++;
             }
         }
+        playerIndex++;
     }
 }
 
