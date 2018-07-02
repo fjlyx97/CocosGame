@@ -247,7 +247,8 @@ void MulPlayScene::sendIp(Ref* ipData)
     this->port = atoi(&ipInfo[i+1]);
     log("%s %d",this->ip,this->port);
 
-    std::thread server(MulPlayScene::serverStart,this->playerGameServer,this->ip,this->port);
+    //std::thread server(MulPlayScene::serverStart,this->playerGameServer,this,this->ip,this->port);
+    std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
     server.detach();
 
     NotificationCenter::getInstance()->postNotification("sendServerIp",ipData);

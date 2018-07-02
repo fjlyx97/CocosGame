@@ -102,7 +102,7 @@ void MulPlayClientScene::createClient()
 
 void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
 {
-    //log("%s",updateInfo);
+    log("%s",updateInfo);
     char* Info = (char*)updateInfo;
     char cmd[101];
     char strPosX[101];
