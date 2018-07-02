@@ -10,6 +10,7 @@ EnemyTank::EnemyTank()
     this->enemyRotation = 0;
     this->enemyIsAlive = false;
     enemyBulletManager = new BulletManager();
+    this->isAlive();
 }
 EnemyTank::~EnemyTank()
 {
@@ -29,10 +30,9 @@ void EnemyTank::reset()
     }
     return;
 }
-bool EnemyTank::isAlive()
+void EnemyTank::isAlive()
 {
     this->enemyIsAlive = true;
-    return this->enemyIsAlive;
 }
 void EnemyTank::setEnemyScale(float scale)
 {
@@ -43,6 +43,12 @@ void EnemyTank::setEnemySpeed(float speedX, float speedY)
 {
     this->enemyspeedX = speedX;
     this->enemyspeedY = speedY;
+}
+
+void EnemyTank::setEnemyHidePos()
+{
+    this->enemyPositionX = -1;
+    this->enemyPositionY = -1;
 }
 void EnemyTank::setEnemyPos(Vec2 pos)
 {
@@ -82,8 +88,8 @@ void EnemyTank::TankAI(float ft)
         {
             MoveBy* movebyX;
             MoveBy* movebyY;
-            auto AI = (int)CCRANDOM_0_1()*5;
-            switch(AI)
+            int AI = CCRANDOM_0_1()*4;
+            switch(AI+1)
             {
                 case 1:
                     this->setRotation(90);
@@ -109,7 +115,7 @@ void EnemyTank::TankAI(float ft)
                     movebyY = MoveBy::create(1.0f,Vec2(0,-enemyspeedY));
                     this->runAction(movebyY);
                     break;
-                //default: log("error");break;
+                default: log("%d",AI);break;
             }
         }
     }
