@@ -4,7 +4,7 @@
 bool CollisionDetection::init()
 {
     this->scheduleUpdate();
-    this->schedule(schedule_selector(CollisionDetection::tankAI),2);
+    this->schedule(schedule_selector(CollisionDetection::tankAI),1);
     return true;
 }
 
@@ -28,7 +28,38 @@ void CollisionDetection::bindPlayerTankManager(PlayerTankManager* playerTankMana
 
 void CollisionDetection::update(float dt)
 {   
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    
+    //玩家子弹触墙判断
+    for(auto player : playerTankManager->returnPlayerTankManager())
+    {
+        for(auto bullet : player->returnBulletManager()->playerBullet)
+        {
+            if(bullet->getPositionX() < 0 || bullet->getPositionX() > visibleSize.width || bullet->getPositionY() < 0 || bullet->getPositionY() > visibleSize.height)
+            {
+                bullet->removeFromParent();
+                player->returnBulletManager()->playerBullet.eraseObject(bullet);
+                player->returnBulletManager()->BulletNum -= 1;
+            }
+        }
+    }
+    //敌方子弹触墙判断
+    for(auto enemy : enemyTankManager->enemyTankArr)
+    {
+        for(auto bullet : enemy->returnBulletManager()->playerBullet)
+        {
+            if(bullet->getPositionX() < 0 || bullet->getPositionX() > visibleSize.width || bullet->getPositionY() < 0 || bullet->getPositionY() > visibleSize.height)
+            {
+                bullet->removeFromParent();
+                enemy->returnBulletManager()->playerBullet.eraseObject(bullet);
+                enemy->returnBulletManager()->BulletNum -= 1;
+            }
+        }
+    }
+
     int playerIndex = 0;
+
+    //子弹与敌人碰撞判断
     for (auto player : playerTankManager->returnPlayerTankManager())
     {
         for (auto bullet : player->returnBulletManager()->playerBullet)
@@ -36,7 +67,7 @@ void CollisionDetection::update(float dt)
             //log("%.2f %.2f",bullet->getBulletPos().x,bullet->getBulletPos().y);
             //得到每个子弹以后判断是否和敌人碰撞
             int enemyIndex = 0;
-            for (auto enemy : enemyTankManager->enemyTankArr)
+            for (auto enemy : enemyTankManager->enemyTankArr )
             {
                 //log("%.2f %.2f",enemy->getPosition().x,enemy->getPosition().y);
                 //得到玩家位置
@@ -50,7 +81,7 @@ void CollisionDetection::update(float dt)
 
 
                     //移除子弹
-                    bullet->setPosition(Vec2(200,200));
+                    //bullet->setPosition(Vec2(200,200));
                     bullet->removeFromParent();
                     
                     player->returnBulletManager()->playerBullet.eraseObject(bullet);
@@ -79,6 +110,25 @@ void CollisionDetection::update(float dt)
         }
         playerIndex++;
     }
+
+    //子弹与玩家碰撞判断
+    //for(auto enemy : enemyTankManager->enemyTankArr)
+    //{
+    //    for(auto bullet : enemy->returnBulletManager()->playerBullet)
+    //    {
+    //        for(auto player : playerTankManager->returnPlayerTankManager())
+    //        {
+    //            auto playerRec = player->boundingBox();
+    //            auto bulletRec = bullet->boundingBox();
+    //            if(playerRec.intersectsRect(bulletRec))
+    //            {
+    //                bullet->removeFromParent();
+    //                enemy->returnBulletManager()->playerBullet.eraseObject(bullet);
+    //                enemy->returnBulletManager()->BulletNum -= 1;
+    //            }
+    //        }
+    //    }
+    //}
 }
 
 void CollisionDetection::tankAI(float dt)
