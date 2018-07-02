@@ -56,9 +56,9 @@ bool MulPlayScene::init()
     //创建人物管理器
     playerTankmanager = PlayerTankManager::create();
     //初始化碰撞检测管理器
-    collisionDetectionTank = CollisionDetection::create();
-    collisionDetectionTank->bindEnemyTankManager(enemyTankmanager);
-    collisionDetectionTank->bindPlayerTankManager(playerTankmanager);
+    //collisionDetectionTank = CollisionDetection::create();
+    //collisionDetectionTank->bindEnemyTankManager(enemyTankmanager);
+    //collisionDetectionTank->bindPlayerTankManager(playerTankmanager);
     this->addChild(enemyTankmanager,10);
     this->addChild(playerTankmanager,10);
     //this->addChild(collisionDetectionTank,10);
@@ -81,6 +81,13 @@ bool MulPlayScene::init()
         }
         player->setPlayerHidePos();
     }
+
+    //服务器打开BOT
+    for (auto enemy : this->enemyTankmanager->returnEnemyTankManager())
+    {
+        enemy->isAlive();
+    }
+    
 
     //开启玩家消息监听
     NotificationCenter::getInstance()->addObserver(
@@ -190,9 +197,10 @@ void MulPlayScene::recvServer(Ref* playerAction)
 void MulPlayScene::serverAddNewPlayer(Ref* newPlayer)
 {
     int index = 0;
+    int currentNum = atoi((char*)newPlayer);
     for (auto player : playerTankmanager->returnPlayerTankManager())
     {
-        if (index == playerNum)
+        if (index == currentNum)
         {
             player->setPlayerServerPos();
         }
@@ -213,8 +221,6 @@ void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
         if (index == playerId)
         {
             player->setPlayerHidePos();
-            //player->removeFromParent();
-            //playerTankmanager->returnPlayerTankManager().eraseObject(player);
             break;
         }
         index++;
@@ -249,7 +255,8 @@ void MulPlayScene::sendIp(Ref* ipData)
     this->port = atoi(&ipInfo[i+1]);
     log("%s %d",this->ip,this->port);
 
-    std::thread server(MulPlayScene::serverStart,this->playerGameServer,this->ip,this->port);
+    //std::thread server(MulPlayScene::serverStart,this->playerGameServer,this,this->ip,this->port);
+    std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
     server.detach();
 
     NotificationCenter::getInstance()->postNotification("sendServerIp",ipData);

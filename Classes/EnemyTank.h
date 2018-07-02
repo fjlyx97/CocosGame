@@ -23,6 +23,8 @@ public:
     void setEnemySpeed(float speedX ,float speedY);
     //设置隐藏初始位置
     void setEnemyHidePos();
+    //设置玩家转向
+    void setEnemyRotation(double rotation);
     //设置服务器端初始位置
     //void setEnemyServerPos();
     //设置初始位置
