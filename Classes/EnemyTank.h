@@ -16,7 +16,7 @@ public:
     //坦克位置随机重置
     void reset();   
     //获得是否活动状态
-    bool isAlive();
+    void isAlive();
     //设置大小
     void setEnemyScale(float scale);
     //设置速度

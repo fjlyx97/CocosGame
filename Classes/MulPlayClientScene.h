@@ -6,7 +6,8 @@
 #include "PlayerTankManager.h"
 #include "EnemyTankManager.h"
 #include "BulletManager.h"
-
+#include "EnemyTank.h"
+#include "Player.h"
 
 USING_NS_CC;
 using namespace cocos2d::extension;
