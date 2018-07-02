@@ -48,9 +48,12 @@ bool MulPlayClientScene::init()
     playerTankmanager = PlayerTankManager::create();
     //创建怪物管理器
     enemyTankmanager = EnemyTankManager::create();
+    //创建子弹管理器
+    bulletManager = BulletManager::create();
 
     this->addChild(playerTankmanager,10);
     this->addChild(enemyTankmanager,10);
+    this->addChild(bulletManager,10);
     //初始化客户端坦克
     for (int i = 1 ; i <= 6 ; i++)
     {
@@ -59,6 +62,11 @@ bool MulPlayClientScene::init()
     for (auto player : playerTankmanager->returnPlayerTankManager())
     {
         player->setPlayerHidePos();
+    }
+    //初始化子弹
+    for (int i = 1 ; i <= 50 ; i++)
+    {
+        bulletManager->addNewBullet(0,-1,-1,"Q版坦克素材/bullet/bullet5.png",false);
     }
 
     return true;
@@ -92,6 +100,7 @@ void MulPlayClientScene::createClient()
     gameClientSocket->setClient(this->ip,this->port);
     gameClientSocket->bindPlayerTankManager(this->playerTankmanager);
     gameClientSocket->bindEnemyTankManager(this->enemyTankmanager);
+    gameClientSocket->bindBulletManager(this->bulletManager);
     //gameClientSocket->bindClient(this);
     gameClientSocket->connectServer();
 }

@@ -4,6 +4,7 @@
 #include "ODSocket/ODSocket.h"
 #include "EnemyTankManager.h"
 #include "PlayerTankManager.h"
+#include "BulletManager.h"
 USING_NS_CC;
 
 class GameClient : public Ref
@@ -20,6 +21,7 @@ public:
 
     void bindPlayerTankManager(PlayerTankManager* playerTankmanager);
     void bindEnemyTankManager(EnemyTankManager* enemyTankmanager);
+    void bindBulletManager(BulletManager* bulletManager);
 
 
 private:
@@ -31,6 +33,8 @@ private:
     PlayerTankManager* playerTankmanager;
     //敌人管理器
     EnemyTankManager* enemyTankmanager;
+    //子弹管理器
+    BulletManager* bulletManager;
 
 };
 #endif

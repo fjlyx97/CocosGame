@@ -151,6 +151,7 @@ void MulPlayScene::sendPosition()
     playerIndex = 0;
     for (auto player : playerTankmanager->returnPlayerTankManager())
     {
+        index = 0;
         for (auto bullet : player->returnBulletManager()->returnPlayerBullet())
         {
             posX = Value(bullet->getPositionX()).asString();
@@ -168,6 +169,7 @@ void MulPlayScene::sendPosition()
     enemyIndex = 0;
     for (auto enemyTank : this->enemyTankmanager->returnEnemyTankManager())
     {
+        index = 0;
         for (auto enemybullet : enemyTank->returnBulletManager()->returnPlayerBullet())
         {
             posX = Value(enemybullet->getPositionX()).asString();

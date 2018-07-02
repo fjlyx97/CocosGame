@@ -1,5 +1,11 @@
 #include "BulletManager.h"
 
+
+bool BulletManager::init()
+{
+    return true;
+}
+
 BulletManager::BulletManager()
 {
     //NotificationCenter::getInstance()->addObserver(this,callfuncO_selector(BulletManager::recvBulletMessage),"PlayerBullet",NULL);
@@ -12,10 +18,14 @@ BulletManager::~BulletManager()
 
 }
 
-void BulletManager::addNewBullet(double bulletRotation , double posX , double posY,char* path)
+void BulletManager::addNewBullet(double bulletRotation , double posX , double posY,char* path, bool server)
 {
     //初始化新子弹
     //log("%d",maxBulletNum);
+    if (!server)
+    {
+        maxBulletNum = 50;
+    }
     if (BulletNum <= maxBulletNum)
     {
         auto newBullet = Bullet::create();
@@ -25,6 +35,11 @@ void BulletManager::addNewBullet(double bulletRotation , double posX , double po
         newBullet->setBulletSpeed(bulletRotation,2);
         newBullet->setPosition(posX,posY);
         newBullet->setScale(0.5);
+        //log("%d",server);
+        if (server)
+        {
+            newBullet->startUpdate();
+        }
         //log ("%.2f %.2f" , newBullet->getSprite()->getBoundingBox().size.width, newBullet->getSprite()->getBoundingBox().size.height);
         this->BulletNum++;
         playerBullet.pushBack(newBullet);

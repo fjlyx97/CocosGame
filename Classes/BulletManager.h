@@ -11,10 +11,13 @@ class BulletManager : public Node
 public:
     BulletManager();
     ~BulletManager();
-    void addNewBullet(double bulletRotation, double posX , double posY,char* path);
+    void addNewBullet(double bulletRotation, double posX , double posY,char* path , bool server);
     void recvBulletMessage(Ref* data);
     friend class CollisionDetection;
     Vector<Bullet*> returnPlayerBullet();
+    virtual bool init();
+
+    CREATE_FUNC(BulletManager);
     
 private:
     int maxBulletNum;

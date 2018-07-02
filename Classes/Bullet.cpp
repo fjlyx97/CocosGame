@@ -11,7 +11,7 @@ Bullet::Bullet()
 {
     this->bulletSpeedX = 0;
     this->bulletSpeedY = 0;
-    this->scheduleUpdate();
+    //this->scheduleUpdate();
 }
 
 Bullet::~Bullet()
@@ -98,4 +98,9 @@ Vec2 Bullet::getBulletPos()
 double Bullet::returnBulletRotation()
 {
     return this->bulletRotation;
+}
+
+void Bullet::startUpdate()
+{
+    this->scheduleUpdate();   
 }

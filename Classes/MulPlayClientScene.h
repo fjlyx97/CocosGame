@@ -9,6 +9,7 @@
 #include "EnemyTank.h"
 #include "Player.h"
 #include "MulPlayClientScene.h"
+#include "BulletManager.h"
 
 USING_NS_CC;
 using namespace cocos2d::extension;
@@ -36,6 +37,8 @@ private:
     PlayerTankManager* playerTankmanager;
     //敌人管理器
     EnemyTankManager* enemyTankmanager;
+    //子弹管理器
+    BulletManager* bulletManager;
 
 };
 #endif

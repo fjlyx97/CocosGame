@@ -48,7 +48,7 @@ void Player::actionPlayer(EventKeyboard::KeyCode key , bool isMove)
     this->setPlayerSpeed(0,0);
     if (key == EventKeyboard::KeyCode::KEY_J && isMove)
     {
-        this->playerBulletManager->addNewBullet(this->playerRotation,this->playerX,this->playerY,this->playerBulletStyle);
+        this->playerBulletManager->addNewBullet(this->playerRotation,this->playerX,this->playerY,this->playerBulletStyle,true);
     }
     else
     {
