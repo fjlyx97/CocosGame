@@ -56,12 +56,12 @@ bool MulPlayScene::init()
     //创建人物管理器
     playerTankmanager = PlayerTankManager::create();
     //初始化碰撞检测管理器
-    //collisionDetectionTank = CollisionDetection::create();
-    //collisionDetectionTank->bindEnemyTankManager(enemyTankmanager);
-    //collisionDetectionTank->bindPlayerTankManager(playerTankmanager);
+    collisionDetectionTank = CollisionDetection::create();
+    collisionDetectionTank->bindEnemyTankManager(enemyTankmanager);
+    collisionDetectionTank->bindPlayerTankManager(playerTankmanager);
     this->addChild(enemyTankmanager,10);
     this->addChild(playerTankmanager,10);
-    //this->addChild(collisionDetectionTank,10);
+    this->addChild(collisionDetectionTank,10);
     //初始化服务器端玩家坦克
     for (int i = 1 ; i <= 6 ; i++)
     {
@@ -151,7 +151,8 @@ void MulPlayScene::sendPosition()
     playerIndex = 0;
     for (auto player : playerTankmanager->returnPlayerTankManager())
     {
-        for (auto bullet : player->returnBulletManager()->returnPlayerBullet())
+        index = 0;
+        for (auto bullet : *(player->returnBulletManager()->returnPlayerBullet()))
         {
             posX = Value(bullet->getPositionX()).asString();
             posY = Value(bullet->getPositionY()).asString();
@@ -168,7 +169,8 @@ void MulPlayScene::sendPosition()
     enemyIndex = 0;
     for (auto enemyTank : this->enemyTankmanager->returnEnemyTankManager())
     {
-        for (auto enemybullet : enemyTank->returnBulletManager()->returnPlayerBullet())
+        index = 0;
+        for (auto enemybullet : *(enemyTank->returnBulletManager()->returnPlayerBullet()))
         {
             posX = Value(enemybullet->getPositionX()).asString();
             posY = Value(enemybullet->getPositionY()).asString();
@@ -230,7 +232,7 @@ void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
 
 void MulPlayScene::update(float dt)
 {
-    for (int i = 0 ; i < 6 ; i++)
+    for (int i = 0 ; i < 3 ; i++)
     {
         if (this->bookPlayer[i] == 1)
         {

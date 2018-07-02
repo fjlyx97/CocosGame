@@ -69,7 +69,7 @@ void GameClient::recvMsg()
             break;
         }
         //开始处理数据
-        log("%s",recvData);
+        //log("%s",recvData);
         char* Info = recvData;
         char cmd[101];
         char strPosX[101];
@@ -79,9 +79,10 @@ void GameClient::recvMsg()
         double posY;
         double rotation;
         int roleIndex = Info[0] - '0';
+        int bulletIndex = Info[1] - '0';
         int i;
         int index = 0;
-        for (i = 1 ; i < strlen(Info) ; i++)
+        for (i = 2 ; i < strlen(Info) ; i++)
         {
             if (Info[i] != ',')
             {
@@ -147,7 +148,7 @@ void GameClient::recvMsg()
         posY = atof(strPosY);
         rotation = atof(strRotation);
 
-        //log("角色索引 %d 命令 %s X坐标 %lf Y坐标 %lf 转向 %lf",roleIndex,cmd,posX,posY,rotation);
+        //log("角色索引 %d 子弹索引 %d 命令 %s X坐标 %lf Y坐标 %lf 转向 %lf",roleIndex,bulletIndex,cmd,posX,posY,rotation);
         if (strcmp(cmd,"addPlayer") == 0)
         {
             index = 0;
@@ -165,23 +166,29 @@ void GameClient::recvMsg()
                 index++;
             }
         }
-        /*
         else if (strcmp(cmd,"addPlayerBullet") == 0)
         {
-            index = 0;
+            roleIndex++;
+            bulletIndex++;
+            int bulletIndexTemp = 0;
+            int bulletIndexAns = 5*(roleIndex-1)+bulletIndex;
             for(auto player : playerTankmanager->returnPlayerTankManager())
             {
-                auto bulletManager = player->returnBulletManager();
-                if (index == roleIndex)
+                for (auto bullet : *(this->playerBulletmanager->returnPlayerBullet()))
                 {
-                    bulletManager->addNewBullet(rotation,posX,posY,"Q版坦克素材/bullet/bullet7.png");
-                    break;
+                    //log("%d",bulletIndexTemp);
+                    if (bulletIndexTemp == bulletIndexAns)
+                    {
+                        //log("%d",bulletIndexTemp);
+                        bullet->setPosition(Vec2(posX,posY));
+                        bullet->setRotation(rotation);
+                        break;
+                    }
+                    bulletIndexTemp++;
                 }
-                index++;
             }
         }
-        */
-        if (strcmp(cmd,"addEnemy") == 0)
+        else if (strcmp(cmd,"addEnemy") == 0)
         {
             index = 0;
             for(auto enemy : enemyTankmanager->returnEnemyTankManager())
@@ -195,26 +202,42 @@ void GameClient::recvMsg()
                 index++;
             }
         }
-        
-        /*
-        else if(strcmp(cmd,"addEnemyBullet") == 0 )
+        else if(strcmp(cmd,"addEnemyBullet") == 0)
         {
-            index = 0;
-            for(auto enemy2 : enemyTankmanager->returnEnemyTankManager())
+            roleIndex++;
+            bulletIndex++;
+            int bulletIndexTemp = 0;
+            int bulletIndexAns = 5*(roleIndex-1)+bulletIndex;
+            for (auto bullet : *(this->enemyBulletmanager->returnPlayerBullet()))
             {
-                for(auto enemybullet : enemy2->returnBulletManager())
+                //log("%d",bulletIndexTemp);
+                if (bulletIndexTemp == bulletIndexAns)
                 {
-                    if(index = roleIndex)
-                    {
-                        enemybullet->addNewBullet(rotation,posX,posY,"Q版坦克素材/bullet/bullet5.png");
-                    }
+                    //log("%d",bulletIndexTemp);
+                    bullet->setPosition(Vec2(posX,posY));
+                    bullet->setRotation(rotation);
+                    break;
                 }
+                bulletIndexTemp++;
             }
-            index++;
+            index = 0;
         }
-        */
-
-
+        else if (strcmp(cmd,"delEnemyBullet") == 0)
+        {
+            roleIndex++;
+            int bulletIndexAns = 5*(roleIndex-1);
+            int bulletIndexTemp = 0;
+            for (auto bullet : *(this->enemyBulletmanager->returnPlayerBullet()))
+            {
+                if (bulletIndexTemp >= bulletIndexAns && bulletIndexTemp <= bulletIndexAns+5)
+                {
+                    bullet->setPosition(Vec2(-1,-1));
+                    bullet->setRotation(rotation);
+                }
+                bulletIndexTemp++;
+            }
+        }
+        
         //log("%s",recvData);
         //将接受到的字符串发送出去处理
         //NotificationCenter::getInstance()->postNotification("sendContent",(Ref*)recvData);
@@ -228,4 +251,12 @@ void GameClient::bindPlayerTankManager(PlayerTankManager* playerTankmanager)
 void GameClient::bindEnemyTankManager(EnemyTankManager* enemyTankmanager)
 {
     this->enemyTankmanager = enemyTankmanager;
+}
+void GameClient::bindEnemyBulletManager(BulletManager* enemyBulletmanager)
+{
+    this->enemyBulletmanager = enemyBulletmanager;
+}
+void GameClient::bindPlayerBulletManager(BulletManager* playerBulletmanager)
+{
+    this->playerBulletmanager = playerBulletmanager;
 }

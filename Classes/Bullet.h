@@ -20,6 +20,8 @@ public:
     CREATE_FUNC(Bullet);
     virtual bool init();
 
+    void startUpdate();
+
     double returnBulletRotation();   
 
     void sendMessage(float dt);
