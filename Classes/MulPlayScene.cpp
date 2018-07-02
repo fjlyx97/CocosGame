@@ -85,7 +85,7 @@ bool MulPlayScene::init()
     //服务器打开BOT
     for (auto enemy : this->enemyTankmanager->returnEnemyTankManager())
     {
-        //enemy->isAlive();
+        enemy->isAlive();
     }
     
 
