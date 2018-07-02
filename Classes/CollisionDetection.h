@@ -22,6 +22,8 @@ public:
     ~CollisionDetection();
 
 private:
+    //动画
+    //cocos2d::Animate* createAnimate(float posX, float posY);
     EnemyTankManager* enemyTankManager;
     PlayerTankManager* playerTankManager;
 
