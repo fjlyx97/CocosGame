@@ -18,6 +18,7 @@ EnemyTank::~EnemyTank()
 }
 bool EnemyTank::init()
 {
+    this->isAlive();
     this->schedule(schedule_selector(EnemyTank::TankAI),1.0f);
     return true;
 }

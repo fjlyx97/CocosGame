@@ -101,7 +101,7 @@ bool HelloWorld::init()
         background_image->setPosition(Vec2(visibleSize.width/2,visibleSize.height/2));
         this->addChild(background_image);
     }
-    
+
     return true;
 }
 
