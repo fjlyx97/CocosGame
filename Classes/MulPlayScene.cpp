@@ -56,12 +56,12 @@ bool MulPlayScene::init()
     //创建人物管理器
     playerTankmanager = PlayerTankManager::create();
     //初始化碰撞检测管理器
-    //collisionDetectionTank = CollisionDetection::create();
-    //collisionDetectionTank->bindEnemyTankManager(enemyTankmanager);
-    //collisionDetectionTank->bindPlayerTankManager(playerTankmanager);
+    collisionDetectionTank = CollisionDetection::create();
+    collisionDetectionTank->bindEnemyTankManager(enemyTankmanager);
+    collisionDetectionTank->bindPlayerTankManager(playerTankmanager);
     this->addChild(enemyTankmanager,10);
     this->addChild(playerTankmanager,10);
-    //this->addChild(collisionDetectionTank,10);
+    this->addChild(collisionDetectionTank,10);
     //初始化服务器端玩家坦克
     for (int i = 1 ; i <= 6 ; i++)
     {

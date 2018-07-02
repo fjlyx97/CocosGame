@@ -57,6 +57,12 @@ bool PlayScene::init()
     this->addChild(playerTank,10);
     this->addChild(collisionDetectionTank,10);
 
+    //打开BOT
+    for (auto enemy : this->enemyTank->returnEnemyTankManager())
+    {
+        enemy->isAlive();
+    }
+
     //初始化本地坦克
     playerTank->addNewPlayer();
     //绑定我方坦克
