@@ -14,7 +14,7 @@ public:
     void addNewBullet(double bulletRotation, double posX , double posY,char* path , bool server);
     void recvBulletMessage(Ref* data);
     friend class CollisionDetection;
-    Vector<Bullet*> returnPlayerBullet();
+    Vector<Bullet*>* returnPlayerBullet();
     virtual bool init();
 
     CREATE_FUNC(BulletManager);

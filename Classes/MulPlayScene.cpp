@@ -152,7 +152,7 @@ void MulPlayScene::sendPosition()
     for (auto player : playerTankmanager->returnPlayerTankManager())
     {
         index = 0;
-        for (auto bullet : player->returnBulletManager()->returnPlayerBullet())
+        for (auto bullet : *(player->returnBulletManager()->returnPlayerBullet()))
         {
             posX = Value(bullet->getPositionX()).asString();
             posY = Value(bullet->getPositionY()).asString();
@@ -170,7 +170,7 @@ void MulPlayScene::sendPosition()
     for (auto enemyTank : this->enemyTankmanager->returnEnemyTankManager())
     {
         index = 0;
-        for (auto enemybullet : enemyTank->returnBulletManager()->returnPlayerBullet())
+        for (auto enemybullet : *(enemyTank->returnBulletManager()->returnPlayerBullet()))
         {
             posX = Value(enemybullet->getPositionX()).asString();
             posY = Value(enemybullet->getPositionY()).asString();
@@ -232,7 +232,7 @@ void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
 
 void MulPlayScene::update(float dt)
 {
-    for (int i = 0 ; i < 6 ; i++)
+    for (int i = 0 ; i < 3 ; i++)
     {
         if (this->bookPlayer[i] == 1)
         {

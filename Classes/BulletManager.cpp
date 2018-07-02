@@ -53,7 +53,7 @@ void BulletManager::recvBulletMessage(Ref* data)
     this->BulletNum--;
 }
 
-Vector<Bullet*> BulletManager::returnPlayerBullet()
+Vector<Bullet*>* BulletManager::returnPlayerBullet()
 {
-    return this->playerBullet;
+    return &(this->playerBullet);
 }

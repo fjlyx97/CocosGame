@@ -174,7 +174,7 @@ void GameClient::recvMsg()
             int bulletIndexAns = 5*(roleIndex-1)+bulletIndex;
             for(auto player : playerTankmanager->returnPlayerTankManager())
             {
-                for (auto bullet : this->playerBulletmanager->returnPlayerBullet())
+                for (auto bullet : *(this->playerBulletmanager->returnPlayerBullet()))
                 {
                     //log("%d",bulletIndexTemp);
                     if (bulletIndexTemp == bulletIndexAns)
@@ -208,7 +208,7 @@ void GameClient::recvMsg()
             bulletIndex++;
             int bulletIndexTemp = 0;
             int bulletIndexAns = 5*(roleIndex-1)+bulletIndex;
-            for (auto bullet : this->enemyBulletmanager->returnPlayerBullet())
+            for (auto bullet : *(this->enemyBulletmanager->returnPlayerBullet()))
             {
                 //log("%d",bulletIndexTemp);
                 if (bulletIndexTemp == bulletIndexAns)
@@ -220,8 +220,22 @@ void GameClient::recvMsg()
                 }
                 bulletIndexTemp++;
             }
-
             index = 0;
+        }
+        else if (strcmp(cmd,"delEnemyBullet") == 0)
+        {
+            roleIndex++;
+            int bulletIndexAns = 5*(roleIndex-1);
+            int bulletIndexTemp = 0;
+            for (auto bullet : *(this->enemyBulletmanager->returnPlayerBullet()))
+            {
+                if (bulletIndexTemp >= bulletIndexAns && bulletIndexTemp <= bulletIndexAns+5)
+                {
+                    bullet->setPosition(Vec2(-1,-1));
+                    bullet->setRotation(rotation);
+                }
+                bulletIndexTemp++;
+            }
         }
         
         //log("%s",recvData);
