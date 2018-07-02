@@ -31,11 +31,8 @@ public:
     Vec2 returnEnemyPos();
     //返回玩家方向
     double returnEnemyTankRotation();
-
     void TankAI(float dt);
-    
     friend class CollisionDetection;
-
     BulletManager* returnBulletManager();
 
 private:
