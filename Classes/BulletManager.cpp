@@ -24,7 +24,7 @@ void BulletManager::addNewBullet(double bulletRotation , double posX , double po
     //log("%d",maxBulletNum);
     if (!server)
     {
-        maxBulletNum = 50;
+        maxBulletNum = 100;
     }
     if (BulletNum <= maxBulletNum)
     {

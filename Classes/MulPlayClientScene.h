@@ -38,7 +38,8 @@ private:
     //敌人管理器
     EnemyTankManager* enemyTankmanager;
     //子弹管理器
-    BulletManager* bulletManager;
+    BulletManager* enemyBulletManager;
+    BulletManager* playerBulletManager;
 
 };
 #endif

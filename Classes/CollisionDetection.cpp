@@ -49,25 +49,26 @@ void CollisionDetection::update(float dt)
 
 
                     //移除子弹
+                    bullet->setPosition(Vec2(-2,-2));
                     bullet->removeFromParent();
                     player->returnBulletManager()->playerBullet.eraseObject(bullet);
                     player->returnBulletManager()->BulletNum -= 1;
 
                     //被击中的坦克重新初始化位置
                     //发送被击中坦克的ID
-                    std::string posX,posY,sendPosMsg,rotation;
-                    sendPosMsg = Value(enemyIndex).asString()+"9"+"delEnemyBullet"+","+"-1"+","+"-1"+"0"+"\n";
-                    NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
-
+                    
                     for (auto enemybullet : enemy->returnBulletManager()->returnPlayerBullet())
                     {
                         enemybullet->setPosition(Vec2(-1,-1));
                         enemybullet->removeFromParent();
                     }
-                    enemy->returnBulletManager()->returnPlayerBullet().clear();
+                    
+                    
+                    //enemy->returnBulletManager()->returnPlayerBullet().clear();
+                    log("%d",enemy->returnBulletManager()->returnPlayerBullet().size());
+
                     enemy->returnBulletManager()->BulletNum = 0 ;
                     enemy->reset();
-
 
                     enemyIndex++;
                     return;

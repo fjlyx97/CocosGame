@@ -20,8 +20,9 @@ public:
     void recvMsg();
 
     void bindPlayerTankManager(PlayerTankManager* playerTankmanager);
+    void bindPlayerBulletManager(BulletManager* playerBulletmanager);
     void bindEnemyTankManager(EnemyTankManager* enemyTankmanager);
-    void bindBulletManager(BulletManager* bulletManager);
+    void bindEnemyBulletManager(BulletManager* enemyBulletmanager);
 
 
 private:
@@ -34,7 +35,8 @@ private:
     //敌人管理器
     EnemyTankManager* enemyTankmanager;
     //子弹管理器
-    BulletManager* bulletManager;
+    BulletManager* enemyBulletmanager;
+    BulletManager* playerBulletmanager;
 
 };
 #endif
