@@ -214,7 +214,7 @@ void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
             index++;
         }
     }
-    */
+    
     else if (strcmp(cmd,"addEnemy") == 0)
     {
         index = 0;
@@ -222,12 +222,13 @@ void MulPlayClientScene::updataGameInfo(Ref* updateInfo)
         {
             if(index = roleIndex)
             {
-                enemy->setPosition(rotation,posX,posY,"Q版坦克素材/enemy/canon11.png");
+                enemy->setPosition(posX,posY);
+                enemy->setRotation(rotation);
             }
             index++;
         }
     }
-    /*
+    
     else if(strcmp(cmd,"addEnemyBullet") == 0 )
     {
         index = 0;
