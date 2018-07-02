@@ -69,6 +69,7 @@ void GameClient::recvMsg()
             break;
         }
         //开始处理数据
+        log("%s",recvData);
         char* Info = recvData;
         char cmd[101];
         char strPosX[101];
@@ -212,10 +213,6 @@ void GameClient::recvMsg()
             index++;
         }
         */
-
-
-
-
 
 
         //log("%s",recvData);
