@@ -54,6 +54,7 @@ void CollisionDetection::update(float dt)
                     {
                         enemybullet->removeFromParent();
                     }
+                    
                     enemy->returnBulletManager()->returnPlayerBullet().clear();
                     enemy->returnBulletManager()->BulletNum = 0 ;
                     enemy->reset();
@@ -125,3 +126,27 @@ void CollisionDetection::tankAI(float dt)
         }
     }
 }
+/*
+cocos2d::Animate* CollisionDetection::createAnimate(float posX, float posY)
+{
+
+    SpriteFrame* frame = NULL;
+    Vector<SpriteFrame*> framevec;
+    //用一个列表保存所有SpriteFrame对象
+    for(int i = 1; i <= 4; i++)
+    {
+        frame = frameCache->getSpriteFrameByName(StringUtils::format("%d.png",i),Rect(0,0,130,130));
+        frameVec.pushBack(frame);
+    }
+
+    //使用SpriteFrame列表创建动画对象
+    Animation* animation = Animation::createWithSpriteFrames(frameVec);
+    animation->setLoops(-1);
+    animation->setDelayPerUnit(0.2f);
+
+    //把动画包装成一个动作
+    Animate* action = Animate::create(animation);
+
+    return action;
+}
+*/
