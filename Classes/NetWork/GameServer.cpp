@@ -68,6 +68,14 @@ GameServer::GameServer()
                     NotificationCenter::getInstance()->postNotification("addNewPlayer",(Ref*)sendIdMsg);
                     std::thread recvThread(GameServer::recvGameMsg,newPlayer);
                     recvThread.detach();
+                    //测试代码
+                    /*
+                    for (int j = 0 ; j < 6 ; j++)
+                    {
+                        log("%d ",this->bookId[j]);
+                    }
+                    */
+                    //测试代码
                     break;
                 }
             }
@@ -97,7 +105,7 @@ void GameServer::recvGameMsg(playerClient * newPlayer)
             char disconnectMsg[2];
             disconnectMsg[0] = newPlayer->id+'0';
             disconnectMsg[1] = '\0';
-            NotificationCenter::getInstance()->postNotification("playerDisconnect",(Ref*)disconnectMsg);
+            //NotificationCenter::getInstance()->postNotification("playerDisconnect",(Ref*)disconnectMsg);
             break;
         }
         NotificationCenter::getInstance()->postNotification("playerAction",(Ref*)message);
@@ -126,13 +134,12 @@ void GameServer::disconnectClient(Ref* pdata)
     int socketId = atoi((char*)pdata);
     int index = 0;
     std::vector<playerClient*>::iterator iter;
-    //connectSocket[0]->connectSocket->Send("hello",1024);
     for (iter = connectSocket.begin() ; iter != connectSocket.end() ; iter++)
     {
         if (index == socketId)
         {
-            connectSocket.erase(iter);
-            //log("当前%d玩家退出",socketId);
+            //connectSocket.erase(iter);
+            log("当前%d玩家退出",socketId);
             bookId[socketId] = 0;
             break;
         }

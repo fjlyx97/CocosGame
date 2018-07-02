@@ -214,6 +214,7 @@ void MulPlayScene::serverAddNewPlayer(Ref* newPlayer)
 void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
 {
     int playerId = atoi((char*)delPlayer);
+    //log("%d",playerId);
     this->bookPlayer[playerId] = 0;
     int index = 0;
     for (auto player : this->playerTankmanager->returnPlayerTankManager())
