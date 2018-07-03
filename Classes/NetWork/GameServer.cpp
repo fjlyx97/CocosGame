@@ -121,7 +121,7 @@ void GameServer::resetServer()
     this->currentId = 0;
     this->port = 8000;
     memset(this->bookId,0,sizeof(this->bookId));
-    strcpy(ip,"localhost");
+    strcpy(ip,"127.0.0.1");
 }
 
 //关联玩家掉线广播
