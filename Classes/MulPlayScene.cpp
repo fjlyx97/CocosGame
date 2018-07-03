@@ -118,7 +118,6 @@ bool MulPlayScene::init()
 
     std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
     server.detach();
-    //this->schedule(schedule_selector(MulPlayScene::myUpdate),0.1f);
     return true;
 }
 
@@ -195,6 +194,7 @@ void MulPlayScene::serverStart(GameServer* playerGameServer , char* ip , int por
     playerGameServer->retain();
     playerGameServer->bindPlayerTankManager(this->playerTankmanager);
     playerGameServer->bindEnemyTankManager(this->enemyTankmanager);
+    playerGameServer->bindMsgQueue(&this->MsgQueue);
     playerGameServer->start();
 }
 //关联客户端玩家发送信息的广播（未完成）
@@ -240,6 +240,7 @@ void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
 
 void MulPlayScene::update(float dt)
 {
+    this->updateMutex.lock();
     for (int i = 0 ; i < 3 ; i++)
     {
         if (this->bookPlayer[i] == 1)
@@ -247,6 +248,13 @@ void MulPlayScene::update(float dt)
             this->sendPosition();
         }
     }
+    while(!(this->MsgQueue.empty()))
+    {
+        int choice = this->MsgQueue.front();
+        this->playerTankmanager->recvKey(EventKeyboard::KeyCode::KEY_J,true,choice);
+        this->MsgQueue.pop();
+    }
+    this->updateMutex.unlock();
 }
 
 void MulPlayScene::sendIp(Ref* ipData)

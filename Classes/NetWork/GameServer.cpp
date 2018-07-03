@@ -48,6 +48,7 @@ void GameServer::setIp(char* ip , int port)
 
 void GameServer::recvGameMsg(playerClient * newPlayer)
 {
+    this->mutexMsg.lock();
     char getMsg[20];
     while (true)
     {
@@ -55,7 +56,6 @@ void GameServer::recvGameMsg(playerClient * newPlayer)
         newPlayer->connectSocket->Recv(getMsg,3,0);
         int dataLen = atoi(getMsg);
 
-        log("长度为：%d",dataLen);
         memset(getMsg,0,sizeof(getMsg));
         int status = newPlayer->connectSocket->Recv(getMsg,dataLen,0);
         if (status == 0)
@@ -67,7 +67,8 @@ void GameServer::recvGameMsg(playerClient * newPlayer)
             //NotificationCenter::getInstance()->postNotification("playerDisconnect",(Ref*)disconnectMsg);
             break;
         }
-        log("%s",getMsg);
+        //log("%d",this->MsgQueue.front());
+        //log("%s" , this->MsgQueue.front());
 
         char cmd[20];
         int getClientId = getMsg[0] - '0';
@@ -77,7 +78,7 @@ void GameServer::recvGameMsg(playerClient * newPlayer)
             cmd[i-1] = getMsg[i];
         }
         cmd[i-1] = '\0';
-        log("%d %s",getClientId,cmd);
+        //log("%d %s",getClientId,cmd);
         if (strcmp(cmd,"playerUp") == 0)
         {
             this->playerTankmanager->recvKey(EventKeyboard::KeyCode::KEY_W,true,getClientId);
@@ -96,7 +97,7 @@ void GameServer::recvGameMsg(playerClient * newPlayer)
         }
         else if (strcmp(cmd,"playerAttack") == 0)
         {
-            this->playerTankmanager->recvKey(EventKeyboard::KeyCode::KEY_J,true,getClientId);
+            this->MsgQueue->push(getClientId);
         }
         else if (strcmp(cmd,"playerStop") == 0)
         {
@@ -104,6 +105,7 @@ void GameServer::recvGameMsg(playerClient * newPlayer)
         }
         //NotificationCenter::getInstance()->postNotification("playerAction",(Ref*)message);
     }
+    this->mutexMsg.unlock();
 }
 
 GameServer::~GameServer()
@@ -229,4 +231,8 @@ void GameServer::start()
         }
         //此处似乎有内存泄露
     }
+}
+void GameServer::bindMsgQueue(std::queue<int>* MsgQueue)
+{
+    this->MsgQueue = MsgQueue;
 }

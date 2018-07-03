@@ -37,7 +37,7 @@ void GameClient::connectServer()
 {
     log("%s",this->ip);
     log("%d",this->port);
-    bool result = this->mSocket->Connect("127.0.0.1",8000);
+    bool result = this->mSocket->Connect(this->ip,this->port);
     int retryTimes = 0;
     if (result == true)
     {
@@ -292,7 +292,7 @@ void GameClient::bindPlayerBulletManager(BulletManager* playerBulletmanager)
 }
 void GameClient::sendMsg(Ref* clientMsg)
 {
-    log("%s",clientMsg);
+    //log("%s",clientMsg);
     int sendLen = strlen((char*)clientMsg);
     char sendLenStr[3];
     sendLenStr[1] = sendLen % 10 + '0';

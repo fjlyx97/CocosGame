@@ -2,10 +2,11 @@
 #define _GameServer_H_
 #include "cocos2d.h"
 #include "ODSocket/ODSocket.h"
-#include <vector>
+#include <queue>
 #include <string>
 #include "PlayerTankManager.h"
 #include "EnemyTankManager.h"
+#include <mutex>
 USING_NS_CC;
 struct playerClient
 {
@@ -41,6 +42,7 @@ public:
     //绑定管理器
     void bindEnemyTankManager(EnemyTankManager* enemyTankmanager);
     void bindPlayerTankManager(PlayerTankManager* playerTankmanager);
+    void bindMsgQueue(std::queue<int>* MsgQueue);
 
 private:
     ODSocket* mSocket;
@@ -53,5 +55,8 @@ private:
     EnemyTankManager* enemyTankmanager;
     //玩家管理器
     PlayerTankManager* playerTankmanager;
+    //消息队列
+    std::queue<int>* MsgQueue;
+    std::mutex mutexMsg;
 };
 #endif
