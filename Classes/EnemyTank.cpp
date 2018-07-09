@@ -134,3 +134,21 @@ void EnemyTank::setEnemyRotation(double rotation)
 {
     this->enemyRotation = rotation;
 }
+
+Animate* EnemyTank::boomAnimate()
+{
+    SpriteFrameCache* frameCache = SpriteFrameCache::getInstance();
+    frameCache->addSpriteFramesWithFile("QTank/animation/portal.plist");
+    int iFrameNum = 7;
+    SpriteFrame* frame = NULL;
+    Vector<SpriteFrame*> frameVec;
+    for (int i = 1 ; i <= iFrameNum ; i++)
+    {
+        frame = frameCache->getSpriteFrameByName(StringUtils::format("%d.png",i));
+    }
+    Animation* animation = Animation::createWithSpriteFrames(frameVec);
+    animation->setLoops(1);
+    animation->setDelayPerUnit(0.2f);
+    Animate* action = Animate::create(animation);
+    return action;
+}

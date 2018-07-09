@@ -36,6 +36,8 @@ public:
     void TankAI(float dt);
     friend class CollisionDetection;
     BulletManager* returnBulletManager();
+    //返回敌机爆炸动画
+    Animate* boomAnimate();
 
 private:
     char* enemyTankBulletStyle;
