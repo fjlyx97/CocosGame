@@ -10,6 +10,15 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\NetWork">
+      <UniqueIdentifier>{be3db3ae-6e85-4373-ae39-848b14034545}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ODSocket">
+      <UniqueIdentifier>{1eed5fc5-1021-43e3-b8da-dcb5af6b91a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource\Q版坦克素材">
+      <UniqueIdentifier>{32044396-2ffd-47c8-b57d-29ef9df384a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -20,6 +29,51 @@
     </ClCompile>
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Bullet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BulletManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CollisionDetection.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EnemyTank.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EnemyTankManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Entity.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MulPlayClientScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MulPlayScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerTankManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NetWork\GameClient.cpp">
+      <Filter>src\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NetWork\GameServer.cpp">
+      <Filter>src\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ODSocket\ODSocket.cpp">
+      <Filter>src\ODSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ODSocket\stdafx.cpp">
+      <Filter>src\ODSocket</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -32,10 +86,146 @@
     <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Bullet.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BulletManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CollisionDetection.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyTank.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyTankManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Entity.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MulPlayClientScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MulPlayScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerTankManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NetWork\GameClient.h">
+      <Filter>src\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NetWork\GameServer.h">
+      <Filter>src\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ODSocket\ODSocket.h">
+      <Filter>src\ODSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ODSocket\stdafx.h">
+      <Filter>src\ODSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ODSocket\targetver.h">
+      <Filter>src\ODSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ODSocket\tchar.h">
+      <Filter>src\ODSocket</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
       <Filter>resource</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Classes\ODSocket\README.md">
+      <Filter>src\ODSocket</Filter>
+    </None>
+    <None Include="..\Resources\Q版坦克素材\更多资料素材下载.url">
+      <Filter>resource\Q版坦克素材</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\Q版坦克素材\bg_frame.png">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\bg_mission.png">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\bg_new.jpg">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\bgj1.png">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\Chapter_1 (2).jpg">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\Chapter_1.jpg">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\Chapter_2 (2).jpg">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\Chapter_2.jpg">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\Chapter_3 (2).jpg">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\Chapter_3.jpg">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\Chapter_4 (2).jpg">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\Chapter_4.jpg">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\Chapter_5 (2).jpg">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\Chapter_5.jpg">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\cloud_1.png">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\frame_commonPic.png">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\gray.jpg">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\jet04.png">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\lottery_bg.png">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\mission_bg.png">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\numBg.png">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\pause_bg.png">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\plane1.png">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\plane2.png">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
+    <Image Include="..\Resources\Q版坦克素材\plane3.png">
+      <Filter>resource\Q版坦克素材</Filter>
+    </Image>
   </ItemGroup>
 </Project>

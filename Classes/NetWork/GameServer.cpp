@@ -135,7 +135,7 @@ void GameServer::disconnectClient(Ref* pdata)
         if (index == socketId)
         {
             //connectSocket.erase(iter);
-            log("当前%d玩家退出",socketId);
+            //log("当前%d玩家退出",socketId);
             bookId[socketId] = 0;
             break;
         }
@@ -193,7 +193,7 @@ void GameServer::start()
     {
         log("监听端口失败");
     }
-    log("开始监听端口");
+    //log("开始监听端口");
     this->bookId[0] = 1;
     while (true)
     {

@@ -2,7 +2,7 @@
 
 EnemyTank::EnemyTank()
 {
-    this->enemyTankBulletStyle = "Q版坦克素材/bullet/bullet5.png";
+    this->enemyTankBulletStyle = "QTank/bullet/bullet5.png";
     this->enemyPositionX = 0;
     this->enemyPositionY = 0;
     this->enemyspeedX = 20;

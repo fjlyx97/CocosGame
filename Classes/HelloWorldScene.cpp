@@ -91,7 +91,7 @@ bool HelloWorld::init()
                                 origin.y + visibleSize.height - label->getContentSize().height));
         this->addChild(label, 1);
     }
-    auto background_image = Sprite::create("Q版坦克素材/bg_new.jpg");
+    auto background_image = Sprite::create("QTank/bg_new.jpg");
     if (background_image == nullptr)
     {
         problemLoading("场景加载失败");
@@ -131,12 +131,12 @@ void HelloWorld::menuMultiBeginGame()
     //输入框--创建连接
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    auto netWorking = Sprite::create("Q版坦克素材/bg_frame.png");
+    auto netWorking = Sprite::create("QTank/bg_frame.png");
     netWorking->setPosition(Point((visibleSize.width/2)+20,visibleSize.height/2));    
     netWorking->setName("netWorking");
     this->addChild(netWorking,4);
 
-    auto ipContent = Scale9Sprite::create("Q版坦克素材/exchange/exchange_num.png");
+    auto ipContent = Scale9Sprite::create("QTank/exchange/exchange_num.png");
     ipContent->setName("ipContent");
     auto ipEditBox = EditBox::create(Size(300,50),ipContent);
     ipEditBox->setName("ipEditBox");
@@ -145,7 +145,7 @@ void HelloWorld::menuMultiBeginGame()
     ipEditBox->setText("请输入IP地址"); //初始化文字
     ipEditBox->setFontSize(20);   //文字的大小：注意！！！  这个设置没有任何效果。这也是为什么要自己建立背景的一个问题
 
-    auto portContent = Scale9Sprite::create("Q版坦克素材/exchange/exchange_num.png");
+    auto portContent = Scale9Sprite::create("QTank/exchange/exchange_num.png");
     portContent->setName("portContent");
     auto portEditBox = EditBox::create(Size(300,50),portContent);
     portEditBox->setName("portEditBox");

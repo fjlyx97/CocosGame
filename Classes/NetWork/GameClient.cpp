@@ -8,6 +8,10 @@ GameClient::GameClient()
     this->mSocket = new ODSocket;
     this->mSocket->Init();
     this->mSocket->Create(AF_INET, SOCK_STREAM , 0);
+	//测试代码
+    bool result = this->mSocket->Connect("127.0.0.1",8000);
+	if (result)
+		log("Success Connect");
 
     NotificationCenter::getInstance()->addObserver(
         this,
@@ -37,10 +41,14 @@ void GameClient::connectServer()
 {
     log("%s",this->ip);
     log("%d",this->port);
-    bool result = this->mSocket->Connect(this->ip,this->port);
+    //bool result = this->mSocket->Connect(this->ip,this->port);
+	//测试代码
+	bool result = true;
+	//测试代码
     int retryTimes = 0;
     if (result == true)
     {
+		log("连接成功");
         char id[2];
         this->mSocket->Recv(id,2,0);
         this->clientId = atoi(id);
@@ -84,7 +92,7 @@ void GameClient::recvMsg()
             break;
         }
         //开始处理数据
-        //log("%s",recvData);
+        log("%s",recvData);
         char* Info = recvData;
         char cmd[101];
         char strPosX[101];

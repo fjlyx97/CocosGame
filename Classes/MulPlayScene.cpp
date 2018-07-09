@@ -17,10 +17,10 @@ MulPlayScene::MulPlayScene()
 
 MulPlayScene::~MulPlayScene()
 {
-    if (playerGameServer != NULL)
-    {
-        delete playerGameServer;
-    }
+    //if (playerGameServer != NULL)
+    //{
+    //    delete playerGameServer;
+    //}
 }
 
 
@@ -33,7 +33,7 @@ bool MulPlayScene::init()
     //初始化游戏背景
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    auto background_image = Sprite::create("Q版坦克素材/Tiled/bg4.jpg");
+    auto background_image = Sprite::create("QTank/Tiled/bg4.jpg");
     if (background_image == nullptr)
     {
         return false;
@@ -251,6 +251,7 @@ void MulPlayScene::update(float dt)
     while(!(this->MsgQueue.empty()))
     {
         int choice = this->MsgQueue.front();
+		log("%d", choice);
         this->playerTankmanager->recvKey(EventKeyboard::KeyCode::KEY_J,true,choice);
         this->MsgQueue.pop();
     }

@@ -14,6 +14,7 @@
     <ProjectGuid>{76A39BB2-9B84-4C65-98A5-654D86B86F2A}</ProjectGuid>
     <RootNamespace>test_win32</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -100,7 +101,8 @@
       </Command>
     </PostBuildEvent>
     <PreLinkEvent>
-      <Command></Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>
@@ -112,7 +114,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
       <Inputs>$(TargetFileName)</Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
-
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -143,17 +144,50 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
       </Command>
     </PostBuildEvent>
     <PreLinkEvent>
-      <Command></Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\Bullet.cpp" />
+    <ClCompile Include="..\Classes\BulletManager.cpp" />
+    <ClCompile Include="..\Classes\CollisionDetection.cpp" />
+    <ClCompile Include="..\Classes\EnemyTank.cpp" />
+    <ClCompile Include="..\Classes\EnemyTankManager.cpp" />
+    <ClCompile Include="..\Classes\Entity.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\MulPlayClientScene.cpp" />
+    <ClCompile Include="..\Classes\MulPlayScene.cpp" />
+    <ClCompile Include="..\Classes\NetWork\GameClient.cpp" />
+    <ClCompile Include="..\Classes\NetWork\GameServer.cpp" />
+    <ClCompile Include="..\Classes\ODSocket\ODSocket.cpp" />
+    <ClCompile Include="..\Classes\ODSocket\stdafx.cpp" />
+    <ClCompile Include="..\Classes\Player.cpp" />
+    <ClCompile Include="..\Classes\PlayerTankManager.cpp" />
+    <ClCompile Include="..\Classes\PlayScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\Bullet.h" />
+    <ClInclude Include="..\Classes\BulletManager.h" />
+    <ClInclude Include="..\Classes\CollisionDetection.h" />
+    <ClInclude Include="..\Classes\EnemyTank.h" />
+    <ClInclude Include="..\Classes\EnemyTankManager.h" />
+    <ClInclude Include="..\Classes\Entity.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\MulPlayClientScene.h" />
+    <ClInclude Include="..\Classes\MulPlayScene.h" />
+    <ClInclude Include="..\Classes\NetWork\GameClient.h" />
+    <ClInclude Include="..\Classes\NetWork\GameServer.h" />
+    <ClInclude Include="..\Classes\ODSocket\ODSocket.h" />
+    <ClInclude Include="..\Classes\ODSocket\stdafx.h" />
+    <ClInclude Include="..\Classes\ODSocket\targetver.h" />
+    <ClInclude Include="..\Classes\ODSocket\tchar.h" />
+    <ClInclude Include="..\Classes\Player.h" />
+    <ClInclude Include="..\Classes\PlayerTankManager.h" />
+    <ClInclude Include="..\Classes\PlayScene.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +204,37 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Classes\ODSocket\README.md" />
+    <None Include="..\Resources\Q版坦克素材\更多资料素材下载.url" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\Q版坦克素材\bgj1.png" />
+    <Image Include="..\Resources\Q版坦克素材\bg_frame.png" />
+    <Image Include="..\Resources\Q版坦克素材\bg_mission.png" />
+    <Image Include="..\Resources\Q版坦克素材\bg_new.jpg" />
+    <Image Include="..\Resources\Q版坦克素材\Chapter_1 (2).jpg" />
+    <Image Include="..\Resources\Q版坦克素材\Chapter_1.jpg" />
+    <Image Include="..\Resources\Q版坦克素材\Chapter_2 (2).jpg" />
+    <Image Include="..\Resources\Q版坦克素材\Chapter_2.jpg" />
+    <Image Include="..\Resources\Q版坦克素材\Chapter_3 (2).jpg" />
+    <Image Include="..\Resources\Q版坦克素材\Chapter_3.jpg" />
+    <Image Include="..\Resources\Q版坦克素材\Chapter_4 (2).jpg" />
+    <Image Include="..\Resources\Q版坦克素材\Chapter_4.jpg" />
+    <Image Include="..\Resources\Q版坦克素材\Chapter_5 (2).jpg" />
+    <Image Include="..\Resources\Q版坦克素材\Chapter_5.jpg" />
+    <Image Include="..\Resources\Q版坦克素材\cloud_1.png" />
+    <Image Include="..\Resources\Q版坦克素材\frame_commonPic.png" />
+    <Image Include="..\Resources\Q版坦克素材\gray.jpg" />
+    <Image Include="..\Resources\Q版坦克素材\jet04.png" />
+    <Image Include="..\Resources\Q版坦克素材\lottery_bg.png" />
+    <Image Include="..\Resources\Q版坦克素材\mission_bg.png" />
+    <Image Include="..\Resources\Q版坦克素材\numBg.png" />
+    <Image Include="..\Resources\Q版坦克素材\pause_bg.png" />
+    <Image Include="..\Resources\Q版坦克素材\plane1.png" />
+    <Image Include="..\Resources\Q版坦克素材\plane2.png" />
+    <Image Include="..\Resources\Q版坦克素材\plane3.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

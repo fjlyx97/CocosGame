@@ -38,7 +38,7 @@ bool MulPlayClientScene::init()
     }
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    auto background_image = Sprite::create("Q版坦克素材/Tiled/bg4.jpg");
+    auto background_image = Sprite::create("QTank/Tiled/bg4.jpg");
     if (background_image == nullptr)
     {
         return false;
@@ -79,8 +79,8 @@ bool MulPlayClientScene::init()
     //初始化子弹
     for (int i = 1 ; i <= 50 ; i++)
     {
-        enemyBulletManager->addNewBullet(0,-1,-1,"Q版坦克素材/bullet/bullet5.png",false);
-        playerBulletManager->addNewBullet(0,-1,-1,"Q版坦克素材/bullet/bullet7.png",false);
+        enemyBulletManager->addNewBullet(0,-1,-1,"QTank/bullet/bullet5.png",false);
+        playerBulletManager->addNewBullet(0,-1,-1,"QTank/bullet/bullet7.png",false);
     }
 
     return true;
