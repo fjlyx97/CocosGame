@@ -33,6 +33,8 @@ public:
     void movePlayer(EventKeyboard::KeyCode key , bool isMove);
     //开启玩家运动定时器
     void update(float dt);
+
+    void reset();
     //获得子弹管理器
     BulletManager* returnBulletManager();
 private:

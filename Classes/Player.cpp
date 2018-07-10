@@ -143,3 +143,10 @@ double Player::returnPlayerRotation()
 {
     return this->playerRotation;
 }
+
+void Player::reset()
+{
+    this->playerX = 200;
+    this->playerY = 200;
+    this->setPosition(Vec2(200,200));
+}
