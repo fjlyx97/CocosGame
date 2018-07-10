@@ -25,6 +25,7 @@ void EnemyTank::reset()
 {
     if(getSprite() != NULL)
     {
+		this->getSprite()->runAction(this->boomAnimate());
         auto visibleSize = Director::getInstance()->getVisibleSize();
         this->setPosition(Vec2(CCRANDOM_0_1()*visibleSize.width,CCRANDOM_0_1()*visibleSize.height));
     }
@@ -138,17 +139,19 @@ void EnemyTank::setEnemyRotation(double rotation)
 Animate* EnemyTank::boomAnimate()
 {
     SpriteFrameCache* frameCache = SpriteFrameCache::getInstance();
-    frameCache->addSpriteFramesWithFile("QTank/animation/portal.plist");
+    frameCache->addSpriteFramesWithFile("QTank/animation/portal.plist","QTank/animation/portal.png");
     int iFrameNum = 7;
     SpriteFrame* frame = NULL;
     Vector<SpriteFrame*> frameVec;
     for (int i = 1 ; i <= iFrameNum ; i++)
     {
         frame = frameCache->getSpriteFrameByName(StringUtils::format("%d.png",i));
+		frameVec.pushBack(frame);
     }
     Animation* animation = Animation::createWithSpriteFrames(frameVec);
     animation->setLoops(1);
     animation->setDelayPerUnit(0.2f);
+	animation->setRestoreOriginalFrame(true);
     Animate* action = Animate::create(animation);
     return action;
 }
