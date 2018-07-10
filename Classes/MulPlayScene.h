@@ -57,6 +57,7 @@ private:
     int port;
     std::mutex updateMutex;
     std::queue<int> MsgQueue;
+	float temp_x, temp_y;
 
 
 };

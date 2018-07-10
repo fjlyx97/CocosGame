@@ -114,7 +114,8 @@ bool MulPlayScene::init()
         "sendIp",
         NULL);
     
-    this->scheduleUpdate();
+    //this->scheduleUpdate();
+    this->schedule(schedule_selector(MulPlayScene::update),0.05f);
 
     std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
     server.detach();
@@ -126,16 +127,23 @@ void MulPlayScene::sendPosition()
     int index = 0;
     std::string posX,posY,sendPosMsg,rotation;
     int playerIndex = 9;
+	int flag = 0;
     for(auto otherPlayer : playerTankmanager->returnPlayerTankManager())
     {   
         posX = Value(otherPlayer->getPositionX()).asString();
         posY = Value(otherPlayer->getPositionY()).asString();
-        rotation = Value(Value(otherPlayer->returnPlayerRotation()).asInt()).asString();
-        std::string id = Value(index).asString();
-        //std::string playerId = Value(playerIndex).asString();
-        sendPosMsg = id /*+ playerId*/ + "addPlayer" + "," + posX + "," + posY + "," + rotation +"\n";
-        index++;
-        NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+		if (temp_x != otherPlayer->getPositionX() || temp_y != otherPlayer->getPositionY() && flag == 1)
+		{
+			temp_x = otherPlayer->getPositionX();
+			temp_y = otherPlayer->getPositionY();
+			rotation = Value(Value(otherPlayer->returnPlayerRotation()).asInt()).asString();
+			std::string id = Value(index).asString();
+			//std::string playerId = Value(playerIndex).asString();
+			sendPosMsg = id + '9' + "addPlayer" + "," + posX + "," + posY + "," + rotation +"\n";
+			index++;
+			NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+		}
+		flag++;
     }
     index = 0;
     int enemyIndex = 9;
@@ -241,7 +249,7 @@ void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
 void MulPlayScene::update(float dt)
 {
     this->updateMutex.lock();
-    for (int i = 0 ; i < 6 ; i++)
+    for (int i = 1 ; i < 3 ; i++)
     {
         if (this->bookPlayer[i] == 1)
         {
