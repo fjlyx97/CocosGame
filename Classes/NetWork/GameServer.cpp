@@ -168,7 +168,7 @@ void GameServer::sendOldPlayer(Ref* pdata)
             max_size[2] = '\0';
             client->connectSocket->Send(max_size,3);
             client->connectSocket->Send(sendMsg,strlen(sendMsg));
-            client->connectSocket->Clean();
+            //client->connectSocket->Clean();
         }
         i++;
     }

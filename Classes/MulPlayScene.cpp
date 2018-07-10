@@ -241,7 +241,7 @@ void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
 void MulPlayScene::update(float dt)
 {
     this->updateMutex.lock();
-    for (int i = 0 ; i < 3 ; i++)
+    for (int i = 0 ; i < 6 ; i++)
     {
         if (this->bookPlayer[i] == 1)
         {
