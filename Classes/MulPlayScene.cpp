@@ -17,10 +17,10 @@ MulPlayScene::MulPlayScene()
 
 MulPlayScene::~MulPlayScene()
 {
-    if (playerGameServer != NULL)
-    {
-        delete playerGameServer;
-    }
+    //if (playerGameServer != NULL)
+    //{
+    //    delete playerGameServer;
+    //}
 }
 
 
@@ -33,7 +33,7 @@ bool MulPlayScene::init()
     //初始化游戏背景
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    auto background_image = Sprite::create("Q版坦克素材/Tiled/bg4.jpg");
+    auto background_image = Sprite::create("QTank/Tiled/bg4.jpg");
     if (background_image == nullptr)
     {
         return false;
@@ -113,8 +113,11 @@ bool MulPlayScene::init()
         callfuncO_selector(MulPlayScene::sendIp),
         "sendIp",
         NULL);
+    
     this->scheduleUpdate();
-    //this->schedule(schedule_selector(MulPlayScene::myUpdate),0.1f);
+
+    std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
+    server.detach();
     return true;
 }
 
@@ -189,11 +192,16 @@ void MulPlayScene::serverStart(GameServer* playerGameServer , char* ip , int por
 {
     playerGameServer = GameServer::create();
     playerGameServer->retain();
+    playerGameServer->bindPlayerTankManager(this->playerTankmanager);
+    playerGameServer->bindEnemyTankManager(this->enemyTankmanager);
+    playerGameServer->bindMsgQueue(&this->MsgQueue);
+    playerGameServer->start();
 }
 //关联客户端玩家发送信息的广播（未完成）
 void MulPlayScene::recvServer(Ref* playerAction)
 {
-    log("%s",playerAction);
+    //log("%s",playerAction);
+    
 }
 //关联新增玩家的广播
 void MulPlayScene::serverAddNewPlayer(Ref* newPlayer)
@@ -232,6 +240,7 @@ void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
 
 void MulPlayScene::update(float dt)
 {
+    this->updateMutex.lock();
     for (int i = 0 ; i < 3 ; i++)
     {
         if (this->bookPlayer[i] == 1)
@@ -239,6 +248,14 @@ void MulPlayScene::update(float dt)
             this->sendPosition();
         }
     }
+    while(!(this->MsgQueue.empty()))
+    {
+        int choice = this->MsgQueue.front();
+		log("%d", choice);
+        this->playerTankmanager->recvKey(EventKeyboard::KeyCode::KEY_J,true,choice);
+        this->MsgQueue.pop();
+    }
+    this->updateMutex.unlock();
 }
 
 void MulPlayScene::sendIp(Ref* ipData)
@@ -259,10 +276,10 @@ void MulPlayScene::sendIp(Ref* ipData)
     log("%s %d",this->ip,this->port);
 
     //std::thread server(MulPlayScene::serverStart,this->playerGameServer,this,this->ip,this->port);
-    std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
-    server.detach();
+    //std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
+    //server.detach();
 
-    NotificationCenter::getInstance()->postNotification("sendServerIp",ipData);
+    //NotificationCenter::getInstance()->postNotification("sendServerIp",ipData);
 }
 
 void MulPlayScene::onKeyPressed(EventKeyboard::KeyCode keyCode ,Event * event)

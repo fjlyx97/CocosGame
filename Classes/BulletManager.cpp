@@ -45,7 +45,6 @@ void BulletManager::addNewBullet(double bulletRotation , double posX , double po
         playerBullet.pushBack(newBullet);
         this->addChild(newBullet);
     }
-
 }
 
 void BulletManager::recvBulletMessage(Ref* data)

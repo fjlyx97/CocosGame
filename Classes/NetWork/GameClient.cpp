@@ -8,6 +8,17 @@ GameClient::GameClient()
     this->mSocket = new ODSocket;
     this->mSocket->Init();
     this->mSocket->Create(AF_INET, SOCK_STREAM , 0);
+	//测试代码
+    bool result = this->mSocket->Connect("127.0.0.1",8000);
+	if (result)
+		log("Success Connect");
+
+    NotificationCenter::getInstance()->addObserver(
+        this,
+        callfuncO_selector(GameClient::sendMsg),
+        "sendMsg",
+        NULL);
+    
 }
 
 GameClient::~GameClient()
@@ -30,8 +41,20 @@ void GameClient::connectServer()
 {
     log("%s",this->ip);
     log("%d",this->port);
-    bool result = this->mSocket->Connect("127.0.0.1",8000);
+    //bool result = this->mSocket->Connect(this->ip,this->port);
+	//测试代码
+	bool result = true;
+	//测试代码
     int retryTimes = 0;
+    if (result == true)
+    {
+		log("连接成功");
+        char id[2];
+        this->mSocket->Recv(id,2,0);
+        this->clientId = atoi(id);
+        //通知客户端ID
+        NotificationCenter::getInstance()->postNotification("sendClientId",(Ref*)id);
+    }
     while (result == false && retryTimes < 7)
     {
         log("retry connecting...");
@@ -69,7 +92,7 @@ void GameClient::recvMsg()
             break;
         }
         //开始处理数据
-        //log("%s",recvData);
+        log("%s",recvData);
         char* Info = recvData;
         char cmd[101];
         char strPosX[101];
@@ -274,4 +297,15 @@ void GameClient::bindEnemyBulletManager(BulletManager* enemyBulletmanager)
 void GameClient::bindPlayerBulletManager(BulletManager* playerBulletmanager)
 {
     this->playerBulletmanager = playerBulletmanager;
+}
+void GameClient::sendMsg(Ref* clientMsg)
+{
+    //log("%s",clientMsg);
+    int sendLen = strlen((char*)clientMsg);
+    char sendLenStr[3];
+    sendLenStr[1] = sendLen % 10 + '0';
+    sendLenStr[0] = sendLen / 10 + '0';
+    sendLenStr[2] = '\0';
+    this->mSocket->Send((char*)sendLenStr,3,0);
+    this->mSocket->Send((char*)clientMsg,strlen((char*)clientMsg),0);
 }

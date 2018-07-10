@@ -144,14 +144,14 @@ void CollisionDetection::tankAI(float dt)
                 {
                     enemy->setRotation(0);
                     enemy->enemyRotation = 0;
-                    char* enemyTankBulletStyle = "Q版坦克素材/bullet/bullet5.png";
+                    char* enemyTankBulletStyle = "QTank/bullet/bullet5.png";
                     enemy->returnBulletManager()->addNewBullet(enemy->enemyRotation,enemy->getPositionX(),enemy->getPositionY(),enemyTankBulletStyle,true);
                 }
                 else
                 {
                     enemy->setRotation(180);
                     enemy->enemyRotation = 180;
-                    char* enemyTankBulletStyle = "Q版坦克素材/bullet/bullet5.png";
+                    char* enemyTankBulletStyle = "QTank/bullet/bullet5.png";
                     enemy->returnBulletManager()->addNewBullet(enemy->enemyRotation,enemy->getPositionX(),enemy->getPositionY(),enemyTankBulletStyle,true);
                 }
             }
@@ -162,14 +162,14 @@ void CollisionDetection::tankAI(float dt)
                 {
                     enemy->setRotation(90);
                     enemy->enemyRotation = 90;
-                    char* enemyTankBulletStyle = "Q版坦克素材/bullet/bullet5.png";
+                    char* enemyTankBulletStyle = "QTank/bullet/bullet5.png";
                     enemy->returnBulletManager()->addNewBullet(enemy->enemyRotation,enemy->getPositionX(),enemy->getPositionY(),enemyTankBulletStyle,true);
                 }
                 else
                 {
                     enemy->setRotation(270);
                     enemy->enemyRotation = 270;
-                    char* enemyTankBulletStyle = "Q版坦克素材/bullet/bullet5.png";
+                    char* enemyTankBulletStyle = "QTank/bullet/bullet5.png";
                     enemy->returnBulletManager()->addNewBullet(enemy->enemyRotation,enemy->getPositionX(),enemy->getPositionY(),enemyTankBulletStyle,true);
                 }
             }

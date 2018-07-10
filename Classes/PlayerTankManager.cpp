@@ -21,7 +21,7 @@ void PlayerTankManager::addNewPlayer()
 {
     auto player = Player::create();
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    player->bindSprite(Sprite::create("Q版坦克素材/plane1.png"));
+    player->bindSprite(Sprite::create("QTank/plane1.png"));
 
     player->setPosition(CCRANDOM_0_1()*400,100);
 

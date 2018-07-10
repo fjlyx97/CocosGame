@@ -22,8 +22,14 @@ public:
     ~MulPlayClientScene();
     void getConnectIp(Ref* pIpdata);
     void createClient();
+    void sendKeyMsg(EventKeyboard::KeyCode keyCode , bool isPress);
+    void setClientID(Ref* pdata);
 
     //void bindClient(MulPlayerClientScene* client);
+
+    //开启客户端按键监听
+    void onKeyPressed(EventKeyboard::KeyCode keyCode ,Event * event);
+    void onKeyReleased(EventKeyboard::KeyCode keyCode ,Event * event);
 
     virtual bool init();
     CREATE_FUNC(MulPlayClientScene);
@@ -32,6 +38,7 @@ public:
 private:
     char ip[101];
     int port;
+    int clientId;
     GameClient* gameClientSocket;
     //玩家管理器
     PlayerTankManager* playerTankmanager;

@@ -2,7 +2,7 @@
 
 Player::Player()
 {
-    this->playerBulletStyle = "Q版坦克素材/bullet/bullet7.png";
+    this->playerBulletStyle = "QTank/bullet/bullet7.png";
     this->playerSpeedX = 0;
     this->playerSpeedY = 0;
     this->playerRotation = 0;

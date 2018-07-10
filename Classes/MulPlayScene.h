@@ -8,6 +8,7 @@
 #include "PlayerTankManager.h"
 #include "CollisionDetection.h"
 #include "NetWork/GameServer.h"
+#include <vector>
 
 using namespace cocos2d::extension;
 USING_NS_CC;
@@ -54,6 +55,9 @@ private:
     int bookPlayer[6];
     char ip[101];
     int port;
+    std::mutex updateMutex;
+    std::queue<int> MsgQueue;
+
 
 };
 #endif

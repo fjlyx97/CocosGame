@@ -18,6 +18,7 @@ public:
     void resetClient();
     void setClient(char* ip , int port);
     void recvMsg();
+    void sendMsg(Ref* clientMsg);
 
     void bindPlayerTankManager(PlayerTankManager* playerTankmanager);
     void bindPlayerBulletManager(BulletManager* playerBulletmanager);
@@ -29,6 +30,7 @@ private:
     ODSocket* mSocket;
     char ip[101];
     int port;
+    int clientId;
 
     //玩家管理器
     PlayerTankManager* playerTankmanager;
