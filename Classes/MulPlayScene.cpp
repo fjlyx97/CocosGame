@@ -114,8 +114,8 @@ bool MulPlayScene::init()
         "sendIp",
         NULL);
     
-    //this->scheduleUpdate();
-    this->schedule(schedule_selector(MulPlayScene::update),0.05f);
+    this->scheduleUpdate();
+    //this->schedule(schedule_selector(MulPlayScene::update),0.01f);
 
     std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
     server.detach();
@@ -247,7 +247,7 @@ void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
 void MulPlayScene::update(float dt)
 {
     this->updateMutex.lock();
-    for (int i = 1 ; i < 3 ; i++)
+    for (int i = 1 ; i < 6 ; i++)
     {
         if (this->bookPlayer[i] == 1)
         {

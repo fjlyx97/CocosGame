@@ -106,10 +106,12 @@ void CollisionDetection::update(float dt)
 
                     sendPosMsg = Value(playerIndex).asString()+"9"+"delPlayerBullet"+","+"-1"+","+"-1"+"0"+"\n";
                     NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+
                     for (auto enemybullet : *(enemy->returnBulletManager()->returnPlayerBullet()))
                     {
                         enemybullet->removeFromParent();
                     }
+
                     enemy->returnBulletManager()->returnPlayerBullet()->clear();
                     enemy->returnBulletManager()->BulletNum = 0 ;
                     enemy->reset();
