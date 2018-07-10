@@ -112,23 +112,24 @@ void CollisionDetection::update(float dt)
     }
 
     //子弹与玩家碰撞判断
-    //for(auto enemy : enemyTankManager->enemyTankArr)
-    //{
-    //    for(auto bullet : enemy->returnBulletManager()->playerBullet)
-    //    {
-    //        for(auto player : playerTankManager->returnPlayerTankManager())
-    //        {
-    //            auto playerRec = player->boundingBox();
-    //            auto bulletRec = bullet->boundingBox();
-    //            if(playerRec.intersectsRect(bulletRec))
-    //            {
-    //                bullet->removeFromParent();
-    //                enemy->returnBulletManager()->playerBullet.eraseObject(bullet);
-    //                enemy->returnBulletManager()->BulletNum -= 1;
-    //            }
-    //        }
-    //    }
-    //}
+    for(auto enemy : enemyTankManager->enemyTankArr)
+    {
+        for(auto bullet : enemy->returnBulletManager()->playerBullet)
+        {
+            for(auto player : playerTankManager->returnPlayerTankManager())
+            {
+                auto playerRec = player->getBoundingBox();
+                auto bulletRec = bullet->getBoundingBox();
+                if(playerRec.intersectsRect(bulletRec))
+                {
+                    bullet->removeFromParent();
+                    enemy->returnBulletManager()->playerBullet.eraseObject(bullet);
+                    enemy->returnBulletManager()->BulletNum -= 1;
+                    log("Game Over");
+                }
+            }
+        }
+    }
 }
 
 void CollisionDetection::tankAI(float dt)
