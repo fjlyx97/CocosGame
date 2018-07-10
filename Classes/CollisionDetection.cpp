@@ -132,6 +132,7 @@ void CollisionDetection::update(float dt)
 					//发送玩家爆炸数据
 
                     log("Game Over");
+                    player->reset();
 					break;
                 }
 				playerIndex++;
