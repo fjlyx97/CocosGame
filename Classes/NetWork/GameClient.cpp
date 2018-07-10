@@ -16,10 +16,34 @@ GameClient::GameClient()
         NULL);
     
 	//测试绑定端口
-	this->port = 8000;
-	strcmp(this->ip, "127.0.0.1");
-    bool result = this->mSocket->Connect(this->ip,this->port);
+	//this->port = 8000;
+	//strcmp(this->ip, "127.0.0.1");
+	//测试绑定端口
 
+    
+
+}
+
+GameClient::~GameClient()
+{
+    delete this->mSocket;
+}
+
+bool GameClient::init()
+{
+    return true;
+}
+
+void GameClient::resetClient()
+{
+    this->port = 8000;
+    strcpy(ip,"127.0.0.1");
+}
+
+void GameClient::connectServer()
+{
+
+	bool result = this->mSocket->Connect(this->ip,this->port);
     int retryTimes = 0;
     if (result == true)
     {
@@ -43,29 +67,6 @@ GameClient::GameClient()
     }
     std::thread recvMsg = std::thread(&GameClient::recvMsg,this);
     recvMsg.detach();
-
-}
-
-GameClient::~GameClient()
-{
-    delete this->mSocket;
-}
-
-bool GameClient::init()
-{
-    return true;
-}
-
-void GameClient::resetClient()
-{
-    this->port = 8000;
-    strcpy(ip,"127.0.0.1");
-}
-
-void GameClient::connectServer()
-{
-    log("%s",this->ip);
-    log("%d",this->port);
 }
 
 void GameClient::setClient(char* ip , int port)
@@ -84,11 +85,6 @@ void GameClient::recvMsg()
         int max_size = atoi(recvData);
         memset(recvData,0,sizeof(recvData));
         int result = this->mSocket->Recv(recvData,max_size,0);
-        if (result == 0)
-        {
-            log("断开");
-            break;
-        }
         //开始处理数据
         //log("%s",recvData);
         char* Info = recvData;

@@ -127,12 +127,11 @@ void MulPlayScene::sendPosition()
     int index = 0;
     std::string posX,posY,sendPosMsg,rotation;
     int playerIndex = 9;
-	int flag = 0;
     for(auto otherPlayer : playerTankmanager->returnPlayerTankManager())
     {   
 		posX = Value(otherPlayer->getPositionX()).asString();
 		posY = Value(otherPlayer->getPositionY()).asString();
-		if (tempPlayerX != otherPlayer->getPositionX() || tempPlayerY != otherPlayer->getPositionY() && flag == 1)
+		if (tempPlayerX != otherPlayer->getPositionX() || tempPlayerY != otherPlayer->getPositionY())
 		{
 			tempPlayerX = otherPlayer->getPositionX();
 			tempPlayerY = otherPlayer->getPositionY();
@@ -143,7 +142,6 @@ void MulPlayScene::sendPosition()
 			index++;
 			NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
 		}
-		flag++;
     }
     index = 0;
     int enemyIndex = 9;
