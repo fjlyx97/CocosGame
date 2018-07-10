@@ -132,8 +132,8 @@ void MulPlayScene::sendPosition()
         posY = Value(otherPlayer->getPositionY()).asString();
         rotation = Value(Value(otherPlayer->returnPlayerRotation()).asInt()).asString();
         std::string id = Value(index).asString();
-        std::string playerId = Value(playerIndex).asString();
-        sendPosMsg = id + playerId + "addPlayer" + "," + posX + "," + posY + "," + rotation +"\n";
+        //std::string playerId = Value(playerIndex).asString();
+        sendPosMsg = id /*+ playerId*/ + "addPlayer" + "," + posX + "," + posY + "," + rotation +"\n";
         index++;
         NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
     }

@@ -66,22 +66,22 @@ void Bullet::update(float dt)
     auto visibleSize = Director::getInstance()->getVisibleSize();
     this->bulletPosX += bulletSpeedX;
     this->bulletPosY += bulletSpeedY;
-    if (this->bulletPosX > visibleSize.width)
+   /* if (this->bulletPosX > visibleSize.width)
     {
         this->bulletPosX = -1;
     }
     else if (this->bulletPosX < 0)
     {
-        this->bulletPosX = visibleSize.width;
+        this->bulletPosX = -1;
     }
-    else if (this->bulletPosY > visibleSize.height - 30)
+    else if (this->bulletPosY > visibleSize.height)
     {
-        this->bulletPosY = 10;
+        this->bulletPosY = -1;
     }
-    else if (this->bulletPosY < 10)
+    else if (this->bulletPosY < 0)
     {
-        this->bulletPosY = visibleSize.height - 30;
-    }
+        this->bulletPosY = -1;
+    }*/
     //if((this->bulletPosX > visibleSize.width || this->bulletPosX < 0|| this->bulletPosY > (visibleSize.height - 30) || this->bulletPosY < 10))
     //{   
     //    //观察模式

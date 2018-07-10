@@ -18,7 +18,8 @@ EnemyTank::~EnemyTank()
 }
 bool EnemyTank::init()
 {
-    this->schedule(schedule_selector(EnemyTank::TankAI),1.0f);
+    this->isAlive();
+    this->schedule(schedule_selector(EnemyTank::TankAI),0.5f);
     return true;
 }
 void EnemyTank::reset()
@@ -95,25 +96,25 @@ void EnemyTank::TankAI(float ft)
                 case 1:
                     this->setRotation(90);
                     this->enemyRotation = 90;
-                    movebyX = MoveBy::create(1.0f,Vec2(enemyspeedX,0));
+                    movebyX = MoveBy::create(0.5f,Vec2(enemyspeedX,0));
                     this->runAction(movebyX);
                     break;
                 case 2:
                     this->setRotation(270);
                     this->enemyRotation = 270;
-                    movebyX = MoveBy::create(1.0f,Vec2(-enemyspeedX,0));
+                    movebyX = MoveBy::create(0.5f,Vec2(-enemyspeedX,0));
                     this->runAction(movebyX);
                     break;
                 case 3:
                     this->setRotation(0);
                     this->enemyRotation = 0;
-                    movebyY = MoveBy::create(1.0f,Vec2(0,enemyspeedY));
+                    movebyY = MoveBy::create(0.5f,Vec2(0,enemyspeedY));
                     this->runAction(movebyY);
                     break;
                 case 4:
                     this->setRotation(180);
                     this->enemyRotation = 180;
-                    movebyY = MoveBy::create(1.0f,Vec2(0,-enemyspeedY));
+                    movebyY = MoveBy::create(0.5f,Vec2(0,-enemyspeedY));
                     this->runAction(movebyY);
                     break;
                 default: log("%d",AI);break;

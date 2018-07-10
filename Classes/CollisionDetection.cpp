@@ -4,7 +4,7 @@
 bool CollisionDetection::init()
 {
     this->scheduleUpdate();
-    this->schedule(schedule_selector(CollisionDetection::tankAI),2);
+    this->schedule(schedule_selector(CollisionDetection::tankAI),1);
     return true;
 }
 
@@ -28,7 +28,38 @@ void CollisionDetection::bindPlayerTankManager(PlayerTankManager* playerTankMana
 
 void CollisionDetection::update(float dt)
 {   
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    
+    //玩家子弹触墙判断
+    for(auto player : playerTankManager->returnPlayerTankManager())
+    {
+        for(auto bullet : player->returnBulletManager()->playerBullet)
+        {
+            if(bullet->getPositionX() < 0 || bullet->getPositionX() > visibleSize.width || bullet->getPositionY() < 0 || bullet->getPositionY() > visibleSize.height)
+            {
+                bullet->removeFromParent();
+                player->returnBulletManager()->playerBullet.eraseObject(bullet);
+                player->returnBulletManager()->BulletNum -= 1;
+            }
+        }
+    }
+    //敌方子弹触墙判断
+    for(auto enemy : enemyTankManager->enemyTankArr)
+    {
+        for(auto bullet : enemy->returnBulletManager()->playerBullet)
+        {
+            if(bullet->getPositionX() < 0 || bullet->getPositionX() > visibleSize.width || bullet->getPositionY() < 0 || bullet->getPositionY() > visibleSize.height)
+            {
+                bullet->removeFromParent();
+                enemy->returnBulletManager()->playerBullet.eraseObject(bullet);
+                enemy->returnBulletManager()->BulletNum -= 1;
+            }
+        }
+    }
+
     int playerIndex = 0;
+
+    //子弹与敌人碰撞判断
     for (auto player : playerTankManager->returnPlayerTankManager())
     {
         for (auto bullet : player->returnBulletManager()->playerBullet)
@@ -36,13 +67,13 @@ void CollisionDetection::update(float dt)
             //log("%.2f %.2f",bullet->getBulletPos().x,bullet->getBulletPos().y);
             //得到每个子弹以后判断是否和敌人碰撞
             int enemyIndex = 0;
-            for (auto enemy : enemyTankManager->enemyTankArr)
+            for (auto enemy : enemyTankManager->enemyTankArr )
             {
                 //log("%.2f %.2f",enemy->getPosition().x,enemy->getPosition().y);
                 //得到玩家位置
                 auto bulletRec = bullet->boundingBox();
                 auto enemyRec = enemy->boundingBox();
-                if (enemyRec.intersectsRect(bulletRec) || bullet->getPositionX() < 0)
+                if (enemyRec.intersectsRect(bulletRec))
                 {
                     //log("子弹%.2f %.2f",bulletRec.size.width,bulletRec.size.height);
                     //log("敌人%.2f %.2f",enemyRec.size.width,enemyRec.size.height);
@@ -50,8 +81,9 @@ void CollisionDetection::update(float dt)
 
 
                     //移除子弹
-                    bullet->setPosition(Vec2(200,200));
+                    //bullet->setPosition(Vec2(200,200));
                     bullet->removeFromParent();
+                    
                     player->returnBulletManager()->playerBullet.eraseObject(bullet);
                     player->returnBulletManager()->BulletNum -= 1;
 
@@ -77,6 +109,26 @@ void CollisionDetection::update(float dt)
             }
         }
         playerIndex++;
+    }
+
+    //子弹与玩家碰撞判断
+    for(auto enemy : enemyTankManager->enemyTankArr)
+    {
+        for(auto bullet : enemy->returnBulletManager()->playerBullet)
+        {
+            for(auto player : playerTankManager->returnPlayerTankManager())
+            {
+                auto playerRec = player->getBoundingBox();
+                auto bulletRec = bullet->getBoundingBox();
+                if(playerRec.intersectsRect(bulletRec))
+                {
+                    bullet->removeFromParent();
+                    enemy->returnBulletManager()->playerBullet.eraseObject(bullet);
+                    enemy->returnBulletManager()->BulletNum -= 1;
+                    log("Game Over");
+                }
+            }
+        }
     }
 }
 
@@ -125,27 +177,3 @@ void CollisionDetection::tankAI(float dt)
         }
     }
 }
-/*
-cocos2d::Animate* CollisionDetection::createAnimate(float posX, float posY)
-{
-
-    SpriteFrame* frame = NULL;
-    Vector<SpriteFrame*> framevec;
-    //用一个列表保存所有SpriteFrame对象
-    for(int i = 1; i <= 4; i++)
-    {
-        frame = frameCache->getSpriteFrameByName(StringUtils::format("%d.png",i),Rect(0,0,130,130));
-        frameVec.pushBack(frame);
-    }
-
-    //使用SpriteFrame列表创建动画对象
-    Animation* animation = Animation::createWithSpriteFrames(frameVec);
-    animation->setLoops(-1);
-    animation->setDelayPerUnit(0.2f);
-
-    //把动画包装成一个动作
-    Animate* action = Animate::create(animation);
-
-    return action;
-}
-*/
