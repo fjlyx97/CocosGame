@@ -268,10 +268,8 @@ void GameClient::recvMsg()
 			{
 				for (auto bullet : *(this->playerBulletmanager->returnPlayerBullet()))
 				{
-					//log("%d",bulletIndexTemp);
 					if (bulletIndexTemp == bulletIndexAns)
 					{
-						//log("%d",bulletIndexTemp);
 						bullet->setPosition(Vec2(-1, -1));
 						bullet->setRotation(rotation);
 						break;
@@ -280,6 +278,13 @@ void GameClient::recvMsg()
 				}
 			}
         }
+		else if (strcmp(cmd, "delAllEnemyBullet") == 0)
+		{
+			for (auto bullet : *(this->enemyBulletmanager->returnPlayerBullet()))
+			{
+				bullet->setPosition(Vec2(-1, -1));
+			}
+		}
         //log("%s",recvData);
         //将接受到的字符串发送出去处理
         //NotificationCenter::getInstance()->postNotification("sendContent",(Ref*)recvData);

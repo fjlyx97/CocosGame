@@ -114,8 +114,8 @@ bool MulPlayScene::init()
         "sendIp",
         NULL);
     
-    this->scheduleUpdate();
-    //this->schedule(schedule_selector(MulPlayScene::update),0.01f);
+    //this->scheduleUpdate();
+    this->schedule(schedule_selector(MulPlayScene::update),0.01f);
 
     std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
     server.detach();

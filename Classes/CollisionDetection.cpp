@@ -29,9 +29,10 @@ void CollisionDetection::bindPlayerTankManager(PlayerTankManager* playerTankMana
 void CollisionDetection::update(float dt)
 {   
     auto visibleSize = Director::getInstance()->getVisibleSize();
+	int flag = 0;
     
     //玩家子弹触墙判断
-	int flag = 0;
+	/*
     for(auto player : playerTankManager->returnPlayerTankManager())
     {
         for(auto bullet : player->returnBulletManager()->playerBullet)
@@ -67,6 +68,7 @@ void CollisionDetection::update(float dt)
 		if (flag)
 			break;
     }
+	*/
 
     int playerIndex = 0;
 
@@ -132,6 +134,7 @@ void CollisionDetection::update(float dt)
     {
         for(auto bullet : enemy->returnBulletManager()->playerBullet)
         {
+			playerIndex = 0;
             for(auto player : playerTankManager->returnPlayerTankManager())
             {
                 auto playerRec = player->getBoundingBox();
@@ -142,9 +145,16 @@ void CollisionDetection::update(float dt)
                     enemy->returnBulletManager()->playerBullet.eraseObject(bullet);
                     enemy->returnBulletManager()->BulletNum -= 1;
 					flag = 1;
+					//发送玩家爆炸数据
+					std::string sendPosMsg;
+                    sendPosMsg = Value(playerIndex).asString()+'9'+"delAllEnemyBullet"+","+"-1"+","+"-1"+"0"+"\n";
+                    NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+					//发送玩家爆炸数据
+
                     log("Game Over");
 					break;
                 }
+				playerIndex++;
             }
 			if (flag)
 				break;
