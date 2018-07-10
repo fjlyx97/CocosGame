@@ -30,25 +30,6 @@ void CollisionDetection::update(float dt)
 {   
     auto visibleSize = Director::getInstance()->getVisibleSize();
 	int flag = 0;
-    
-    //玩家子弹触墙判断
-	/*
-    for(auto player : playerTankManager->returnPlayerTankManager())
-    {
-        for(auto bullet : player->returnBulletManager()->playerBullet)
-        {
-            if(bullet->getPositionX() < 0 || bullet->getPositionX() > visibleSize.width || bullet->getPositionY() < 0 || bullet->getPositionY() > visibleSize.height)
-            {
-                bullet->removeFromParent();
-                player->returnBulletManager()->playerBullet.eraseObject(bullet);
-                player->returnBulletManager()->BulletNum -= 1;
-				flag = 1;
-				break;
-            }
-        }
-		if (flag)
-			break;
-    }
 
     //敌方子弹触墙判断
 	flag = 0;
@@ -68,7 +49,6 @@ void CollisionDetection::update(float dt)
 		if (flag)
 			break;
     }
-	*/
 
     int playerIndex = 0;
 
