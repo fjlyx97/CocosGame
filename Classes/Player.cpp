@@ -23,7 +23,8 @@ bool Player::init()
 
 void Player::setPlayerScale(float scale)
 {
-    getSprite()->setScale(scale);
+    //getSprite()->setScale(scale);
+	this->setScale(scale);
 }
 
 void Player::setPlayerSpeed(float speedX , float speedY)
