@@ -114,7 +114,8 @@ bool MulPlayScene::init()
         "sendIp",
         NULL);
     
-    this->scheduleUpdate();
+    //this->scheduleUpdate();
+    this->schedule(schedule_selector(MulPlayScene::update),0.1f);
 
     std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
     server.detach();
@@ -133,7 +134,7 @@ void MulPlayScene::sendPosition()
         rotation = Value(Value(otherPlayer->returnPlayerRotation()).asInt()).asString();
         std::string id = Value(index).asString();
         //std::string playerId = Value(playerIndex).asString();
-        sendPosMsg = id /*+ playerId*/ + "addPlayer" + "," + posX + "," + posY + "," + rotation +"\n";
+        sendPosMsg = id + '9' + "addPlayer" + "," + posX + "," + posY + "," + rotation +"\n";
         index++;
         NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
     }
@@ -241,7 +242,7 @@ void MulPlayScene::serverDeletePlayer(Ref* delPlayer)
 void MulPlayScene::update(float dt)
 {
     this->updateMutex.lock();
-    for (int i = 0 ; i < 6 ; i++)
+    for (int i = 1 ; i < 3 ; i++)
     {
         if (this->bookPlayer[i] == 1)
         {
