@@ -90,7 +90,7 @@ void GameClient::recvMsg()
             break;
         }
         //开始处理数据
-        log("%s",recvData);
+        //log("%s",recvData);
         char* Info = recvData;
         char cmd[101];
         char strPosX[101];
@@ -169,7 +169,7 @@ void GameClient::recvMsg()
         posY = atof(strPosY);
         rotation = atof(strRotation);
 
-        log("角色索引 %d 子弹索引 %d 命令 %s X坐标 %lf Y坐标 %lf 转向 %lf",roleIndex,bulletIndex,cmd,posX,posY,rotation);
+        //log("角色索引 %d 子弹索引 %d 命令 %s X坐标 %lf Y坐标 %lf 转向 %lf",roleIndex,bulletIndex,cmd,posX,posY,rotation);
         if (strcmp(cmd,"addPlayer") == 0)
         {
             index = 0;

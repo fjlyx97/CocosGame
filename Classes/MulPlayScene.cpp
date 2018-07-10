@@ -115,7 +115,7 @@ bool MulPlayScene::init()
         NULL);
     
     //this->scheduleUpdate();
-    this->schedule(schedule_selector(MulPlayScene::update),0.1f);
+    this->schedule(schedule_selector(MulPlayScene::update),0.05f);
 
     std::thread server = std::thread(&MulPlayScene::serverStart,this,this->playerGameServer,this->ip,this->port);
     server.detach();
@@ -127,16 +127,23 @@ void MulPlayScene::sendPosition()
     int index = 0;
     std::string posX,posY,sendPosMsg,rotation;
     int playerIndex = 9;
+	int flag = 0;
     for(auto otherPlayer : playerTankmanager->returnPlayerTankManager())
     {   
-        posX = Value(otherPlayer->getPositionX()).asString();
-        posY = Value(otherPlayer->getPositionY()).asString();
-        rotation = Value(Value(otherPlayer->returnPlayerRotation()).asInt()).asString();
-        std::string id = Value(index).asString();
-        //std::string playerId = Value(playerIndex).asString();
-        sendPosMsg = id + '9' + "addPlayer" + "," + posX + "," + posY + "," + rotation +"\n";
-        index++;
-        NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+		posX = Value(otherPlayer->getPositionX()).asString();
+		posY = Value(otherPlayer->getPositionY()).asString();
+		if (tempPlayerX != otherPlayer->getPositionX() || tempPlayerY != otherPlayer->getPositionY() && flag == 1)
+		{
+			tempPlayerX = otherPlayer->getPositionX();
+			tempPlayerY = otherPlayer->getPositionY();
+			rotation = Value(Value(otherPlayer->returnPlayerRotation()).asInt()).asString();
+			std::string id = Value(index).asString();
+			//std::string playerId = Value(playerIndex).asString();
+			sendPosMsg = id + '9' + "addPlayer" + "," + posX + "," + posY + "," + rotation +"\n";
+			index++;
+			NotificationCenter::getInstance()->postNotification("sendOldPlayerPos",(Ref*)((char*)sendPosMsg.data()));
+		}
+		flag++;
     }
     index = 0;
     int enemyIndex = 9;

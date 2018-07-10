@@ -58,6 +58,6 @@ private:
     std::mutex updateMutex;
     std::queue<int> MsgQueue;
 
-
+	float tempPlayerX, tempPlayerY;
 };
 #endif
