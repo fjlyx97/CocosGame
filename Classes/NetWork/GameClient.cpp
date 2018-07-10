@@ -237,26 +237,48 @@ void GameClient::recvMsg()
                 }
                 bulletIndexTemp++;
             }
-            index = 0;
         }
-        else if (strcmp(cmd,"delEnemyBullet") == 0)
-        {
-            roleIndex++;
-            int bulletIndexAns = 5*(roleIndex-1);
-            int bulletIndexTemp = 0;
-            for (auto bullet : *(this->enemyBulletmanager->returnPlayerBullet()))
+		else if (strcmp(cmd, "delEnemyBullet") == 0)
+		{
+			roleIndex++;
+			int bulletIndexAns = 5 * (roleIndex - 1);
+			int bulletIndexTemp = 0;
+			int flag = 0;
+			for (auto bullet : *(this->enemyBulletmanager->returnPlayerBullet()))
             {
-				bullet->setPosition(Vec2(-1,-1));
-				bullet->setRotation(rotation);
+                if (bulletIndexTemp == bulletIndexAns)
+                {
+					flag = 1;
+                }
+                bulletIndexTemp++;
+				if (flag >= 1 && flag <= 5)
+				{
+					bullet->setPosition(Vec2(-1, -1));
+					flag++;
+				}
             }
-        }
+		}
         else if (strcmp(cmd,"delPlayerBullet") == 0)
         {
-            for (auto bullet : *(this->playerBulletmanager->returnPlayerBullet()))
-            {
-				bullet->setPosition(Vec2(-1,-1));
-				bullet->setRotation(rotation);
-            }
+			roleIndex++;
+			bulletIndex++;
+			int bulletIndexTemp = 0;
+			int bulletIndexAns = 5 * (roleIndex - 1) + bulletIndex;
+			for (auto player : playerTankmanager->returnPlayerTankManager())
+			{
+				for (auto bullet : *(this->playerBulletmanager->returnPlayerBullet()))
+				{
+					//log("%d",bulletIndexTemp);
+					if (bulletIndexTemp == bulletIndexAns)
+					{
+						//log("%d",bulletIndexTemp);
+						bullet->setPosition(Vec2(-1, -1));
+						bullet->setRotation(rotation);
+						break;
+					}
+					bulletIndexTemp++;
+				}
+			}
         }
         //log("%s",recvData);
         //将接受到的字符串发送出去处理
